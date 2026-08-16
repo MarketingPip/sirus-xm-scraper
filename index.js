@@ -5,6 +5,17 @@ libcurl.set_websocket(`wss://wisp.mercurywork.shop/`);
 window.fetch = libcurl.fetch;
 //
 
+async function getSongLinks(itunesId){
+
+const res = await fetch(
+  `https://api.song.link/v1-alpha.1/links?url=https://music.apple.com/us/song/-/${itunesId}`
+);
+
+const data = await res.json();
+
+return data.linksByPlatform;
+}
+
 function getEndsAt(startTime, trackTimeMillis) {
   return startTime + trackTimeMillis;
 }
@@ -100,7 +111,7 @@ async function getSiriusXMChannels(channelIds) {
     }
     
     const data = await response.json();
-    console.log(data);
+    //console.log(data);
     return data;
   } catch (error) {
     console.error(`Failed to fetch channels [${channelIds}]:`, error.message);
@@ -109,11 +120,11 @@ async function getSiriusXMChannels(channelIds) {
 }
 
 // === USAGE EXAMPLES ===
-
+////
 // Single channel
 const data = await getSiriusXMChannels('totally70s')
 console.log(await getCurrentSong(data.channels?.totally70s))
-
+//
 // Helper: Extract all channel IDs from a response
 function extractChannelIds(responseData) {
   return Object.keys(responseData.channels || {});
@@ -127,7 +138,7 @@ function getRealTimes(startTime, endsAt) {
 // Helper: Get current song info for a channel
 async function getCurrentSong(channelData) {
   const content = channelData?.content;
- 
+ //console.log(content)
   if (!content || content.type !== 'Song') return null;
  
   const data  = {
@@ -138,19 +149,27 @@ async function getCurrentSong(channelData) {
     art: content.album?.art,
     startTime: content.starttime
   };
-  
+  //console.log(data.title.replace(/\(\d{2}\)$/, ''))
  
-   const itunesData = await searchITunes(data.artist, data.title, data.album)
+   const itunesData = await searchITunes(data.artist, data.title.replace(/\(\d{2}\)$/, ''), data.album)
     
    data.title = itunesData[0].track.trackName
- 
+ //console.log(itunesData)
 
   data.endsAt = getEndsAt(data.startTime,itunesData[0].track. trackTimeMillis)
   
   
   
-  data.times = getRealTimes(data.startTime, data.endsAt )
-   return data;
+  data.times = getRealTimes(data.startTime, data.endsAt)
+  
+  
+  data.links = []
+   
+ data.links.push(await getSongLinks(itunesData[0].track.trackId))
+  
+  //data.links.push({"itunes": itunesData.collectionViewUrl})
+  
+  return data;
 }
 
 // Helper: Get schedule for a channel
