@@ -152,7 +152,7 @@ async function getCurrentSong(channelData) {
   //console.log(data.title.replace(/\(\d{2}\)$/, ''))
  
    const itunesData = await searchITunes(data.artist, data.title.replace(/\(\d{2}\)$/, ''), data.album)
-    
+    console.log(data.title)
    data.title = itunesData[0].track.trackName
  //console.log(itunesData)
 
@@ -186,4 +186,29 @@ function getSchedule(channelData) {
       durationMs: slot.duration
     };
   });
-}///////
+}/////////
+
+async function getSpotifyTrack(track, spotifyAccessToken) {
+  const query = `isrc:${track.isrc}`;
+
+  const r = await fetch(
+    `https://api.spotify.com/v1/search?type=track&limit=1&q=${encodeURIComponent(query)}`,
+    {
+      headers: {
+        Authorization: `Bearer ${spotifyAccessToken}`
+      }
+    }
+  );
+
+  if (!r.ok) {
+    throw new Error(`Spotify API error: ${r.status}`);
+  }
+
+  const spotify = await r.json();
+  const result = spotify.tracks?.items?.[0];
+
+  return {
+    id: result?.id ?? null,
+    url: result?.external_urls?.spotify ?? null
+  };
+}
