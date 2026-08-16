@@ -3,7 +3,7 @@ await libcurl.load_wasm("https://cdn.jsdelivr.net/npm/libcurl.js@latest/libcurl.
 libcurl.set_websocket(`wss://wisp.mercurywork.shop/`);
 
 window.fetch = libcurl.fetch;
-
+//
 
 function getEndsAt(startTime, trackTimeMillis) {
   return startTime + trackTimeMillis;
@@ -81,15 +81,18 @@ async function searchITunes(artist, song, album, country = "CA") {
  */
 async function getSiriusXMChannels(channelIds) {
   const baseUrl = 'https://www.siriusxm.com/servlet/Satellite';
-  const url = `${baseUrl}?pagename=SXM/Services/MountainWrapper&channels=${encodeURIComponent(channelIds)}`;
+  const url = `${baseUrl}?pagename=SXM/Services/MountainWrapper&channels=${encodeURIComponent(channelIds)}&_cb=${Date.now()}`;
    
   try {
     const response = await fetch(url, {
       method: 'GET',
+      cache: 'no-store',
       headers: {
         'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.0'
-      }
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.0',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+      },
     });
     
     if (!response.ok) {
@@ -97,8 +100,7 @@ async function getSiriusXMChannels(channelIds) {
     }
     
     const data = await response.json();
-    
-    console.log(data)
+    console.log(data);
     return data;
   } catch (error) {
     console.error(`Failed to fetch channels [${channelIds}]:`, error.message);
@@ -165,4 +167,4 @@ function getSchedule(channelData) {
       durationMs: slot.duration
     };
   });
-}////
+}///////
