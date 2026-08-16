@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
-SiriusXM Channel Guide Scraper
-Scrapes all channels from siriusxm.ca/channel-guide/ using Selenium,
-extracts channel info, and fetches MountainWrapper API data.
+SiriusXM Channel Guide Scraper - FIXED
+Handles missing elements, ads, and non-channel cards gracefully.
 """
 
 import json
@@ -15,7 +14,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 
 
 # ============================================================================
@@ -35,7 +33,6 @@ def setup_driver(headless=True):
     """Configure and return a Chrome WebDriver instance."""
     chrome_options = Options()
     
-    # Essential flags for headless/containerized environments
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
@@ -61,234 +58,337 @@ def setup_driver(headless=True):
 
 
 # ============================================================================
-# SCROLLING & LOADING
+# SCROLLING
 # ============================================================================
 
-def scroll_to_bottom(driver, scroll_pause=2.0, max_scrolls=200):
-    """
-    Scroll to the very bottom of the page, handling lazy-loaded content.
-    Returns the final scroll height.
-    """
+def scroll_to_bottom(driver, scroll_pause=2.0, max_scrolls=300):
+    """Scroll to bottom, handling lazy-loaded content."""
     last_height = driver.execute_script("return document.body.scrollHeight")
     scrolls = 0
+    no_change_count = 0
     
-    print(f"Starting scroll... (current height: {last_height})")
+    print(f"Starting scroll... (height: {last_height})")
     
-    while scrolls < max_scrolls:
-        # Scroll down
+    while scrolls < max_scrolls and no_change_count < 3:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(scroll_pause)
         
-        # Wait for any loading indicators to disappear
-        try:
-            WebDriverWait(driver, 3).until(
-                lambda d: d.execute_script("return document.readyState") == "complete"
-            )
-        except:
-            pass
+        # Also scroll in smaller increments to trigger lazy loaders
+        for offset in range(500, 2000, 500):
+            driver.execute_script(f"window.scrollTo(0, document.body.scrollHeight - {offset});")
+            time.sleep(0.3)
         
         new_height = driver.execute_script("return document.body.scrollHeight")
         
         if new_height == last_height:
-            # Try one more scroll after a longer wait to confirm we're at bottom
-            time.sleep(scroll_pause * 2)
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                print(f"Reached bottom after {scrolls + 1} scrolls (height: {new_height})")
-                break
+            no_change_count += 1
+            time.sleep(scroll_pause)
+        else:
+            no_change_count = 0
+            last_height = new_height
         
-        last_height = new_height
         scrolls += 1
         
         if scrolls % 10 == 0:
-            print(f"  Scrolled {scrolls} times, height: {new_height}")
+            print(f"  Scroll {scrolls}, height: {last_height}, cards found so far: "
+                  f"{len(driver.find_elements(By.CSS_SELECTOR, '#channel-guide-v3-container .cg-card'))}")
     
+    print(f"Finished scrolling. Final height: {last_height}")
     return last_height
 
 
 # ============================================================================
-# CHANNEL EXTRACTION
+# CHANNEL EXTRACTION - ROBUST VERSION
 # ============================================================================
 
-def extract_channel_slug(href):
-    """
-    Extract channel slug from URL.
-    e.g., 'https://www.siriusxm.ca/channels/diplos-revolution/?...' -> 'diplos-revolution'
-    """
-    path = urlparse(href).path
-    # Remove trailing slash and extract last path segment
-    slug = path.strip('/').split('/')[-1]
-    return slug
+def extract_slug_from_url(url):
+    """Extract channel slug from URL path."""
+    try:
+        path = urlparse(url).path.strip('/')
+        # URLs like /channels/radio-andy/ -> radio-andy
+        parts = path.split('/')
+        return parts[-1] if parts else None
+    except:
+        return None
 
 
-def extract_channel_key_from_page(driver, channel_slug):
+def safe_find_text(element, selector, default=''):
+    """Safely find text within an element, return default if not found."""
+    try:
+        return element.find_element(By.CSS_SELECTOR, selector).text.strip()
+    except:
+        return default
+
+
+def safe_find_attr(element, selector, attr, default=''):
+    """Safely find attribute within an element."""
+    try:
+        return element.find_element(By.CSS_SELECTOR, selector).get_attribute(attr) or default
+    except:
+        return default
+
+
+def safe_find_element(parent, selector):
+    """Safely find element, return None if not found."""
+    try:
+        return parent.find_element(By.CSS_SELECTOR, selector)
+    except:
+        return None
+
+
+def parse_channel_card(card_element):
     """
-    Visit individual channel page and extract channel_keys from <script> tag.
-    Returns the numeric channel key or None.
+    Extract channel data from a cg-card element.
+    Returns None if this isn't a valid channel card.
     """
-    channel_url = f"https://www.siriusxm.ca/channels/{channel_slug}/"
+    # Skip non-channel cards (ads, headers, etc.)
+    # A valid channel card must have a channel label or title
+    label_elem = safe_find_element(card_element, ".cg-channel-label")
+    title_elem = safe_find_element(card_element, ".cg-channel-title")
+    
+    if not label_elem and not title_elem:
+        return None  # Skip ads, placeholders, etc.
+    
+    channel = {}
+    
+    # Channel number from label (e.g., "CH 102")
+    if label_elem:
+        label_text = label_elem.text.strip()
+        match = re.search(r'CH\s*(\d+)', label_text, re.IGNORECASE)
+        channel['channel_number'] = int(match.group(1)) if match else None
+    else:
+        channel['channel_number'] = None
+    
+    # Channel name and URL
+    if title_elem:
+        channel['name'] = title_elem.text.strip()
+        channel['url'] = title_elem.get_attribute('href') or ''
+        channel['slug'] = extract_slug_from_url(channel['url'])
+    else:
+        # Try to get name from image alt or other fallback
+        channel['name'] = safe_find_attr(card_element, ".cg-image-wrapper img", "alt", "Unknown")
+        channel['url'] = ''
+        channel['slug'] = None
+    
+    # Skip if we couldn't get a slug (can't identify the channel)
+    if not channel.get('slug'):
+        return None
+    
+    # Subheadline
+    channel['subheadline'] = safe_find_text(card_element, ".cg-channel-subheadline")
+    
+    # Description
+    channel['description'] = safe_find_text(card_element, ".cg-channel-description")
+    
+    # Explicit badge
+    try:
+        card_element.find_element(By.CSS_SELECTOR, ".cg-explicit-badge")
+        channel['explicit'] = True
+    except:
+        channel['explicit'] = False
+    
+    # Image URL
+    channel['image'] = safe_find_attr(card_element, ".cg-image-wrapper img", "src")
+    
+    # Deep link (player URL from data-player-link)
+    player_links = card_element.find_elements(By.CSS_SELECTOR, "a[data-player-link='true']")
+    channel['deep_link'] = player_links[0].get_attribute('href') if player_links else ''
+    
+    # On-air info
+    channel['on_air_now'] = safe_find_text(card_element, ".cg-on-air-show-name")
+    channel['on_air_time'] = safe_find_text(card_element, ".cg-on-air-time")
+    
+    # On-air image
+    channel['on_air_image'] = safe_find_attr(card_element, ".cg-on-air-image-wrapper img", "src")
+    
+    return channel
+
+
+# ============================================================================
+# CHANNEL KEY SCRAPING (from individual pages)
+# ============================================================================
+
+def extract_channel_key_from_page(driver, slug):
+    """
+    Visit channel page and extract channel_keys from embedded JS.
+    Returns numeric key string or None.
+    """
+    if not slug:
+        return None
+    
+    url = f"https://www.siriusxm.ca/channels/{slug}/"
     
     try:
-        driver.get(channel_url)
-        time.sleep(1.5)  # Wait for JS to execute
+        driver.get(url)
+        time.sleep(1.5)
         
-        page_source = driver.page_source
+        source = driver.page_source
         
-        # Look for channel_keys in script tags
-        # Pattern: channel_keys: '9172' or channel_keys: "9172"
-        match = re.search(r"channel_keys\s*:\s*['\"](\d+)['\"]", page_source)
+        # Pattern 1: channel_keys: '1234'
+        match = re.search(r"channel_keys\s*:\s*['\"](\d+)['\"]", source)
         if match:
             return match.group(1)
         
-        # Alternative: look for contentId in any script
-        match = re.search(r"contentId['\"]?\s*:\s*['\"]([^'\"]+)['\"]", page_source)
+        # Pattern 2: channel_keys: "1234"
+        match = re.search(r"channel_keys\s*:\s*['\"]([^'\"]+)['\"]", source)
+        if match:
+            val = match.group(1)
+            if val.isdigit():
+                return val
+        
+        # Pattern 3: contentId in any script
+        match = re.search(r"contentId['\"]?\s*:\s*['\"]([^'\"]+)['\"]", source)
+        if match:
+            val = match.group(1)
+            if val.isdigit():
+                return val
+        
+        # Pattern 4: Look for data-channel-id attributes
+        match = re.search(r'data-channel-id=["\']?(\d+)["\']?', source)
         if match:
             return match.group(1)
             
     except Exception as e:
-        print(f"    Error fetching channel page for {channel_slug}: {e}")
+        print(f"    Error on page {slug}: {e}")
     
     return None
 
 
-def parse_channel_card(card_element, driver=None, fetch_keys=False):
-    """
-    Extract all data from a single cg-card element.
-    
-    Args:
-        card_element: Selenium WebElement for the cg-card
-        driver: Optional driver for fetching channel_keys from detail page
-        fetch_keys: Whether to visit each channel page to get numeric ID
-    
-    Returns dict with channel info.
-    """
-    channel = {}
-    
-    try:
-        # Channel number from cg-channel-label (e.g., "CH 102")
-        label_elem = card_element.find_element(By.CSS_SELECTOR, ".cg-channel-label")
-        label_text = label_elem.text.strip()
-        match = re.search(r'CH\s*(\d+)', label_text, re.IGNORECASE)
-        channel['channel_number'] = int(match.group(1)) if match else None
-        
-        # Channel name from cg-channel-title link
-        title_link = card_element.find_element(By.CSS_SELECTOR, ".cg-channel-title")
-        channel['name'] = title_link.text.strip()
-        channel['url'] = title_link.get_attribute('href')
-        channel['slug'] = extract_channel_slug(channel['url'])
-        
-        # Subheadline (short description)
-        try:
-            sub_elem = card_element.find_element(By.CSS_SELECTOR, ".cg-channel-subheadline")
-            channel['subheadline'] = sub_elem.text.strip()
-        except:
-            channel['subheadline'] = ''
-        
-        # Description
-        try:
-            desc_elem = card_element.find_element(By.CSS_SELECTOR, ".cg-channel-description")
-            channel['description'] = desc_elem.text.strip()
-        except:
-            channel['description'] = ''
-        
-        # Explicit badge
-        try:
-            card_element.find_element(By.CSS_SELECTOR, ".cg-explicit-badge")
-            channel['explicit'] = True
-        except:
-            channel['explicit'] = False
-        
-        # Image URL
-        try:
-            img = card_element.find_element(By.CSS_SELECTOR, ".cg-image-wrapper img")
-            channel['image'] = img.get_attribute('src')
-        except:
-            channel['image'] = ''
-        
-        # Deep link / player link
-        try:
-            player_link = card_element.find_element(By.CSS_SELECTOR, "a[data-player-link='true']")
-            channel['deep_link'] = player_link.get_attribute('href')
-        except:
-            channel['deep_link'] = ''
-        
-        # On-air info
-        try:
-            on_air_name = card_element.find_element(By.CSS_SELECTOR, ".cg-on-air-show-name")
-            channel['on_air_now'] = on_air_name.text.strip()
-        except:
-            channel['on_air_now'] = ''
-        
-        try:
-            on_air_time = card_element.find_element(By.CSS_SELECTOR, ".cg-on-air-time")
-            channel['on_air_time'] = on_air_time.text.strip()
-        except:
-            channel['on_air_time'] = ''
-        
-        # Fetch numeric channel_keys from individual page (slow but thorough)
-        if fetch_keys and driver:
-            print(f"  Fetching channel key for {channel['slug']}...")
-            channel['channel_key'] = extract_channel_key_from_page(driver, channel['slug'])
-            time.sleep(0.5)  # Be polite
-        
-    except Exception as e:
-        print(f"Error parsing card: {e}")
+# ============================================================================
+# MOUNTAINWRAPPER API
+# ============================================================================
+
+def test_channel_id(channel_id):
+    """Test if a channel ID works in MountainWrapper API."""
+    if not channel_id:
         return None
     
-    return channel
+    url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={channel_id}"
+    
+    try:
+        response = requests.get(url, headers={
+            'Accept': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            if data.get('channels') and str(channel_id) in data['channels']:
+                return data['channels'][str(channel_id)]
+    except:
+        pass
+    
+    return None
+
+
+def batch_test_ids(channel_ids, batch_size=10):
+    """Test multiple channel IDs against MountainWrapper in batches."""
+    results = {}
+    
+    for i in range(0, len(channel_ids), batch_size):
+        batch = [cid for cid in channel_ids[i:i + batch_size] if cid]
+        if not batch:
+            continue
+            
+        ids_param = ','.join(str(cid) for cid in batch)
+        url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={ids_param}"
+        
+        try:
+            response = requests.get(url, headers={
+                'Accept': 'application/json',
+                'User-Agent': 'Mozilla/5.0'
+            }, timeout=15)
+            
+            if response.status_code == 200:
+                data = response.json()
+                for cid in batch:
+                    cid_str = str(cid)
+                    if data.get('channels') and cid_str in data['channels']:
+                        results[cid_str] = data['channels'][cid_str]
+                        
+        except Exception as e:
+            print(f"  Batch error: {e}")
+        
+        time.sleep(0.3)
+    
+    return results
 
 
 # ============================================================================
 # MAIN SCRAPER
 # ============================================================================
 
-def scrape_all_channels(fetch_keys=False):
-    """
-    Main scraper. Navigates to channel guide, scrolls to bottom,
-    extracts all channel cards.
-    
-    Args:
-        fetch_keys: If True, visits each channel page to get numeric channel_keys.
-                   Much slower but gets the MountainWrapper-compatible IDs.
-    
-    Returns list of channel dicts.
-    """
+def scrape_all_channels():
+    """Main scraper. Returns list of channel dicts."""
     driver = setup_driver(headless=True)
     channels = []
+    skipped = 0
     
     try:
         print(f"Navigating to {CHANNEL_GUIDE_URL}")
         driver.get(CHANNEL_GUIDE_URL)
         
-        # Wait for initial cards to load
-        print("Waiting for channel cards to load...")
-        WebDriverWait(driver, 15).until(
+        # Wait for channel cards
+        print("Waiting for initial load...")
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "#channel-guide-v3-container .cg-card"))
         )
-        
-        # Give extra time for lazy images
         time.sleep(3)
         
-        # Scroll to bottom to load all channels
-        print("Scrolling to load all channels...")
+        # Scroll to load all
         scroll_to_bottom(driver, scroll_pause=2.0, max_scrolls=300)
         
-        # Now extract all cards
-        print("Extracting channel data...")
-        cards = driver.find_elements(By.CSS_SELECTOR, "#channel-guide-v3-container .cg-wrapper.cg-ready .cg-listing .cg-card")
-        print(f"Found {len(cards)} channel cards")
+        # Find all cards
+        print("\nExtracting channel cards...")
+        cards = driver.find_elements(By.CSS_SELECTOR, "#channel-guide-v3-container .cg-wrapper .cg-listing .cg-card")
+        print(f"Total elements found: {len(cards)}")
         
         for i, card in enumerate(cards):
-            if (i + 1) % 50 == 0:
-                print(f"  Processed {i + 1}/{len(cards)}...")
+            if (i + 1) % 100 == 0:
+                print(f"  Processed {i + 1}/{len(cards)}... (valid: {len(channels)}, skipped: {skipped})")
             
-            channel = parse_channel_card(card, driver=driver if fetch_keys else None, fetch_keys=fetch_keys)
+            channel = parse_channel_card(card)
             if channel:
                 channels.append(channel)
+            else:
+                skipped += 1
         
-        # If we didn't fetch keys during parsing, do a batch pass now
-        # (Alternative: fetch all keys from the API using slugs)
+    finally:
+        driver.quit()
+    
+    print(f"\nValid channels: {len(channels)}, Skipped: {skipped}")
+    return channels
+
+
+# ============================================================================
+# FETCH CHANNEL KEYS
+# ============================================================================
+
+def fetch_all_channel_keys(channels):
+    """
+    Visit each channel page to get numeric channel_keys.
+    This is SLOW but gets the MountainWrapper-compatible IDs.
+    """
+    driver = setup_driver(headless=True)
+    
+    try:
+        print(f"\nFetching numeric keys for {len(channels)} channels...")
+        print("(This will take several minutes...)\n")
         
+        for i, ch in enumerate(channels):
+            if (i + 1) % 50 == 0:
+                print(f"  {i + 1}/{len(channels)}...")
+            
+            slug = ch.get('slug')
+            if not slug:
+                continue
+            
+            key = extract_channel_key_from_page(driver, slug)
+            if key:
+                ch['channel_key'] = key
+            
+            time.sleep(0.4)  # Be polite
+            
     finally:
         driver.quit()
     
@@ -296,162 +396,93 @@ def scrape_all_channels(fetch_keys=False):
 
 
 # ============================================================================
-# API FETCH (MountainWrapper)
+# TEST AGAINST API
 # ============================================================================
 
-def fetch_mountain_wrapper(channel_keys, batch_size=10):
-    """
-    Fetch channel data from MountainWrapper API.
-    channel_keys can be numeric IDs or legacy string IDs.
+def test_channels_api(channels):
+    """Test all channels against MountainWrapper API."""
+    print("\nTesting channels against MountainWrapper API...")
     
-    Returns dict mapping channel_key -> API response data.
-    """
-    results = {}
+    # First, try slugs
+    slugs_to_test = [ch['slug'] for ch in channels if ch.get('slug')]
+    print(f"Testing {len(slugs_to_test)} slugs...")
+    slug_results = batch_test_ids(slugs_to_test, batch_size=15)
     
-    # Split into batches to avoid URL length issues
-    for i in range(0, len(channel_keys), batch_size):
-        batch = channel_keys[i:i + batch_size]
-        ids_param = ','.join(str(k) for k in batch)
-        
-        url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={ids_param}"
-        
-        try:
-            response = requests.get(url, headers={
-                'Accept': 'application/json',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }, timeout=15)
-            
-            if response.status_code == 200:
-                data = response.json()
-                for key in batch:
-                    key_str = str(key)
-                    if data.get('channels') and key_str in data['channels']:
-                        results[key_str] = data['channels'][key_str]
-            else:
-                print(f"  API error for batch {i//batch_size + 1}: HTTP {response.status_code}")
-                
-        except Exception as e:
-            print(f"  Error fetching batch {i//batch_size + 1}: {e}")
-        
-        time.sleep(0.3)  # Rate limiting
+    for ch in channels:
+        slug = ch.get('slug')
+        if slug and slug in slug_results:
+            ch['mountain_wrapper_id'] = slug
+            ch['api_data'] = slug_results[slug]
     
-    return results
+    # Then try numeric keys for remaining
+    keys_to_test = []
+    for ch in channels:
+        if not ch.get('api_data') and ch.get('channel_key'):
+            keys_to_test.append(ch['channel_key'])
+    
+    if keys_to_test:
+        print(f"Testing {len(keys_to_test)} numeric keys...")
+        key_results = batch_test_ids(keys_to_test, batch_size=15)
+        
+        for ch in channels:
+            key = ch.get('channel_key')
+            if key and key in key_results and not ch.get('api_data'):
+                ch['mountain_wrapper_id'] = key
+                ch['api_data'] = key_results[key]
+    
+    working = sum(1 for ch in channels if ch.get('api_data'))
+    print(f"Working API IDs: {working}/{len(channels)}")
+    
+    return channels
 
 
 # ============================================================================
-# ALTERNATIVE: Fetch keys via API using slugs
-# ============================================================================
-
-def try_slug_as_channel_id(slug):
-    """
-    Try using the channel slug directly in MountainWrapper.
-    Some slugs work (like 'shade45'), most don't.
-    """
-    url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={slug}"
-    try:
-        response = requests.get(url, headers={
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0'
-        }, timeout=10)
-        if response.status_code == 200:
-            data = response.json()
-            if data.get('channels') and slug in data['channels']:
-                return data['channels'][slug]
-    except:
-        pass
-    return None
-
-
-# ============================================================================
-# MAIN EXECUTION
+# MAIN
 # ============================================================================
 
 def main():
-    print("=" * 60)
-    print("SiriusXM Channel Guide Scraper")
-    print("=" * 60)
+    print("=" * 70)
+    print("SiriusXM Channel Guide Scraper (Fixed)")
+    print("=" * 70)
     
-    # Phase 1: Scrape the channel guide
-    # Set fetch_keys=True to visit each channel page for numeric IDs (SLOW)
-    # Set fetch_keys=False for just guide data (FAST)
-    print("\n[Phase 1] Scraping channel guide...")
-    channels = scrape_all_channels(fetch_keys=False)
+    # Phase 1: Scrape guide
+    channels = scrape_all_channels()
     
-    print(f"\nScraped {len(channels)} channels from guide")
+    # Phase 2: Get numeric keys (optional - set to False to skip for speed)
+    FETCH_KEYS = True
+    if FETCH_KEYS:
+        channels = fetch_all_channel_keys(channels)
     
-    # Phase 2: Try to get MountainWrapper data
-    # Strategy: Try each slug as a channel ID, collect working ones
-    print("\n[Phase 2] Testing channels against MountainWrapper API...")
+    # Phase 3: Test against API
+    channels = test_channels_api(channels)
     
-    working_ids = {}
-    failed_slugs = []
-    
-    for ch in channels:
-        slug = ch['slug']
-        result = try_slug_as_channel_id(slug)
-        if result:
-            working_ids[slug] = result
-            ch['mountain_wrapper_id'] = slug
-            ch['api_data'] = result
-            print(f"  ✓ {slug} -> {result.get('displayname', 'N/A')}")
-        else:
-            failed_slugs.append(slug)
-    
-    print(f"\nWorking IDs: {len(working_ids)}/{len(channels)}")
-    
-    # Phase 3: For failed slugs, try to find numeric keys
-    # This requires visiting each channel page - SLOW
-    if failed_slugs:
-        print(f"\n[Phase 3] Fetching numeric keys for {len(failed_slugs)} remaining channels...")
-        print("(This requires Selenium and will take several minutes)")
-        
-        driver = setup_driver(headless=True)
-        try:
-            for slug in failed_slugs:
-                key = extract_channel_key_from_page(driver, slug)
-                if key:
-                    # Test the numeric key
-                    result = try_slug_as_channel_id(key)
-                    if result:
-                        # Find the channel in our list and update
-                        for ch in channels:
-                            if ch['slug'] == slug:
-                                ch['channel_key'] = key
-                                ch['mountain_wrapper_id'] = key
-                                ch['api_data'] = result
-                                working_ids[key] = result
-                                print(f"  ✓ {slug} -> key:{key} -> {result.get('displayname')}")
-                                break
-                    else:
-                        print(f"  ✗ {slug} -> key:{key} (API rejected)")
-                else:
-                    print(f"  ✗ {slug} -> no key found")
-                
-                time.sleep(0.5)
-        finally:
-            driver.quit()
-    
-    # Save results
+    # Save
     output = {
-        'total_scraped': len(channels),
-        'total_working_api': len(working_ids),
-        'channels': channels,
-        'working_ids': list(working_ids.keys())
+        'metadata': {
+            'total_channels': len(channels),
+            'with_api_data': sum(1 for ch in channels if ch.get('api_data')),
+            'with_numeric_key': sum(1 for ch in channels if ch.get('channel_key')),
+            'scraped_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+        },
+        'channels': channels
     }
     
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
     
-    print(f"\n{'=' * 60}")
-    print(f"Done! Saved to {OUTPUT_FILE}")
-    print(f"Total channels: {len(channels)}")
-    print(f"API-compatible: {len(working_ids)}")
-    print(f"{'=' * 60}")
+    print(f"\n{'=' * 70}")
+    print(f"SAVED: {OUTPUT_FILE}")
+    print(f"Total: {len(channels)} channels")
+    print(f"With API data: {output['metadata']['with_api_data']}")
+    print(f"With numeric key: {output['metadata']['with_numeric_key']}")
+    print(f"{'=' * 70}")
     
-    # Print sample
-    print("\nSample channels:")
-    for ch in channels[:5]:
-        print(f"  CH {ch.get('channel_number', '?'):>3} | {ch['name']:<30} | slug: {ch['slug']:<25} | key: {ch.get('channel_key', 'N/A')}")
+    # Show sample
+    print("\nFirst 10 channels:")
+    for ch in channels[:10]:
+        api_id = ch.get('mountain_wrapper_id', 'N/A')
+        num_key = ch.get('channel_key', 'N/A')
+        print(f"  CH{ch.get('channel_number', '?'):>4} | {ch['name']:<35} | slug: {ch['slug']:<25} | key: {num_key:<6} | api: {api_id}")
 
 
 if __name__ == "__main__":
