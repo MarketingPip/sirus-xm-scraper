@@ -12,10 +12,10 @@ const res = await fetch(
 );
 
 const data = await res.json();
-
-return data.linksByPlatform;
+ 
+return grabUrls(data.linksByPlatform);
 }
-
+//
 function getEndsAt(startTime, trackTimeMillis) {
   return startTime + trackTimeMillis;
 }
@@ -93,7 +93,7 @@ async function searchITunes(artist, song, album, country = "CA") {
 async function getSiriusXMChannels(channelIds) {
   const baseUrl = 'https://www.siriusxm.com/servlet/Satellite';
   const url = `${baseUrl}?pagename=SXM/Services/MountainWrapper&channels=${encodeURIComponent(channelIds)}&_cb=${Date.now()}`;
-   
+   console.log(url )
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -122,9 +122,13 @@ async function getSiriusXMChannels(channelIds) {
 // === USAGE EXAMPLES ===
 ////
 // Single channel
-const data = await getSiriusXMChannels('totally70s')
-console.log(await getCurrentSong(data.channels?.totally70s))
-//
+const data = await getSiriusXMChannels('8208')
+ 
+ 
+const channel = Object.values(data.channels ?? {})[0];
+
+console.log(await getCurrentSong(channel))
+
 // Helper: Extract all channel IDs from a response
 function extractChannelIds(responseData) {
   return Object.keys(responseData.channels || {});
@@ -163,6 +167,8 @@ async function getCurrentSong(channelData) {
   data.times = getRealTimes(data.startTime, data.endsAt)
   
   
+  console.log(itunesData[0])
+  
   data.links = []
    
  data.links.push(await getSongLinks(itunesData[0].track.trackId))
@@ -170,6 +176,15 @@ async function getCurrentSong(channelData) {
   //data.links.push({"itunes": itunesData.collectionViewUrl})
   
   return data;
+}
+
+
+function grabUrls(links) {
+  return Object.fromEntries(
+    Object.entries(links)
+      .filter(([_, value]) => value?.url)
+      .map(([site, value]) => [site, value.url])
+  );
 }
 
 // Helper: Get schedule for a channel
@@ -211,4 +226,4 @@ async function getSpotifyTrack(track, spotifyAccessToken) {
     id: result?.id ?? null,
     url: result?.external_urls?.spotify ?? null
   };
-}
+}//
