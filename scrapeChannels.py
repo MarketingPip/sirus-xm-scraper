@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-SiriusXM Channel Guide Scraper - FIXED
-Handles missing elements, ads, and non-channel cards gracefully.
+SiriusXM Channel Guide Scraper - DEBUG VERSION
+Maximum logging to diagnose silent failures.
 """
 
 import json
 import re
 import time
+import sys
+import traceback
 import requests
 from urllib.parse import urlparse
 from selenium import webdriver
@@ -16,378 +18,302 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
-
-CHANNEL_GUIDE_URL = "https://www.siriusxm.ca/channel-guide/?plan=All+Access"
-MOUNTAIN_WRAPPER_BASE = "https://www.siriusxm.com/servlet/Satellite"
-OUTPUT_FILE = "siriusxm_all_channels.json"
+def log(msg):
+    """Print with timestamp."""
+    ts = time.strftime('%H:%M:%S')
+    print(f"[{ts}] {msg}", flush=True)
 
 
-# ============================================================================
-# SELENIUM SETUP
-# ============================================================================
-
-def setup_driver(headless=True):
-    """Configure and return a Chrome WebDriver instance."""
+def setup_driver():
+    """Configure Chrome with maximum compatibility."""
+    log("Setting up Chrome driver...")
+    
     chrome_options = Options()
     
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-gpu")
+    # Essential headless flags
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_argument("--disable-plugins")
+    chrome_options.add_argument("--disable-images")  # Speed up loading
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.0")
+    
+    # Disable automation flags
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
     
-    if headless:
-        chrome_options.add_argument("--headless=new")
+    # Logging prefs
+    chrome_options.set_capability('goog:loggingPrefs', {'browser': 'ALL', 'driver': 'ALL'})
     
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-        'source': '''
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-            })
-        '''
-    })
-    return driver
-
-
-# ============================================================================
-# SCROLLING
-# ============================================================================
-
-def scroll_to_bottom(driver, scroll_pause=2.0, max_scrolls=300):
-    """Scroll to bottom, handling lazy-loaded content."""
-    last_height = driver.execute_script("return document.body.scrollHeight")
-    scrolls = 0
-    no_change_count = 0
-    
-    print(f"Starting scroll... (height: {last_height})")
-    
-    while scrolls < max_scrolls and no_change_count < 3:
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(scroll_pause)
+    try:
+        driver = webdriver.Chrome(options=chrome_options)
+        log("Chrome driver created successfully")
         
-        # Also scroll in smaller increments to trigger lazy loaders
-        for offset in range(500, 2000, 500):
-            driver.execute_script(f"window.scrollTo(0, document.body.scrollHeight - {offset});")
-            time.sleep(0.3)
+        # Mask webdriver
+        driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+            'source': '''
+                Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+                window.chrome = { runtime: {} };
+            '''
+        })
+        
+        # Set implicit wait
+        driver.implicitly_wait(5)
+        
+        return driver
+        
+    except Exception as e:
+        log(f"FAILED to create driver: {e}")
+        traceback.print_exc()
+        sys.exit(1)
+
+
+def scroll_to_bottom(driver, pause=2.0, max_scrolls=200):
+    """Scroll with detailed logging."""
+    log("Starting scroll sequence...")
+    
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    log(f"Initial page height: {last_height}")
+    
+    scrolls = 0
+    no_change = 0
+    
+    while scrolls < max_scrolls and no_change < 3:
+        # Scroll down
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(pause)
         
         new_height = driver.execute_script("return document.body.scrollHeight")
+        card_count = len(driver.find_elements(By.CSS_SELECTOR, ".cg-card"))
         
         if new_height == last_height:
-            no_change_count += 1
-            time.sleep(scroll_pause)
+            no_change += 1
+            log(f"  Scroll {scrolls}: No height change ({no_change}/3), {card_count} cards")
         else:
-            no_change_count = 0
+            no_change = 0
             last_height = new_height
+            if scrolls % 5 == 0:
+                log(f"  Scroll {scrolls}: Height={new_height}, Cards={card_count}")
         
         scrolls += 1
-        
-        if scrolls % 10 == 0:
-            print(f"  Scroll {scrolls}, height: {last_height}, cards found so far: "
-                  f"{len(driver.find_elements(By.CSS_SELECTOR, '#channel-guide-v3-container .cg-card'))}")
     
-    print(f"Finished scrolling. Final height: {last_height}")
-    return last_height
+    final_cards = len(driver.find_elements(By.CSS_SELECTOR, ".cg-card"))
+    log(f"Scrolling complete. Final: {last_height}px, {final_cards} cards found")
+    return final_cards
 
 
-# ============================================================================
-# CHANNEL EXTRACTION - ROBUST VERSION
-# ============================================================================
-
-def extract_slug_from_url(url):
-    """Extract channel slug from URL path."""
+def extract_slug(url):
+    """Get slug from channel URL."""
     try:
         path = urlparse(url).path.strip('/')
-        # URLs like /channels/radio-andy/ -> radio-andy
-        parts = path.split('/')
-        return parts[-1] if parts else None
+        return path.split('/')[-1]
     except:
         return None
 
 
-def safe_find_text(element, selector, default=''):
-    """Safely find text within an element, return default if not found."""
+def parse_card(card):
+    """Extract data from a single card element."""
     try:
-        return element.find_element(By.CSS_SELECTOR, selector).text.strip()
-    except:
-        return default
-
-
-def safe_find_attr(element, selector, attr, default=''):
-    """Safely find attribute within an element."""
-    try:
-        return element.find_element(By.CSS_SELECTOR, selector).get_attribute(attr) or default
-    except:
-        return default
-
-
-def safe_find_element(parent, selector):
-    """Safely find element, return None if not found."""
-    try:
-        return parent.find_element(By.CSS_SELECTOR, selector)
-    except:
+        # Channel label (CH 102)
+        label_elem = None
+        try:
+            label_elem = card.find_element(By.CSS_SELECTOR, ".cg-channel-label")
+        except:
+            return None  # Skip non-channel cards
+        
+        label_text = label_elem.text if label_elem else ""
+        match = re.search(r'CH\s*(\d+)', label_text, re.I)
+        ch_num = int(match.group(1)) if match else None
+        
+        # Title link
+        title_link = card.find_element(By.CSS_SELECTOR, ".cg-channel-title")
+        name = title_link.text.strip()
+        url = title_link.get_attribute("href") or ""
+        slug = extract_slug(url)
+        
+        if not slug:
+            return None
+        
+        # Optional fields
+        sub = ""
+        try:
+            sub = card.find_element(By.CSS_SELECTOR, ".cg-channel-subheadline").text.strip()
+        except:
+            pass
+        
+        desc = ""
+        try:
+            desc = card.find_element(By.CSS_SELECTOR, ".cg-channel-description").text.strip()
+        except:
+            pass
+        
+        # Image
+        img = ""
+        try:
+            img = card.find_element(By.CSS_SELECTOR, ".cg-image-wrapper img").get_attribute("src")
+        except:
+            pass
+        
+        # Deep link
+        deep = ""
+        try:
+            deep = card.find_element(By.CSS_SELECTOR, "a[data-player-link='true']").get_attribute("href")
+        except:
+            pass
+        
+        return {
+            "channel_number": ch_num,
+            "name": name,
+            "slug": slug,
+            "url": url,
+            "subheadline": sub,
+            "description": desc,
+            "image": img,
+            "deep_link": deep,
+        }
+        
+    except Exception as e:
         return None
 
 
-def parse_channel_card(card_element):
-    """
-    Extract channel data from a cg-card element.
-    Returns None if this isn't a valid channel card.
-    """
-    # Skip non-channel cards (ads, headers, etc.)
-    # A valid channel card must have a channel label or title
-    label_elem = safe_find_element(card_element, ".cg-channel-label")
-    title_elem = safe_find_element(card_element, ".cg-channel-title")
+def scrape_guide():
+    """Main scraping function with full logging."""
+    log("=" * 60)
+    log("STARTING SCRAPER")
+    log("=" * 60)
     
-    if not label_elem and not title_elem:
-        return None  # Skip ads, placeholders, etc.
+    driver = setup_driver()
+    channels = []
     
-    channel = {}
-    
-    # Channel number from label (e.g., "CH 102")
-    if label_elem:
-        label_text = label_elem.text.strip()
-        match = re.search(r'CH\s*(\d+)', label_text, re.IGNORECASE)
-        channel['channel_number'] = int(match.group(1)) if match else None
-    else:
-        channel['channel_number'] = None
-    
-    # Channel name and URL
-    if title_elem:
-        channel['name'] = title_elem.text.strip()
-        channel['url'] = title_elem.get_attribute('href') or ''
-        channel['slug'] = extract_slug_from_url(channel['url'])
-    else:
-        # Try to get name from image alt or other fallback
-        channel['name'] = safe_find_attr(card_element, ".cg-image-wrapper img", "alt", "Unknown")
-        channel['url'] = ''
-        channel['slug'] = None
-    
-    # Skip if we couldn't get a slug (can't identify the channel)
-    if not channel.get('slug'):
-        return None
-    
-    # Subheadline
-    channel['subheadline'] = safe_find_text(card_element, ".cg-channel-subheadline")
-    
-    # Description
-    channel['description'] = safe_find_text(card_element, ".cg-channel-description")
-    
-    # Explicit badge
     try:
-        card_element.find_element(By.CSS_SELECTOR, ".cg-explicit-badge")
-        channel['explicit'] = True
-    except:
-        channel['explicit'] = False
+        # Navigate
+        url = "https://www.siriusxm.ca/channel-guide/?plan=All+Access"
+        log(f"Navigating to: {url}")
+        
+        driver.get(url)
+        log("Page load initiated, waiting...")
+        
+        # Wait for page to be ready
+        time.sleep(5)
+        
+        # Check if we got the right page
+        current_url = driver.current_url
+        page_title = driver.title
+        log(f"Current URL: {current_url}")
+        log(f"Page title: {page_title}")
+        
+        # Check for common errors
+        page_source = driver.page_source[:500]
+        if "Access Denied" in page_source or "403" in page_source:
+            log("ERROR: Access denied / blocked")
+            return []
+        
+        if len(driver.page_source) < 1000:
+            log("ERROR: Page source too short, likely blocked")
+            return []
+        
+        # Wait for channel cards
+        log("Waiting for .cg-card elements...")
+        try:
+            WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".cg-card"))
+            )
+            log("Found .cg-card elements!")
+        except Exception as e:
+            log(f"WARNING: Timeout waiting for .cg-card: {e}")
+            # Try anyway - they might be there
+            pass
+        
+        # Count initial cards
+        initial_cards = driver.find_elements(By.CSS_SELECTOR, ".cg-card")
+        log(f"Initial card count: {len(initial_cards)}")
+        
+        if len(initial_cards) == 0:
+            log("ERROR: No cards found. Saving debug HTML...")
+            with open("debug_page.html", "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            log("Saved debug_page.html for inspection")
+            return []
+        
+        # Scroll to load all
+        total_cards = scroll_to_bottom(driver, pause=2.0, max_scrolls=250)
+        
+        # Extract all cards
+        log("Extracting channel data from cards...")
+        cards = driver.find_elements(By.CSS_SELECTOR, ".cg-card")
+        log(f"Processing {len(cards)} card elements...")
+        
+        for i, card in enumerate(cards):
+            if (i + 1) % 100 == 0:
+                log(f"  Processed {i + 1}/{len(cards)} cards, found {len(channels)} valid channels")
+            
+            ch = parse_card(card)
+            if ch:
+                channels.append(ch)
+        
+        log(f"Extraction complete: {len(channels)} valid channels")
+        
+    except Exception as e:
+        log(f"CRITICAL ERROR: {e}")
+        traceback.print_exc()
+        
+    finally:
+        log("Closing driver...")
+        driver.quit()
     
-    # Image URL
-    channel['image'] = safe_find_attr(card_element, ".cg-image-wrapper img", "src")
-    
-    # Deep link (player URL from data-player-link)
-    player_links = card_element.find_elements(By.CSS_SELECTOR, "a[data-player-link='true']")
-    channel['deep_link'] = player_links[0].get_attribute('href') if player_links else ''
-    
-    # On-air info
-    channel['on_air_now'] = safe_find_text(card_element, ".cg-on-air-show-name")
-    channel['on_air_time'] = safe_find_text(card_element, ".cg-on-air-time")
-    
-    # On-air image
-    channel['on_air_image'] = safe_find_attr(card_element, ".cg-on-air-image-wrapper img", "src")
-    
-    return channel
+    return channels
 
 
-# ============================================================================
-# CHANNEL KEY SCRAPING (from individual pages)
-# ============================================================================
-
-def extract_channel_key_from_page(driver, slug):
-    """
-    Visit channel page and extract channel_keys from embedded JS.
-    Returns numeric key string or None.
-    """
+def get_channel_key(driver, slug):
+    """Get numeric channel key from channel page."""
     if not slug:
         return None
     
     url = f"https://www.siriusxm.ca/channels/{slug}/"
-    
     try:
         driver.get(url)
         time.sleep(1.5)
-        
         source = driver.page_source
         
-        # Pattern 1: channel_keys: '1234'
-        match = re.search(r"channel_keys\s*:\s*['\"](\d+)['\"]", source)
-        if match:
-            return match.group(1)
+        # Try multiple patterns
+        patterns = [
+            r"channel_keys\s*:\s*['\"](\d+)['\"]",
+            r"contentId['\"]?\s*:\s*['\"](\d+)['\"]",
+            r"data-channel-id=['\"]?(\d+)['\"]?",
+        ]
         
-        # Pattern 2: channel_keys: "1234"
-        match = re.search(r"channel_keys\s*:\s*['\"]([^'\"]+)['\"]", source)
-        if match:
-            val = match.group(1)
-            if val.isdigit():
-                return val
-        
-        # Pattern 3: contentId in any script
-        match = re.search(r"contentId['\"]?\s*:\s*['\"]([^'\"]+)['\"]", source)
-        if match:
-            val = match.group(1)
-            if val.isdigit():
-                return val
-        
-        # Pattern 4: Look for data-channel-id attributes
-        match = re.search(r'data-channel-id=["\']?(\d+)["\']?', source)
-        if match:
-            return match.group(1)
-            
+        for pattern in patterns:
+            match = re.search(pattern, source)
+            if match:
+                return match.group(1)
+                
     except Exception as e:
-        print(f"    Error on page {slug}: {e}")
+        log(f"    Error getting key for {slug}: {e}")
     
     return None
 
 
-# ============================================================================
-# MOUNTAINWRAPPER API
-# ============================================================================
-
-def test_channel_id(channel_id):
-    """Test if a channel ID works in MountainWrapper API."""
-    if not channel_id:
-        return None
+def fetch_keys(channels):
+    """Fetch numeric keys for all channels."""
+    if not channels:
+        return channels
     
-    url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={channel_id}"
+    log(f"\nFetching numeric keys for {len(channels)} channels...")
+    driver = setup_driver()
     
     try:
-        response = requests.get(url, headers={
-            'Accept': 'application/json',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }, timeout=10)
-        
-        if response.status_code == 200:
-            data = response.json()
-            if data.get('channels') and str(channel_id) in data['channels']:
-                return data['channels'][str(channel_id)]
-    except:
-        pass
-    
-    return None
-
-
-def batch_test_ids(channel_ids, batch_size=10):
-    """Test multiple channel IDs against MountainWrapper in batches."""
-    results = {}
-    
-    for i in range(0, len(channel_ids), batch_size):
-        batch = [cid for cid in channel_ids[i:i + batch_size] if cid]
-        if not batch:
-            continue
-            
-        ids_param = ','.join(str(cid) for cid in batch)
-        url = f"{MOUNTAIN_WRAPPER_BASE}?pagename=SXM/Services/MountainWrapper&channels={ids_param}"
-        
-        try:
-            response = requests.get(url, headers={
-                'Accept': 'application/json',
-                'User-Agent': 'Mozilla/5.0'
-            }, timeout=15)
-            
-            if response.status_code == 200:
-                data = response.json()
-                for cid in batch:
-                    cid_str = str(cid)
-                    if data.get('channels') and cid_str in data['channels']:
-                        results[cid_str] = data['channels'][cid_str]
-                        
-        except Exception as e:
-            print(f"  Batch error: {e}")
-        
-        time.sleep(0.3)
-    
-    return results
-
-
-# ============================================================================
-# MAIN SCRAPER
-# ============================================================================
-
-def scrape_all_channels():
-    """Main scraper. Returns list of channel dicts."""
-    driver = setup_driver(headless=True)
-    channels = []
-    skipped = 0
-    
-    try:
-        print(f"Navigating to {CHANNEL_GUIDE_URL}")
-        driver.get(CHANNEL_GUIDE_URL)
-        
-        # Wait for channel cards
-        print("Waiting for initial load...")
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, "#channel-guide-v3-container .cg-card"))
-        )
-        time.sleep(3)
-        
-        # Scroll to load all
-        scroll_to_bottom(driver, scroll_pause=2.0, max_scrolls=300)
-        
-        # Find all cards
-        print("\nExtracting channel cards...")
-        cards = driver.find_elements(By.CSS_SELECTOR, "#channel-guide-v3-container .cg-wrapper .cg-listing .cg-card")
-        print(f"Total elements found: {len(cards)}")
-        
-        for i, card in enumerate(cards):
-            if (i + 1) % 100 == 0:
-                print(f"  Processed {i + 1}/{len(cards)}... (valid: {len(channels)}, skipped: {skipped})")
-            
-            channel = parse_channel_card(card)
-            if channel:
-                channels.append(channel)
-            else:
-                skipped += 1
-        
-    finally:
-        driver.quit()
-    
-    print(f"\nValid channels: {len(channels)}, Skipped: {skipped}")
-    return channels
-
-
-# ============================================================================
-# FETCH CHANNEL KEYS
-# ============================================================================
-
-def fetch_all_channel_keys(channels):
-    """
-    Visit each channel page to get numeric channel_keys.
-    This is SLOW but gets the MountainWrapper-compatible IDs.
-    """
-    driver = setup_driver(headless=True)
-    
-    try:
-        print(f"\nFetching numeric keys for {len(channels)} channels...")
-        print("(This will take several minutes...)\n")
-        
         for i, ch in enumerate(channels):
             if (i + 1) % 50 == 0:
-                print(f"  {i + 1}/{len(channels)}...")
+                log(f"  {i + 1}/{len(channels)}...")
             
-            slug = ch.get('slug')
-            if not slug:
-                continue
-            
-            key = extract_channel_key_from_page(driver, slug)
+            key = get_channel_key(driver, ch.get("slug"))
             if key:
-                ch['channel_key'] = key
+                ch["channel_key"] = key
             
-            time.sleep(0.4)  # Be polite
+            time.sleep(0.3)
             
     finally:
         driver.quit()
@@ -395,94 +321,90 @@ def fetch_all_channel_keys(channels):
     return channels
 
 
-# ============================================================================
-# TEST AGAINST API
-# ============================================================================
-
-def test_channels_api(channels):
-    """Test all channels against MountainWrapper API."""
-    print("\nTesting channels against MountainWrapper API...")
+def test_api(channels):
+    """Test channels against MountainWrapper API."""
+    log("\nTesting against MountainWrapper API...")
     
-    # First, try slugs
-    slugs_to_test = [ch['slug'] for ch in channels if ch.get('slug')]
-    print(f"Testing {len(slugs_to_test)} slugs...")
-    slug_results = batch_test_ids(slugs_to_test, batch_size=15)
-    
+    # Collect IDs to test
+    ids_to_test = []
     for ch in channels:
-        slug = ch.get('slug')
-        if slug and slug in slug_results:
-            ch['mountain_wrapper_id'] = slug
-            ch['api_data'] = slug_results[slug]
+        if ch.get("channel_key"):
+            ids_to_test.append(ch["channel_key"])
+        elif ch.get("slug"):
+            ids_to_test.append(ch["slug"])
     
-    # Then try numeric keys for remaining
-    keys_to_test = []
-    for ch in channels:
-        if not ch.get('api_data') and ch.get('channel_key'):
-            keys_to_test.append(ch['channel_key'])
+    log(f"Testing {len(ids_to_test)} IDs...")
     
-    if keys_to_test:
-        print(f"Testing {len(keys_to_test)} numeric keys...")
-        key_results = batch_test_ids(keys_to_test, batch_size=15)
+    working = 0
+    batch_size = 10
+    
+    for i in range(0, len(ids_to_test), batch_size):
+        batch = ids_to_test[i:i + batch_size]
+        ids_param = ",".join(str(x) for x in batch)
+        url = f"https://www.siriusxm.com/servlet/Satellite?pagename=SXM/Services/MountainWrapper&channels={ids_param}"
         
-        for ch in channels:
-            key = ch.get('channel_key')
-            if key and key in key_results and not ch.get('api_data'):
-                ch['mountain_wrapper_id'] = key
-                ch['api_data'] = key_results[key]
+        try:
+            resp = requests.get(url, headers={
+                "Accept": "application/json",
+                "User-Agent": "Mozilla/5.0"
+            }, timeout=15)
+            
+            if resp.status_code == 200:
+                data = resp.json()
+                for cid in batch:
+                    cid_str = str(cid)
+                    if data.get("channels") and cid_str in data["channels"]:
+                        # Find matching channel and attach data
+                        for ch in channels:
+                            if ch.get("channel_key") == cid_str or ch.get("slug") == cid_str:
+                                ch["api_data"] = data["channels"][cid_str]
+                                ch["mountain_wrapper_id"] = cid_str
+                                working += 1
+                                break
+                                
+        except Exception as e:
+            log(f"  API batch error: {e}")
+        
+        time.sleep(0.2)
     
-    working = sum(1 for ch in channels if ch.get('api_data'))
-    print(f"Working API IDs: {working}/{len(channels)}")
-    
+    log(f"API working: {working}/{len(channels)}")
     return channels
 
 
-# ============================================================================
-# MAIN
-# ============================================================================
-
 def main():
-    print("=" * 70)
-    print("SiriusXM Channel Guide Scraper (Fixed)")
-    print("=" * 70)
+    # Scrape
+    channels = scrape_guide()
     
-    # Phase 1: Scrape guide
-    channels = scrape_all_channels()
+    if not channels:
+        log("No channels scraped. Exiting.")
+        sys.exit(1)
     
-    # Phase 2: Get numeric keys (optional - set to False to skip for speed)
-    FETCH_KEYS = True
-    if FETCH_KEYS:
-        channels = fetch_all_channel_keys(channels)
+    # Get keys
+    channels = fetch_keys(channels)
     
-    # Phase 3: Test against API
-    channels = test_channels_api(channels)
+    # Test API
+    channels = test_api(channels)
     
     # Save
     output = {
-        'metadata': {
-            'total_channels': len(channels),
-            'with_api_data': sum(1 for ch in channels if ch.get('api_data')),
-            'with_numeric_key': sum(1 for ch in channels if ch.get('channel_key')),
-            'scraped_at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+        "metadata": {
+            "total": len(channels),
+            "with_api": sum(1 for c in channels if c.get("api_data")),
+            "with_key": sum(1 for c in channels if c.get("channel_key")),
+            "scraped_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         },
-        'channels': channels
+        "channels": channels
     }
     
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
+    with open("siriusxm_channels.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2)
     
-    print(f"\n{'=' * 70}")
-    print(f"SAVED: {OUTPUT_FILE}")
-    print(f"Total: {len(channels)} channels")
-    print(f"With API data: {output['metadata']['with_api_data']}")
-    print(f"With numeric key: {output['metadata']['with_numeric_key']}")
-    print(f"{'=' * 70}")
+    log(f"\nSaved {len(channels)} channels to siriusxm_channels.json")
     
     # Show sample
-    print("\nFirst 10 channels:")
-    for ch in channels[:10]:
-        api_id = ch.get('mountain_wrapper_id', 'N/A')
-        num_key = ch.get('channel_key', 'N/A')
-        print(f"  CH{ch.get('channel_number', '?'):>4} | {ch['name']:<35} | slug: {ch['slug']:<25} | key: {num_key:<6} | api: {api_id}")
+    print("\n--- Sample ---")
+    for c in channels[:5]:
+        print(f"  CH{c.get('channel_number', '?'):>4} | {c['name']:<30} | {c.get('channel_key', 'N/A'):<6} | {c.get('slug', 'N/A')}")
 
 
 if __name__ == "__main__":
