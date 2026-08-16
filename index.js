@@ -5,6 +5,39 @@ libcurl.set_websocket(`wss://wisp.mercurywork.shop/`);
 window.fetch = libcurl.fetch;
 //
 
+async function searchYouTube(q, pageToken = ''){
+  const params = new URLSearchParams({
+    part: 'snippet',
+    q,
+    pageToken,
+    type: 'video',
+    maxResults: '5',
+    key: 'AIzaSyClCJEgN8nBpplIq2d-FCmrpxZZKjyoPQE'
+  });
+
+  const response = await fetch(
+    `https://www.googleapis.com/youtube/v3/search?${params}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error(data);
+    throw new Error(
+      `YouTube API error: ${response.status} - ${data.error?.message || ''}`
+    );
+  }
+
+  return data;
+}
+async function bb(){
+const data = await searchYouTube("The Staple Singers I'll Take You There");
+
+console.log(data.items);
+  
+}
+bb()
+
 async function getSongLinks(itunesId){
 
 const res = await fetch(
