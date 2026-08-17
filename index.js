@@ -5,18 +5,43 @@ libcurl.set_websocket(`wss://wisp.mercurywork.shop/`);
 window.fetch = libcurl.fetch;
 //
 
+import he from "https://esm.sh/he";
+
+function levenshtein(a, b) {
+  const matrix = Array.from(
+    { length: a.length + 1 },
+    () => Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] +
+          (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+  }
+
+  return matrix[a.length][b.length];
+}
+
+ 
 function findTopicVideo(results, artist, title) {
   const expectedChannel = `${artist.trim().toLowerCase()} - topic`;
   const expectedTitle = title.trim().toLowerCase();
   const video = results.find(item => {
-    const channel = item.snippet?.channelTitle
+    const channel =  he.decode(item.snippet?.channelTitle
       ?.trim()
-      .toLowerCase();
+      .toLowerCase());
 
-    const videoTitle = item.snippet?.title
+    const videoTitle = he.decode(item.snippet?.title
       ?.trim()
-      .toLowerCase();
-
+      .toLowerCase());
     return (
       channel === expectedChannel &&
       videoTitle === expectedTitle &&
@@ -24,8 +49,32 @@ function findTopicVideo(results, artist, title) {
     );
   });
 
-  return video
+  const found = video
     ? `https://www.youtube.com/watch?v=${video.id.videoId}`
+    : null;
+  
+  if(found){
+    return found
+  }
+  
+    // Otherwise find closest title
+  let closest = null;
+  let bestDistance = Infinity;
+
+  for (const item of  results) {
+    const videoTitle = he.decode(
+      item.snippet?.title?.trim().toLowerCase() || ''
+    );
+
+    const distance = levenshtein(expectedTitle, videoTitle);
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      closest = item;
+    }
+  }
+  return closest
+    ? `https://www.youtube.com/watch?v=${closest.id.videoId}`
     : null;
 }
 
@@ -56,12 +105,10 @@ async function searchYouTube(q, pageToken = ''){
 }
 async function getYouTubeURL(artist, song){
 const data = await searchYouTube(`${artist} - ${song}`);
-
-return await findTopicVideo(data.items, artist, song)
+console.log(data)
+return console.log(await findTopicVideo(data.items, artist, song))
   
 }
-getYouTubeURL("Eminem", "Superman")
-
 async function getSongLinks(itunesId){
 
 const res = await fetch(
