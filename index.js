@@ -226,7 +226,7 @@ async function getSiriusXMChannels(channelIds) {
 // === USAGE EXAMPLES ===
 ////
 // Single channel
-const data = await getSiriusXMChannels('shade45')
+const data = await getSiriusXMChannels('totally70s')
  
  
 const channel = Object.values(data.channels ?? {})[0];
@@ -243,6 +243,10 @@ function getRealTimes(startTime, endsAt) {
     endsAt: new Date(endsAt)
   };
 }
+
+function hasEnded(endsAt) {
+  return Date.now() >= endsAt;
+}
 // Helper: Get current song info for a channel
 async function getCurrentSong(channelData) {
   const content = channelData?.content;
@@ -253,7 +257,6 @@ async function getCurrentSong(channelData) {
     title: content.title,
     artist: content.artists?.[0]?.name,
     album: content.album?.title,
-    duration: content.duration,
     art: content.album?.art,
     startTime: content.starttime
   };
@@ -288,6 +291,8 @@ Object.assign(
   await getSongLinks(itunesData[0].track.trackId)
 )
   //data.links.push({"itunes": itunesData.collectionViewUrl})
+  
+  data.hasEnded = hasEnded(data.endsAt)
   
   return data;
 }
