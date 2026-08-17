@@ -425,31 +425,54 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 # ---------------------------------------------------------------------------
 # Phase 3 - MountainWrapper API testing (parallel batches)
 # ---------------------------------------------------------------------------
-def test_api_batch(session, batch, logger):
-    ids_param = ",".join(str(x) for x in batch)
-    params = {**MOUNTAIN_API_PARAMS, "channels": ids_param}
-    try:
-        resp = session.get(MOUNTAIN_API_URL, params=params, timeout=15)
-        logger.info(f"Status: {resp.status_code}, Len: {len(resp.text)}")
-        if resp.status_code == 200:
-            # Strip BOM if present, then parse manually (avoids resp.json()'s BOM blind spot)
-            text = resp.content.decode("utf-8-sig")
-            data = json.loads(text)
-            ch_data = data.get("channels", {})
-            logger.info(f"Batch result: {len(ch_data)} channels returned")
+def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
+    if not channels:
+        return channels
 
-            # Only keep the genre field per channel
-            genre_only = {}
-            for cid, info in ch_data.items():
-                if isinstance(info, dict):
-                    genre_only[str(cid)] = {"genre": info.get("genreTitle")}
+    id_to_indices: Dict[str, List[int]] = {}
+    for i, ch in enumerate(channels):
+        cid = ch.get("channel_key") or ch.get("slug")
+        if cid:
+            id_to_indices.setdefault(str(cid), []).append(i)
 
-            return genre_only
-        else:
-            logger.warning(f"API returned {resp.status_code}: {resp.text[:200]}")
-    except Exception as exc:
-        logger.error(f"API batch error: {exc}", exc_info=True)
-    return {}
+    ids_to_test = list(id_to_indices.keys())
+    total_ids = len(ids_to_test)
+    logger.info(f"Testing {total_ids} IDs against MountainWrapper ({API_WORKERS} workers)...")
+
+    batches = [
+        ids_to_test[i : i + API_BATCH_SIZE]
+        for i in range(0, total_ids, API_BATCH_SIZE)
+    ]
+
+    session = create_session(pool_size=API_WORKERS)
+    working = 0
+
+    with ThreadPoolExecutor(max_workers=API_WORKERS) as ex:
+        future_to_batch = {
+            ex.submit(test_api_batch, session, batch, logger): batch
+            for batch in batches
+        }
+        for future in as_completed(future_to_batch):
+            batch = future_to_batch[future]
+            try:
+                batch_result = future.result()
+
+                # Diff: which IDs we sent got no data back?
+                missing = set(batch) - set(batch_result.keys())
+                if missing:
+                    logger.warning(f"No API data returned for: {sorted(missing)}")
+
+                for cid, api_data in batch_result.items():
+                    for idx in id_to_indices.get(cid, []):
+                        if isinstance(api_data, dict):
+                            channels[idx].update(api_data)
+                        channels[idx]["mountain_wrapper_id"] = cid
+                        working += 1
+            except Exception as exc:
+                logger.debug(f"API future exception: {exc}")
+
+    logger.info(f"API hits: {working}/{len(channels)}")
+    return channels
 
 
 def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
