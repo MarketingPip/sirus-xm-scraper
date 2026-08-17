@@ -434,15 +434,17 @@ def test_api_batch(session, batch, logger):
         logger.info(f"Status: {resp.status_code}, Len: {len(resp.text)}")
 
         if resp.status_code == 200:
-            resp.encoding = "utf-8"          # force correct decode regardless of header
-            data = resp.json()
+            # Strip BOM if present, then parse manually (avoids resp.json()'s BOM blind spot)
+            text = resp.content.decode("utf-8-sig")
+            data = json.loads(text)
+
             ch_data = data.get("channels", {})
             logger.info(f"Batch result: {len(ch_data)} channels returned")
             return {str(k): v for k, v in ch_data.items()}
         else:
             logger.warning(f"API returned {resp.status_code}: {resp.text[:200]}")
     except Exception as exc:
-        logger.error(f"API batch error: {exc}", exc_info=True)   # promote to ERROR + traceback, don't hide it
+        logger.error(f"API batch error: {exc}", exc_info=True)
 
     return {}
 
