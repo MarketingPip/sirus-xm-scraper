@@ -425,19 +425,23 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 # ---------------------------------------------------------------------------
 # Phase 3 - MountainWrapper API testing (parallel batches)
 # ---------------------------------------------------------------------------
-def test_api_batch(
-    session: requests.Session,
-    batch: List[str],
-    logger: logging.Logger,
-) -> Dict[str, Dict]:
+def test_api_batch(session, batch, logger):
     ids_param = ",".join(str(x) for x in batch)
     params = {**MOUNTAIN_API_PARAMS, "channels": ids_param}
+    url = f"{MOUNTAIN_API_URL}?{requests.compat.urlencode(params)}"
+    logger.info(f"API URL: {url}")  # Log the actual URL being called
+    
     try:
         resp = session.get(MOUNTAIN_API_URL, params=params, timeout=15)
+        logger.info(f"Status: {resp.status_code}, Len: {len(resp.text)}")
         if resp.status_code == 200:
             data = resp.json()
+            logger.debug(f"Response keys: {list(data.keys())}")  # See structure
             ch_data = data.get("channels", {})
+            logger.info(f"Batch result: {len(ch_data)} channels returned")
             return {str(k): v for k, v in ch_data.items()}
+        else:
+            logger.warning(f"API returned {resp.status_code}: {resp.text[:200]}")
     except Exception as exc:
         logger.debug(f"API batch error: {exc}")
     return {}
