@@ -615,7 +615,7 @@ Examples:
         json.dump(output, f, indent=2)
 
     logger.info(f"Saved {len(channels)} channels -> {out_path.resolve()}")
-    write_api_json(channels, "siriusxm_final.json", logger)
+    write_api_json(channels, "siriusxm_api_channels.json", logger)
     print("--- Sample ---")
     for c in channels[:5]:
         print(
