@@ -126,6 +126,8 @@ function getEndsAt(startTime, trackTimeMillis) {
 
 async function searchITunes(artist, song, album, country = "CA") {
   const term = `${artist} ${song} ${album}`;
+  const maxRetries = 10;
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
   const params = new URLSearchParams({
     term,
@@ -135,17 +137,42 @@ async function searchITunes(artist, song, album, country = "CA") {
     limit: "25"
   });
 
-  const response = await fetch(
-    `https://itunes.apple.com/search?${params.toString()}`
-  );
+  let response;
 
-  if (!response.ok) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    response = await fetch(
+      `https://itunes.apple.com/search?${params.toString()}`
+    );
+
+    // Success
+    if (response.ok) {
+      break;
+    }
+
+    // Retry 429 and 403
+    if (response.status === 429 || response.status === 403) {
+      if (attempt === maxRetries) {
+        throw new Error(
+          `iTunes API error: ${response.status} (after ${maxRetries} retries)`
+        );
+      }
+
+      const retryAfter = response.headers.get("Retry-After");
+
+      const retryDelay = retryAfter
+        ? Number(retryAfter) * 1000
+        : 1000 * 2 ** attempt;
+
+      await delay(retryDelay);
+      continue;
+    }
+
+    // Don't retry other errors
     throw new Error(`iTunes API error: ${response.status}`);
   }
 
   const data = await response.json();
 
-  // Normalize strings for comparison
   const normalize = str =>
     str
       .toLowerCase()
@@ -157,23 +184,19 @@ async function searchITunes(artist, song, album, country = "CA") {
   const targetSong = normalize(song);
   const targetAlbum = normalize(album);
 
-  // Score each result based on how closely it matches
   const results = data.results
     .map(track => {
       const resultArtist = normalize(track.artistName || "");
       const resultSong = normalize(track.trackName || "");
       const resultAlbum = normalize(track.collectionName || "");
-//
+
       let score = 0;
 
       if (resultArtist === targetArtist) score += 40;
       if (resultSong === targetSong) score += 40;
       if (resultAlbum === targetAlbum) score += 20;
 
-      return {
-        score,
-        track
-      };
+      return { score, track };
     })
     .sort((a, b) => b.score - a.score);
 
