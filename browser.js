@@ -252,8 +252,9 @@ async function getCurrentSong(channelData) {
     startTime: content.starttime
   };
   //console.log(data.title.replace(/\(\d{2}\)$/, ''))
+  console.log(data.artist, data.title.replace(/\(\d{2}\)$/, ''), data.album)
   
-   const itunesData = await searchITunes(data.artist, data.title.replace(/\(\d{2}\)$/, ''), data.album)
+   const itunesData = await searchITunes(data.artist || "", data.title.replace(/\(\d{2}\)$/, '') || "", data.album || "")
    if(itunesData[0]){ 
    data.title = itunesData[0].track.trackName
  //console.log(itunesData)
@@ -2215,23 +2216,30 @@ const channelIds = data.channels.map(channel => channel.channel_key);
 
 
 // Single channel
-const allChannels = await getSiriusXMChannels(channelIds.join(","))
- 
- 
+const BATCH_SIZE = 10;
+
 function getChannelByNumber(channels, channelNumber) {
-  return channels.find(channel => channel.channel_number === channelNumber);
+  return channels.find(
+    channel => channel.channel_number === channelNumber
+  );
 }
 
-for(let channel in Object.values(allChannels.channels )){
-   
-  const channelID = Object.values(allChannels.channels )[channel]
-  
-  Object.values(allChannels.channels )[channel] = "sd"
-  
- getChannelByNumber(data.channels, Object.values(allChannels.channels )[channel].siriuschannelnumber).currentlyPlaying = await getCurrentSong(channelID)
-  
- //console.log()
+for (let i = 0; i < channelIds.length; i += BATCH_SIZE) {
+  const batch = channelIds.slice(i, i + BATCH_SIZE);
+
+  const allChannels = await getSiriusXMChannels(batch.join(","));
+
+  for (const [channelID, channelInfo] of Object.entries(allChannels.channels)) {
+    const dataChannel = getChannelByNumber(
+      data.channels,
+      channelInfo.siriuschannelnumber || channelInfo.streamingChannelNumber
+    );
+
+    if (dataChannel) {
+    //  console.log( Object.entries(allChannels.channels))
+     dataChannel.currentlyPlaying = await getCurrentSong(channelInfo);
+    } 
+  }
 }
 
-
-console.log(data.channels)
+console.log(data.channels);
