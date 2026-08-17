@@ -72,9 +72,9 @@ API_WORKERS = 20             # MountainWrapper can handle more concurrency
 GUIDE_SCROLL_TIMEOUT = 60    # seconds
 
 KEY_PATTERNS = [
-    re.compile(r"channel_keys\s*:\s*['"](\d+)['"]", re.I),
-    re.compile(r"contentId['"]?\s*:\s*['"](\d+)['"]", re.I),
-    re.compile(r"data-channel-id=['"]?(\d+)['"]?", re.I),
+    re.compile(r'channel_keys\s*:\s*["\']?(\d+)["\']?', re.I),
+    re.compile(r'contentId["\']?\s*:\s*["\']?(\d+)["\']?', re.I),
+    re.compile(r'data-channel-id=["\']?(\d+)["\']?', re.I),
 ]
 
 # ---------------------------------------------------------------------------
