@@ -425,6 +425,35 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 # ---------------------------------------------------------------------------
 # Phase 3 - MountainWrapper API testing (parallel batches)
 # ---------------------------------------------------------------------------
+def test_api_batch(session, batch, logger):
+    ids_param = ",".join(str(x) for x in batch)
+    params = {**MOUNTAIN_API_PARAMS, "channels": ids_param}
+    try:
+        resp = session.get(MOUNTAIN_API_URL, params=params, timeout=15)
+        logger.info(f"Status: {resp.status_code}, Len: {len(resp.text)}")
+        if resp.status_code == 200:
+            # Strip BOM if present, then parse manually (avoids resp.json()'s BOM blind spot)
+            text = resp.content.decode("utf-8-sig")
+            data = json.loads(text)
+            ch_data = data.get("channels", {})
+            logger.info(f"Batch result: {len(ch_data)} channels returned")
+
+            # Only keep the genre field per channel
+            genre_only = {}
+            for cid, info in ch_data.items():
+                if isinstance(info, dict):
+                    genre_only[str(cid)] = {"genre": info.get("genreTitle")}
+
+            return genre_only
+        else:
+            logger.warning(f"API returned {resp.status_code}: {resp.text[:200]}")
+    except Exception as exc:
+        logger.error(f"API batch error: {exc}", exc_info=True)
+    return {}
+    
+
+
+
 def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     if not channels:
         return channels
@@ -466,57 +495,6 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
                     for idx in id_to_indices.get(cid, []):
                         if isinstance(api_data, dict):
                             channels[idx].update(api_data)
-                        channels[idx]["mountain_wrapper_id"] = cid
-                        working += 1
-            except Exception as exc:
-                logger.debug(f"API future exception: {exc}")
-
-    logger.info(f"API hits: {working}/{len(channels)}")
-    return channels
-
-
-def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
-    if not channels:
-        return channels
-
-    # Build both lookup indexes, mirroring the JS matching strategy
-    by_number: Dict[int, int] = {
-        ch["channel_number"]: i for i, ch in enumerate(channels)
-        if ch.get("channel_number") is not None
-    }
-    id_to_indices: Dict[str, List[int]] = {}
-    for i, ch in enumerate(channels):
-        cid = ch.get("channel_key") or ch.get("slug")
-        if cid:
-            id_to_indices.setdefault(str(cid), []).append(i)
-
-    ids_to_test = list(id_to_indices.keys())
-    batches = [ids_to_test[i:i + API_BATCH_SIZE] for i in range(0, len(ids_to_test), API_BATCH_SIZE)]
-
-    session = create_session(pool_size=API_WORKERS)
-    working = 0
-
-    with ThreadPoolExecutor(max_workers=API_WORKERS) as ex:
-        future_to_batch = {
-            ex.submit(test_api_batch, session, batch, logger): batch
-            for batch in batches
-        }
-        for future in as_completed(future_to_batch):
-            try:
-                batch_result = future.result()
-                for cid, api_data in batch_result.items():
-                    if not isinstance(api_data, dict):
-                        continue
-
-                    # PRIMARY match: channel number embedded in the payload
-                    ch_num = api_data.get("siriuschannelnumber") or api_data.get("streamingChannelNumber")
-                    idx = by_number.get(ch_num) if ch_num is not None else None
-
-                    # FALLBACK: outer response key vs channel_key/slug
-                    indices = [idx] if idx is not None else id_to_indices.get(cid, [])
-
-                    for idx in indices:
-                        channels[idx].update(api_data)
                         channels[idx]["mountain_wrapper_id"] = cid
                         working += 1
             except Exception as exc:
