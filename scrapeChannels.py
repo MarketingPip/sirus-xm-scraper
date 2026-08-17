@@ -6,9 +6,6 @@ Keeps the original working scroll logic, but replaces:
 - Selenium DOM parsing with BeautifulSoup (10-50x faster)
 - Second Selenium session for keys with ThreadPoolExecutor + requests
 - Sequential API testing with ThreadPoolExecutor + requests
-
-If BS4 extraction returns fewer cards than Selenium sees, falls back
-to Selenium DOM extraction to ensure completeness.
 """
 
 import argparse
@@ -67,12 +64,9 @@ GUIDE_SCROLL_TIMEOUT = 90
 
 KEY_PATTERNS = [
     re.compile(r"""channel_keys\s*:\s*['"]([^'"]+)['"]""", re.I),
-    re.compile(r'channel_keys\s*:\s*["\']?(\d+)["\']?', re.I),
-     re.compile(r'contentId["\']?\s*:\s*["\']?(\d+)["\']?', re.I),
-     re.compile(r'contentId["\']?\s*:\s*["\']?(\d+)["\']?', re.I),
-     re.compile(r'data-channel-id=["\']?(\d+)["\']?', re.I),
-     re.compile(r'data-channel-id=["\']?(\d+)["\']?', re.I),
- ]
+    re.compile(r'contentId["\']?\s*:\s*["\']?(\d+)["\']?', re.I),
+    re.compile(r'data-channel-id=["\']?(\d+)["\']?', re.I),
+]
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -198,64 +192,6 @@ def parse_guide_html(html: str) -> List[Dict]:
     return channels
 
 
-def parse_card_selenium(card) -> Optional[Dict]:
-    """Original Selenium card parser (fallback)."""
-    try:
-        try:
-            label_elem = card.find_element(By.CSS_SELECTOR, ".cg-channel-label")
-        except Exception:
-            return None
-
-        label_text = label_elem.text if label_elem else ""
-        match = re.search(r'CH\s*(\d+)', label_text, re.I)
-        ch_num = int(match.group(1)) if match else None
-
-        title_link = card.find_element(By.CSS_SELECTOR, ".cg-channel-title")
-        name = title_link.text.strip()
-        url = title_link.get_attribute("href") or ""
-        slug = extract_slug(url)
-
-        if not slug:
-            return None
-
-        sub = ""
-        try:
-            sub = card.find_element(By.CSS_SELECTOR, ".cg-channel-subheadline").text.strip()
-        except Exception:
-            pass
-
-        desc = ""
-        try:
-            desc = card.find_element(By.CSS_SELECTOR, ".cg-channel-description").text.strip()
-        except Exception:
-            pass
-
-        img = ""
-        try:
-            img = card.find_element(By.CSS_SELECTOR, ".cg-image-wrapper img").get_attribute("src")
-        except Exception:
-            pass
-
-        deep = ""
-        try:
-            deep = card.find_element(By.CSS_SELECTOR, "a[data-player-link='true']").get_attribute("href")
-        except Exception:
-            pass
-
-        return {
-            "channel_number": ch_num,
-            "name": name,
-            "slug": slug,
-            "url": url,
-            "subheadline": sub,
-            "description": desc,
-            "image": img,
-            "deep_link": deep,
-        }
-    except Exception:
-        return None
-
-
 # ---------------------------------------------------------------------------
 # Phase 1 - Guide scraping (USER'S WORKING SCROLL LOGIC)
 # ---------------------------------------------------------------------------
@@ -299,6 +235,7 @@ def setup_driver() -> webdriver.Chrome:
 def scroll_to_bottom_fast(driver, max_wait_sec=60, logger=None):
     """
     THE USER'S ORIGINAL SCROLL LOGIC - IT WORKS.
+    Scrolls to document.body.scrollHeight and waits for lazy-load.
     """
     if logger:
         logger.info("Starting fast JS scroll...")
@@ -351,7 +288,7 @@ def scroll_to_bottom_fast(driver, max_wait_sec=60, logger=None):
 
 
 def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
-    """Load the guide in Chrome, scroll to bottom, then extract."""
+    """Load the guide in Chrome, scroll to bottom, then parse with BS4."""
     logger.info("Using Selenium for guide scraping")
     driver = setup_driver()
     try:
@@ -390,36 +327,12 @@ def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
             return []
 
         # FAST JS SCROLL - USER'S ORIGINAL LOGIC
-        scroll_result = scroll_to_bottom_fast(driver, max_wait_sec=60, logger=logger)
+        scroll_to_bottom_fast(driver, max_wait_sec=60, logger=logger)
 
-        # Give the page a moment for any final async renders
-        time.sleep(2)
-
-        # Try BS4 first (fast)
-        logger.info("Extracting with BeautifulSoup...")
+        # Extract: dump page_source ONCE, parse with BeautifulSoup
+        logger.info("Extracting channel data with BeautifulSoup...")
         channels = parse_guide_html(driver.page_source)
-        logger.info(f"BS4 extracted {len(channels)} channels")
-
-        # Verify against Selenium's DOM count
-        selenium_cards = driver.find_elements(By.CSS_SELECTOR, ".cg-card")
-        logger.info(f"Selenium sees {len(selenium_cards)} cards in DOM")
-
-        if len(channels) < len(selenium_cards) - 5:
-            logger.warning(
-                f"BS4 found {len(channels)} but Selenium sees {len(selenium_cards)}. "
-                f"Falling back to Selenium DOM extraction for missing cards..."
-            )
-            # Build a set of slugs we already have
-            found_slugs = {ch["slug"] for ch in channels}
-
-            for card in selenium_cards:
-                ch = parse_card_selenium(card)
-                if ch and ch["slug"] not in found_slugs:
-                    channels.append(ch)
-                    found_slugs.add(ch["slug"])
-
-            logger.info(f"After fallback: {len(channels)} channels")
-
+        logger.info(f"Extracted {len(channels)} channels")
         return channels
 
     except Exception:
@@ -432,7 +345,7 @@ def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
 
 
 def scrape_guide(logger: logging.Logger) -> List[Dict]:
-    """Always use Selenium for the guide."""
+    """Always use Selenium for the guide (requests returns 0 cards)."""
     if not HAS_SELENIUM:
         logger.error("Selenium is required for guide scraping.")
         sys.exit(1)
@@ -629,7 +542,7 @@ Examples:
     logger.info(f"  api workers : {API_WORKERS}")
     logger.info("=" * 60)
 
-    # Phase 1 - Guide (Selenium scroll + BS4 parse + Selenium fallback)
+    # Phase 1 - Guide (Selenium scroll + BS4 parse)
     channels = scrape_guide(logger)
 
     if not channels:
