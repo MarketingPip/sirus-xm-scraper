@@ -174,7 +174,7 @@ def parse_guide_html(html: str) -> List[Dict]:
             channels.append({
                 "number": ch_num,
                 "name": name,
-                "deeplink": slug.replace("-", ""),
+                "deep_link": slug.replace("-", ""),
                 "url": url,
                 "shortDescription": sub,
                 "longDescription": desc,
