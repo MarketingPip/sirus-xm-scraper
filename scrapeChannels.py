@@ -171,14 +171,20 @@ def parse_guide_html(html: str) -> List[Dict]:
                 if img_tag:
                     img = img_tag.get("src", "")
 
+            deep = ""
+            deep_link = card.find("a", attrs={"data-player-link": "true"})
+            if deep_link:
+                deep = deep_link.get("href", "")
+
             channels.append({
-                "number": ch_num,
+                "channel_number": ch_num,
                 "name": name,
-                "deep_link": slug.replace("-", ""),
+                "slug": slug,
                 "url": url,
-                "shortDescription": sub,
-                "longDescription": desc,
+                "subheadline": sub,
+                "description": desc,
                 "image": img,
+                "deep_link": deep,
             })
         except Exception:
             continue
@@ -381,7 +387,7 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     # Deduplicate slugs
     slug_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
-        slug = ch.get("deep_link")
+        slug = ch.get("slug")
         if slug:
             slug_to_indices.setdefault(slug, []).append(i)
 
@@ -443,7 +449,7 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 
     id_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
-        cid = ch.get("channel_key")
+        cid = ch.get("channel_key") or ch.get("slug")
         if cid:
             id_to_indices.setdefault(str(cid), []).append(i)
 
