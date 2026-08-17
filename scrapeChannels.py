@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
 SiriusXM Channel Guide Scraper - HIGH PERFORMANCE VERSION
+
+Keeps the original working scroll logic, but replaces:
+- Selenium DOM parsing with BeautifulSoup (10-50x faster)
+- Second Selenium session for keys with ThreadPoolExecutor + requests
+- Sequential API testing with ThreadPoolExecutor + requests
 """
 
 import argparse
@@ -58,7 +63,7 @@ API_WORKERS = 20
 GUIDE_SCROLL_TIMEOUT = 90
 
 KEY_PATTERNS = [
-    re.compile(r'channel_keys\s*:\s*["\']?(\d+)["\']?', re.I),
+    re.compile(r"""channel_keys\s*:\s*['"]([^'"]+)['"]""", re.I),
     re.compile(r'contentId["\']?\s*:\s*["\']?(\d+)["\']?', re.I),
     re.compile(r'data-channel-id=["\']?(\d+)["\']?', re.I),
 ]
@@ -127,6 +132,7 @@ def extract_slug(url: str) -> Optional[str]:
 
 
 def parse_guide_html(html: str) -> List[Dict]:
+    """Parse the guide page with BeautifulSoup."""
     soup = BeautifulSoup(html, PARSER)
     cards = soup.find_all(class_="cg-card")
     channels: List[Dict] = []
@@ -187,34 +193,10 @@ def parse_guide_html(html: str) -> List[Dict]:
 
 
 # ---------------------------------------------------------------------------
-# Phase 1 - Guide scraping
+# Phase 1 - Guide scraping (USER'S WORKING SCROLL LOGIC)
 # ---------------------------------------------------------------------------
-def try_requests_guide(
-    session: requests.Session,
-    logger: logging.Logger,
-) -> Optional[List[Dict]]:
-    logger.info("Attempting requests-only guide fetch...")
-    try:
-        resp = session.get(GUIDE_URL, timeout=30)
-        resp.raise_for_status()
-        text = resp.text
-
-        if len(text) < 2000 or "Access Denied" in text[:2000]:
-            logger.warning("Requests returned blocked/short page")
-            return None
-
-        channels = parse_guide_html(text)
-        if len(channels) >= 50:
-            logger.info(f"requests succeeded: {len(channels)} cards")
-            return channels
-        logger.info(f"requests only found {len(channels)} cards; likely lazy-load page")
-        return None
-    except Exception as exc:
-        logger.warning(f"Requests guide fetch failed: {exc}")
-        return None
-
-
 def setup_driver() -> webdriver.Chrome:
+    """Configure a lean headless Chrome instance."""
     opts = Options()
     opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
@@ -246,107 +228,126 @@ def setup_driver() -> webdriver.Chrome:
             )
         },
     )
+    driver.implicitly_wait(5)
     return driver
 
 
-def scroll_to_bottom_fast(
-    driver: webdriver.Chrome,
-    max_wait_sec: int = GUIDE_SCROLL_TIMEOUT,
-    logger: Optional[logging.Logger] = None,
-) -> Dict:
+def scroll_to_bottom_fast(driver, max_wait_sec=60, logger=None):
     """
-    Scroll the page by stepping through viewport heights.
-    This triggers IntersectionObserver-based lazy loaders that
-    only fire when elements enter the viewport.
+    THE USER'S ORIGINAL SCROLL LOGIC - IT WORKS.
+    Scrolls to document.body.scrollHeight and waits for lazy-load.
     """
+    if logger:
+        logger.info("Starting fast JS scroll...")
     start = time.time()
-    result = driver.execute_script(
-        """
+
+    result = driver.execute_script("""
         return new Promise((resolve) => {
-            let lastCardCount = 0;
-            let stableCount = 0;
+            let lastH = 0;
+            let stable = 0;
             const t0 = Date.now();
-            const maxWait = """ + str(max_wait_sec * 1000) + """;
-            const viewportH = window.innerHeight;
-            let currentY = 0;
 
             const tick = () => {
-                // Step down by 80% of viewport to ensure overlap
-                currentY += Math.floor(viewportH * 0.8);
-                window.scrollTo(0, currentY);
+                const h = document.body.scrollHeight;
+                window.scrollTo(0, h);
 
                 setTimeout(() => {
                     const newH = document.body.scrollHeight;
-                    const cards = document.querySelectorAll('.cg-card').length;
                     const elapsed = Date.now() - t0;
+                    const cards = document.querySelectorAll('.cg-card').length;
 
-                    if (cards === lastCardCount) {
-                        stableCount++;
-                        // Need more stable ticks because lazy-load has delay
-                        if (stableCount >= 5) {
-                            resolve({done:true, height:newH, ms:elapsed, cards:cards});
+                    if (newH === h) {
+                        stable++;
+                        if (stable >= 2) {
+                            resolve({done: true, height: newH, ms: elapsed, cards: cards});
                             return;
                         }
                     } else {
-                        lastCardCount = cards;
-                        stableCount = 0;
+                        stable = 0;
                     }
 
-                    if (elapsed > maxWait) {
-                        resolve({done:false, height:newH, ms:elapsed, cards:cards});
+                    if (elapsed > """ + str(max_wait_sec * 1000) + """) {
+                        resolve({done: false, height: newH, ms: elapsed, cards: cards});
                         return;
                     }
 
                     tick();
-                }, 600);
+                }, 400);
             };
 
             tick();
         });
-        """
-    )
+    """)
+
     elapsed = time.time() - start
     if logger:
         logger.info(
-            f"Scrolled in {elapsed:.1f}s, "
-            f"height={result.get('height', 0)}, cards={result.get('cards', 0)}"
+            f"Scrolled in {elapsed:.1f}s, height={result.get('height', 0)}, cards={result.get('cards', 0)}"
         )
     return result
 
 
 def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
-    logger.info("Falling back to Selenium for guide scraping")
+    """Load the guide in Chrome, scroll to bottom, then parse with BS4."""
+    logger.info("Using Selenium for guide scraping")
     driver = setup_driver()
     try:
         driver.get(GUIDE_URL)
-        logger.info(f"Navigated to {driver.current_url}")
+        logger.info(f"Navigated to: {driver.current_url}")
+        logger.info("Page load initiated, waiting 5s...")
+        time.sleep(5)
 
-        WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".cg-card"))
-        )
-        logger.info("Initial cards rendered - starting infinite scroll...")
+        logger.info(f"Current URL: {driver.current_url}")
+        logger.info(f"Page title: {driver.title}")
 
-        scroll_to_bottom_fast(driver, logger=logger)
+        src = driver.page_source[:500]
+        if "Access Denied" in src or "403" in src:
+            logger.error("ERROR: Access denied")
+            return []
+        if len(driver.page_source) < 1000:
+            logger.error("ERROR: Page source too short")
+            return []
 
-        logger.info("Parsing DOM with BeautifulSoup...")
+        logger.info("Waiting for .cg-card elements...")
+        try:
+            WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".cg-card"))
+            )
+            logger.info("Found .cg-card elements!")
+        except Exception as e:
+            logger.warning(f"WARNING: Timeout: {e}")
+
+        initial = driver.find_elements(By.CSS_SELECTOR, ".cg-card")
+        logger.info(f"Initial card count: {len(initial)}")
+
+        if len(initial) == 0:
+            logger.error("ERROR: No cards found. Saving debug_page.html...")
+            with open("debug_page.html", "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            return []
+
+        # FAST JS SCROLL - USER'S ORIGINAL LOGIC
+        scroll_to_bottom_fast(driver, max_wait_sec=60, logger=logger)
+
+        # Extract: dump page_source ONCE, parse with BeautifulSoup
+        logger.info("Extracting channel data with BeautifulSoup...")
         channels = parse_guide_html(driver.page_source)
         logger.info(f"Extracted {len(channels)} channels")
         return channels
+
     except Exception:
         logger.error("Selenium scrape failed")
         traceback.print_exc()
         return []
     finally:
+        logger.info("Closing driver...")
         driver.quit()
 
 
 def scrape_guide(logger: logging.Logger) -> List[Dict]:
-    session = create_session()
-    channels = try_requests_guide(session, logger)
-    if channels is not None:
-        return channels
+    """Always use Selenium for the guide (requests returns 0 cards)."""
     if not HAS_SELENIUM:
-        logger.error("Selenium not installed and requests failed.")
+        logger.error("Selenium is required for guide scraping.")
         sys.exit(1)
     return scrape_guide_selenium(logger)
 
@@ -383,6 +384,7 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     total = len(channels)
     logger.info(f"Fetching keys for {total} channels ({KEY_WORKERS} workers)...")
 
+    # Deduplicate slugs
     slug_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
         slug = ch.get("slug")
@@ -515,12 +517,8 @@ Examples:
         help="Skip MountainWrapper API validation",
     )
     parser.add_argument(
-        "--force-selenium", action="store_true",
-        help="Force Selenium guide scrape (skip requests attempt)",
-    )
-    parser.add_argument(
         "-w", "--workers", type=int, default=0,
-        help="Max thread workers (0 = auto). Lower if you hit rate-limits.",
+        help="Max thread workers (0 = auto: 10 keys, 20 API). Lower if rate-limited.",
     )
     parser.add_argument(
         "-v", "--verbose", action="store_true",
@@ -544,25 +542,23 @@ Examples:
     logger.info(f"  api workers : {API_WORKERS}")
     logger.info("=" * 60)
 
-    if args.force_selenium:
-        if not HAS_SELENIUM:
-            logger.error("--force-selenium requested but selenium is not installed")
-            sys.exit(1)
-        channels = scrape_guide_selenium(logger)
-    else:
-        channels = scrape_guide(logger)
+    # Phase 1 - Guide (Selenium scroll + BS4 parse)
+    channels = scrape_guide(logger)
 
     if not channels:
         logger.error("No channels found. Exiting.")
         sys.exit(1)
     logger.info(f"Guide scrape complete: {len(channels)} channels")
 
+    # Phase 2 - Keys (ThreadPoolExecutor + requests)
     if not args.skip_keys:
         channels = fetch_keys(channels, logger)
 
+    # Phase 3 - API (ThreadPoolExecutor + requests)
     if not args.skip_api:
         channels = test_api(channels, logger)
 
+    # Serialize
     output = {
         "metadata": {
             "total": len(channels),
