@@ -5,6 +5,30 @@ libcurl.set_websocket(`wss://wisp.mercurywork.shop/`);
 window.fetch = libcurl.fetch;
 //
 
+function findTopicVideo(results, artist, title) {
+  const expectedChannel = `${artist.trim().toLowerCase()} - topic`;
+  const expectedTitle = title.trim().toLowerCase();
+  const video = results.find(item => {
+    const channel = item.snippet?.channelTitle
+      ?.trim()
+      .toLowerCase();
+
+    const videoTitle = item.snippet?.title
+      ?.trim()
+      .toLowerCase();
+
+    return (
+      channel === expectedChannel &&
+      videoTitle === expectedTitle &&
+      item.id?.videoId
+    );
+  });
+
+  return video
+    ? `https://www.youtube.com/watch?v=${video.id.videoId}`
+    : null;
+}
+
 async function searchYouTube(q, pageToken = ''){
   const params = new URLSearchParams({
     part: 'snippet',
@@ -30,13 +54,13 @@ async function searchYouTube(q, pageToken = ''){
 
   return data;
 }
-async function bb(){
-const data = await searchYouTube("The Staple Singers I'll Take You There");
+async function getYouTubeURL(artist, song){
+const data = await searchYouTube(`${artist} - ${song}`);
 
-console.log(data.items);
+return await findTopicVideo(data.items, artist, song)
   
 }
-bb()
+getYouTubeURL("Eminem", "Superman")
 
 async function getSongLinks(itunesId){
 
