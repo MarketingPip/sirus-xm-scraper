@@ -52,7 +52,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-GUIDE_URL = "https://www.siriusxm.ca/channel-guide/?plan=All+Access"
+GUIDE_URL = "https://www.siriusxm.ca/channel-guide/?plan=Music+Showcase"
 CHANNEL_BASE_URL = "https://www.siriusxm.ca/channels/{slug}/"
 MOUNTAIN_API_URL = "https://www.siriusxm.com/servlet/Satellite"
 MOUNTAIN_API_PARAMS = {"pagename": "SXM/Services/MountainWrapper"}
