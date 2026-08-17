@@ -3,7 +3,7 @@
     "total": 170,
     "with_api": 0,
     "with_key": 0,
-    "scraped_at": "2026-08-17T03:50:40Z"
+    "scraped_at": "2026-08-17T03:56:57Z"
   },
   "channels": [
     {
@@ -460,7 +460,7 @@
       "number": 52,
       "name": "BPM",
       "deeplink": "bpm",
-      "url": "https://www.siriusxm.ca/channels/bpm/",
+      "url": "https://www.siriusxm.ca/channels/bpm/?intcmp=BPM_CAchannelguideEN",
       "shortDescription": "The beat drops here",
       "longDescription": "BPM plays the biggest artists in dance/electronic music like Tiesto, The Chainsmokers, Anabel Englund, Joel Corry, Calvin Harris, ILLENIUM and more. Plus, we'll keep you up to date with what's happening in clubs and festivals all over the world. Hear anything from house music, to future bass and everything in between.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-BPM.jpg"
@@ -469,7 +469,7 @@
       "number": 53,
       "name": "Diplo\u2019s Revolution",
       "deeplink": "diplosrevolution",
-      "url": "https://www.siriusxm.ca/channels/diplos-revolution/",
+      "url": "https://www.siriusxm.ca/channels/diplos-revolution/?intcmp=DiplosRevolution_CAchannelguideEN",
       "shortDescription": "Diplo\u2019s global house party",
       "longDescription": "Superstar tastemaker Diplo lets you inside his Global House Party. Discover the latest in dance music and exclusive edits/remixes. You'll also get access to live DJ sets from festivals and events from around the world.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Diplos-Revolution.jpg"
@@ -478,7 +478,7 @@
       "number": 54,
       "name": "Studio 54 Radio",
       "deeplink": "studio54radio",
-      "url": "https://www.siriusxm.ca/channels/studio-54-radio/",
+      "url": "https://www.siriusxm.ca/channels/studio-54-radio/?intcmp=Studio54Radio_CAchannelguideEN",
       "shortDescription": "Classic dance hits",
       "longDescription": "Disco, Classic, and Euro Dance music 24/7, plus legendary DJs like Jellybean Benitez, Robbie Leslie, Tony Smith, and The Marc & Myra Show hosted by original Studio 54 employees Marc Benecke and Myra Scheer.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Studio-54-Radio.jpg"
@@ -487,7 +487,7 @@
       "number": 55,
       "name": "SiriusXM Chill",
       "deeplink": "siriusxmchill",
-      "url": "https://www.siriusxm.ca/channels/siriusxm-chill/",
+      "url": "https://www.siriusxm.ca/channels/siriusxm-chill/?intcmp=SiriusXMChill_CAchannelguideEN",
       "shortDescription": "Downtempo & deep house",
       "longDescription": "Downtempo electronic and deep house music. Relax to melodic sounds that make you feel poolside no matter where you are.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-SiriusXM-Chill.jpg"
@@ -496,7 +496,7 @@
       "number": 56,
       "name": "The Highway",
       "deeplink": "thehighway",
-      "url": "https://www.siriusxm.ca/channels/the-highway/",
+      "url": "https://www.siriusxm.ca/channels/the-highway/?intcmp=TheHighway_CAchannelguideEN",
       "shortDescription": "Next generation country music",
       "longDescription": "Discover the next generation of country superstars on The Highway - where breakthrough Highway Finds meet brand new music from country's biggest hitmakers. Hosted weekdays by Cody Alan, Macie Banks, Buzz Brainard and Ania Hammar from the heart of Broadway in downtown Nashville, Tennessee.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/02/Listing-The-Highway.jpg"
@@ -505,7 +505,7 @@
       "number": 57,
       "name": "Y2Kountry",
       "deeplink": "y2kountry",
-      "url": "https://www.siriusxm.ca/channels/y2kountry/",
+      "url": "https://www.siriusxm.ca/channels/y2kountry/?intcmp=Y2Kountry_CAchannelguideEN",
       "shortDescription": "2000s and 2010s country hits",
       "longDescription": "Hear the essential country hits from the 2000s and 2010s from Brad Paisley and Kenny Chesney to Jason Aldean and Carrie Underwood, along with current \"Today Tracks\" from era artists.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Y2Kountry.jpg"
@@ -514,7 +514,7 @@
       "number": 58,
       "name": "Prime Country",
       "deeplink": "primecountry",
-      "url": "https://www.siriusxm.ca/channels/prime-country/",
+      "url": "https://www.siriusxm.ca/channels/prime-country/?intcmp=PrimeCountry_CAchannelguideEN",
       "shortDescription": "80s/90s country hits",
       "longDescription": "This is where country music from the '80s and '90s lives. Garth Brooks, Reba McEntire, George Strait, Shania Twain, Alan Jackson, and Randy Travis all play here.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Prime-Country.jpg"
@@ -523,7 +523,7 @@
       "number": 59,
       "name": "No Shoes Radio",
       "deeplink": "noshoesradio",
-      "url": "https://www.siriusxm.ca/channels/no-shoes-radio/",
+      "url": "https://www.siriusxm.ca/channels/no-shoes-radio/?intcmp=NoShoesRadio_CAchannelguideEN",
       "shortDescription": "Kenny Chesney's channel",
       "longDescription": "Music from & chosen by Kenny Chesney. Special rare recordings, live concerts, unplugged moments & No Shoes Nation drop-ins.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-No-Shoes-Radio.jpg"
@@ -532,7 +532,7 @@
       "number": 60,
       "name": "Carrie\u2019s Country",
       "deeplink": "carriescountry",
-      "url": "https://www.siriusxm.ca/channels/carries-country/",
+      "url": "https://www.siriusxm.ca/channels/carries-country/?intcmp=CarriesCountry_CAchannelguideEN",
       "shortDescription": "Carrie Underwood\u2019s own channel",
       "longDescription": "You\u2019ve entered Carrie\u2019s Country: a musical journey created by country\u2019s iconic rhinestoned superstar. Carrie shares the stories behind her record-breaking career and catalog - and highlights her friends, favourites, and influences. Hear new and classic country, workout hits, gospel and beyond. Plus, high-octane favourites from classic to hard rock for your morning exercise or your late-night jam sessions. Featuring drop-ins from Carrie\u2019s crew, friends, and fans - and of course, Carrie herself!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Carries-Country.jpg"
@@ -541,7 +541,7 @@
       "number": 61,
       "name": "Willie\u2019s Roadhouse",
       "deeplink": "williesroadhouse",
-      "url": "https://www.siriusxm.ca/channels/willies-roadhouse/",
+      "url": "https://www.siriusxm.ca/channels/willies-roadhouse/?intcmp=WilliesRoadhouse_CAchannelguideEN",
       "shortDescription": "Willie's classic country",
       "longDescription": "Willie Nelson's Classic Country channel featuring songs from the \u201860s, \u201870s and \u201880s by artists such as Willie Nelson, Merle Haggard, Dolly Parton, George Jones, Johnny Cash, Loretta Lynn, Patsy Cline, Conway Twitty and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Willies-Roadhouse.jpg"
@@ -550,7 +550,7 @@
       "number": 62,
       "name": "Outlaw Country",
       "deeplink": "outlawcountry",
-      "url": "https://www.siriusxm.ca/channels/outlaw-country/",
+      "url": "https://www.siriusxm.ca/channels/outlaw-country/?intcmp=OutlawCountry_CAchannelguideEN",
       "shortDescription": "Music that won\u2019t be fenced in",
       "longDescription": "No borders, no B.S. \u2014 from country's roots to today's outsiders that just won't be fenced in. Hear Americana, alt-country, country classics, country rock, honky tonk, roots rock & more!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Outlaw-Country.jpg"
@@ -559,7 +559,7 @@
       "number": 63,
       "name": "Chris Stapleton Radio",
       "deeplink": "chrisstapletonradio",
-      "url": "https://www.siriusxm.ca/channels/chris-stapleton-radio/",
+      "url": "https://www.siriusxm.ca/channels/chris-stapleton-radio/?intcmp=ChrisStapletonRadio_CAchannelguideEN",
       "shortDescription": "Chris Stapleton's channel",
       "longDescription": "Get closer to one of the most original and authentic artists today - singer, songwriter, and musician, Chris Stapleton. Listen as he shares music spanning his entire career, and the stories behind those songs. Chris Stapleton Radio is the home to the Kings and Queens of Country, Rock, Soul, and more - curated by Chris and his band, The Honchos.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Chris-Stapleton-Radio.jpg"
@@ -568,7 +568,7 @@
       "number": 64,
       "name": "Morgan Wallen Radio",
       "deeplink": "morganwallenradio",
-      "url": "https://www.siriusxm.ca/channels/morgan-wallen-radio/",
+      "url": "https://www.siriusxm.ca/channels/morgan-wallen-radio/?intcmp=MorganWallenRadio_CAchannelguideEN",
       "shortDescription": "Curated by Morgan Wallen",
       "longDescription": "Setting the pace in, and beyond, country music, Morgan Wallen takes you inside his world. Hear personal stories from inside the studio, on the road and more. Music from his friends, collaborators, and influences live alongside Morgan\u2019s chart-toppers - all handpicked by Morgan Wallen. Plus, drop-ins from the people that make up his life on and off the stadium stage.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/05/Morgan-Wallen-Radio.jpg"
@@ -577,7 +577,7 @@
       "number": 65,
       "name": "Bluegrass Junction",
       "deeplink": "bluegrassjunction",
-      "url": "https://www.siriusxm.ca/channels/bluegrass-junction/",
+      "url": "https://www.siriusxm.ca/channels/bluegrass-junction/?intcmp=BluegrassJunction_CAchannelguideEN",
       "shortDescription": "Bluegrass, new and classic",
       "longDescription": "Experience the cutting edge sounds of bluegrass music while never straying too far from its roots and traditions\u2026 including weekly shows from Chris Jones, Ned Luberecki, Joey Black and the legendary Del McCoury!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Bluegrass-Junction.jpg"
@@ -586,7 +586,7 @@
       "number": 66,
       "name": "Symphony Hall",
       "deeplink": "symphonyhall",
-      "url": "https://www.siriusxm.ca/channels/symphony-hall/",
+      "url": "https://www.siriusxm.ca/channels/symphony-hall/?intcmp=SymphonyHall_CAchannelguideEN",
       "shortDescription": "Classical music for everyone",
       "longDescription": "Classical music from yesterday and today performed by top orchestras, chamber music ensembles and instrumental soloists. Featuring Baroque and Beyond, Classics on Film, Living American, SiriusXM Presents the Philadelphia Orchestra, Vox Choral and The Chamber Music Society of Lincoln Center.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Symphony-Hall.jpg"
@@ -595,7 +595,7 @@
       "number": 67,
       "name": "Real Jazz",
       "deeplink": "realjazz",
-      "url": "https://www.siriusxm.ca/channels/real-jazz/",
+      "url": "https://www.siriusxm.ca/channels/real-jazz/?intcmp=RealJazz_CAchannelguideEN",
       "shortDescription": "Classic jazz",
       "longDescription": "Classic jazz, the original American art form. Hear the masters who pioneered the music and the new artists who continue the tradition into the 21st century.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Real-Jazz.jpg"
@@ -604,7 +604,7 @@
       "number": 68,
       "name": "Watercolors",
       "deeplink": "watercolors",
-      "url": "https://www.siriusxm.ca/channels/watercolors/",
+      "url": "https://www.siriusxm.ca/channels/watercolors/?intcmp=Watercolors_CAchannelguideEN",
       "shortDescription": "Smooth and contemporary jazz",
       "longDescription": "A sonic landscape of silky, smooth jazz melodies and alluring contemporary jazz rhythms. Indulge the senses with soulful saxophone, mesmerizing piano, breezy guitar and groovy bass lines. Lively art for your ears.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Watercolors.jpg"
@@ -613,7 +613,7 @@
       "number": 69,
       "name": "On Broadway",
       "deeplink": "onbroadway",
-      "url": "https://www.siriusxm.ca/channels/on-broadway/",
+      "url": "https://www.siriusxm.ca/channels/on-broadway/?intcmp=OnBroadway_CAchannelguideEN",
       "shortDescription": "Show tunes",
       "longDescription": "You're front row centre for the greatest hits of Broadway! All your favourite show tunes sung by the stars of the musical stage, bringing Broadway to every street in North America.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-On-Broadway.jpg"
@@ -622,7 +622,7 @@
       "number": 70,
       "name": "Siriusly Sinatra",
       "deeplink": "siriuslysinatra",
-      "url": "https://www.siriusxm.ca/channels/siriusly-sinatra/",
+      "url": "https://www.siriusxm.ca/channels/siriusly-sinatra/?intcmp=SiriuslySinatra_CAchannelguideEN",
       "shortDescription": "Standards by Sinatra & more",
       "longDescription": "The Chairman of the Board is at home everyday on Siriusly Sinatra, along with Dean Martin, Tony Bennett and more of the great singers interpreting the Great American Songbook. Siriusly Sinatra is the 24-hour home for all things Frank and the standards he made famous!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Siriusly-Sinatra.jpg"
@@ -631,7 +631,7 @@
       "number": 71,
       "name": "40s Junction",
       "deeplink": "40sjunction",
-      "url": "https://www.siriusxm.ca/channels/40s-junction/",
+      "url": "https://www.siriusxm.ca/channels/40s-junction/?intcmp=40sJunction_CAchannelguideEN",
       "shortDescription": "40s pop hits/big bands",
       "longDescription": "This joint is jumpin'! The swing era lives on as you journey on the Savoy Express to the 40s Junction! A station humming with big bands, vocal stars, and classic melodies from the 1940s. You'll be in 'In The Mood,' to jitterbug and lindy hop! Crooners serenade and harmony groups shine in jazzy orchestras that swing and sway. So, hey hep cats! 'Let's Dance!'",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/12/Listing-40s-Junction.jpg"
@@ -640,7 +640,7 @@
       "number": 72,
       "name": "50s Gold",
       "deeplink": "50sgold",
-      "url": "https://www.siriusxm.ca/channels/50s-gold/",
+      "url": "https://www.siriusxm.ca/channels/50s-gold/?intcmp=50sGold_CAchannelguideEN",
       "shortDescription": "50s pop, rock & doo-wop hits",
       "longDescription": "Take a trip to the era of the new teenage craze of rock \u2018n\u2019 roll and the pre-rock songs Mom & Dad preferred. The sound of happy days and drive-in nights with pop radio the way it used to be \u2014 from crooners to street corner harmony.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2020/05/50s-Gold.jpg"
@@ -649,7 +649,7 @@
       "number": 73,
       "name": "60s Gold",
       "deeplink": "60sgold",
-      "url": "https://www.siriusxm.ca/channels/60s-gold/",
+      "url": "https://www.siriusxm.ca/channels/60s-gold/?intcmp=60sGold_CAchannelguideEN",
       "shortDescription": "All 60s hits",
       "longDescription": "It started with the Twist and ended with Woodstock, all '60s hits from Motown and surf music to the British Invasion and folk rock. Hear The Beach Boys, Supremes, Rolling Stones, Aretha Franklin, Four Seasons, The Beatles and more!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2020/05/60s-Gold.jpg"
@@ -658,7 +658,7 @@
       "number": 74,
       "name": "Smokey\u2019s Soul Town",
       "deeplink": "smokeyssoultown",
-      "url": "https://www.siriusxm.ca/channels/smokeys-soul-town/",
+      "url": "https://www.siriusxm.ca/channels/smokeys-soul-town/?intcmp=SmokeysSoulTown_CAchannelguideEN",
       "shortDescription": "Classic R&B hosted by Smokey!",
       "longDescription": "Classic Soul, R&B & Motown from the '60s and '70s live in Smokey's Soul Town! Throughout the day, Smokey shares stories from his career and picks some of his favorites from Hitsville and beyond. Plus hosted DJ shows from The Motown Museum in Detroit. Stevie, Aretha, Otis, Marvin, Jackie, Chaka, The Temptations, The Miracles, The Supremes, The Four Tops and all the Soul you can handle... 24/7 on Smokey's Soul Town!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Smokeys-Soul-Town.jpg"
@@ -667,7 +667,7 @@
       "number": 75,
       "name": "B.B. King\u2019s Bluesville",
       "deeplink": "bbkingsbluesville",
-      "url": "https://www.siriusxm.ca/channels/b-b-kings-bluesville/",
+      "url": "https://www.siriusxm.ca/channels/b-b-kings-bluesville/?intcmp=BBKingsBluesville_CAchannelguideEN",
       "shortDescription": "Blues, past & present",
       "longDescription": "B.B. King's channel for blues music from the past to the present: B.B. King, Stevie Ray Vaughan, Muddy Waters, Buddy Guy, Eric Clapton, Etta James, Robert Cray, Keb' Mo', Taj Mahal, John Lee Hooker and others.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-BB-Kings-Bluesville.jpg"
@@ -676,7 +676,7 @@
       "number": 76,
       "name": "Elvis Radio",
       "deeplink": "elvisradio",
-      "url": "https://www.siriusxm.ca/channels/elvis-radio/",
+      "url": "https://www.siriusxm.ca/channels/elvis-radio/?intcmp=ElvisRadio_CAchannelguideEN",
       "shortDescription": "Elvis 24/7 live from Graceland",
       "longDescription": "The only all Elvis all-the-time radio station, broadcasting live from Graceland. The early years, the classics, the comebacks, rarities, live tracks and basically everything Elvis ever recorded.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Elvis-Radio.jpg"
@@ -685,7 +685,7 @@
       "number": 77,
       "name": "Kirk Franklin\u2019s Praise",
       "deeplink": "kirkfranklinspraise",
-      "url": "https://www.siriusxm.ca/channels/kirk-franklins-praise/",
+      "url": "https://www.siriusxm.ca/channels/kirk-franklins-praise/?intcmp=KirkFranklinsPraise_CAchannelguideEN",
       "shortDescription": "Kirk Franklin's gospel channel",
       "longDescription": "Grammy winning icon Kirk Franklin empowers you through your day with today's divinely inspired gospel music. Hear inspirational music from artists including Tamela Mann, Donnie McClurkin, Tye Tribett, Le'Andria Johnson and more. Kirk's got the music and the message to make ya sing, clap and shout!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Kirk-Franklins-Praise.jpg"
@@ -694,7 +694,7 @@
       "number": 78,
       "name": "The Message",
       "deeplink": "themessage",
-      "url": "https://www.siriusxm.ca/channels/the-message/",
+      "url": "https://www.siriusxm.ca/channels/the-message/?intcmp=TheMessage_CAchannelguideEN",
       "shortDescription": "Contemporary Christian",
       "longDescription": "Pop and rock with a higher purpose. Contemporary Christian music delivered by compassionate hosts to encourage you and your family on your faith journey.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/03/Listing-The-Message.jpg"
@@ -712,7 +712,7 @@
       "number": 133,
       "name": "Disney Hits",
       "deeplink": "disneyhits",
-      "url": "https://www.siriusxm.ca/channels/disney-hits/",
+      "url": "https://www.siriusxm.ca/channels/disney-hits/?intcmp=DisneyHits_CAchannelguideEN",
       "shortDescription": "Wonderful world of Disney hits",
       "longDescription": "Disney Hits is the Happiest SiriusXM channel on Earth! All of your favourite Disney Music of all time on one channel. Featuring songs from Moana, Frozen, Lion King, Beauty and The Beast, High School Musical and many more. Plus, enjoy special magic themed hours and Be Our Guest that puts listeners and celebrities in charge!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Disney-Hits.jpg"
@@ -721,7 +721,7 @@
       "number": 134,
       "name": "Kids Place",
       "deeplink": "kidsplace",
-      "url": "https://www.siriusxm.ca/channels/kids-place/",
+      "url": "https://www.siriusxm.ca/channels/kids-place/?intcmp=KidsPlace_CAchannelguideEN",
       "shortDescription": "Kids' music",
       "longDescription": "Hear live hosts, laugh-out-loud calls with real kids, and the best in family-friendly music and entertainment.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Kids-Place.jpg"
@@ -730,7 +730,7 @@
       "number": 135,
       "name": "KIDZ BOP Radio",
       "deeplink": "kidzbopradio",
-      "url": "https://www.siriusxm.ca/channels/kidz-bop-radio/",
+      "url": "https://www.siriusxm.ca/channels/kidz-bop-radio/?intcmp=KIDZBOPRadio_CAchannelguideEN",
       "shortDescription": "Pop hits sung by kids for kids",
       "longDescription": "Today\u2019s pop hits from the celebrated and trusted Kidz Bop series of music. Hear today\u2019s biggest pop hits along with a mix of top contemporary pop music. This is a full channel of music - sung by kids - for pre-school and school-age kids.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Kidsbop-Radio.jpg"
@@ -739,7 +739,7 @@
       "number": 136,
       "name": "CoComelon & Friends",
       "deeplink": "cocomelonandfriends",
-      "url": "https://www.siriusxm.ca/channels/cocomelon-and-friends/",
+      "url": "https://www.siriusxm.ca/channels/cocomelon-and-friends/?intcmp=CoComelonFriends_CAchannelguideEN",
       "shortDescription": "Toddler Tunes",
       "longDescription": "Sing nursery rhymes with CoComelon, go \"vroom, vroom,\" to vehicle songs with Blippi and express yourself with Little Angel. With a song for every moment in a toddler\u2019s day, CoComelon and Friends brings hours of fun for the whole family, plus soothing lullabies to end the night.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-CoComelon-and-Friends.jpg"
@@ -748,7 +748,7 @@
       "number": 140,
       "name": "Holy Culture Radio",
       "deeplink": "holycultureradio",
-      "url": "https://www.siriusxm.ca/channels/holy-culture-radio/",
+      "url": "https://www.siriusxm.ca/channels/holy-culture-radio/?intcmp=HolyCultureRadio_CAchannelguideEN",
       "shortDescription": "Christian hip-hop music & talk",
       "longDescription": "Holy Culture Radio is your home for everything Christian Hip-Hop and R&B. From introducing upcoming artists to discussions about faith, arts, vocation, and education with legends in the industry and more, Holy Culture is tapping into CHH like nobody else! Plus, Holy Culture has got some of the best DJs and hosts playing music from back in the day all the way to the newest tracks dropping today.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Holy-Culture-Radio.jpg"
@@ -757,7 +757,7 @@
       "number": 141,
       "name": "HUR Voices",
       "deeplink": "hurvoices",
-      "url": "https://www.siriusxm.ca/channels/hur-voices/",
+      "url": "https://www.siriusxm.ca/channels/hur-voices/?intcmp=HURVoices_CAchannelguideEN",
       "shortDescription": "HUR Voices, for the people",
       "longDescription": "HUR Voices is real talk with real music for and from the people. HUR Voices is talk with a purpose that examines and explores issues that affect people of colour, and music that combines new and classic soul with R&B for listener enjoyment. HUR Voices programming embodies the mission of Howard University which is to provide \"America and the Global Community\" with excellence, leadership, truth and service. Managed by WHUR 96.3 FM, Howard University.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Her-Voices.jpg"
@@ -766,7 +766,7 @@
       "number": 149,
       "name": "Escape",
       "deeplink": "escape",
-      "url": "https://www.siriusxm.ca/channels/escape/",
+      "url": "https://www.siriusxm.ca/channels/escape/?intcmp=Escape_CAchannelguideEN",
       "shortDescription": "Easy listening",
       "longDescription": "Whenever you listen, you\u2019ll always hear the world\u2019s most beautiful easy listening music...great melodies that you can hum along to!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/12/Listing-Escape.jpg"
@@ -775,7 +775,7 @@
       "number": 150,
       "name": "Bill Gaither\u2019s enLighten",
       "deeplink": "billgaithersenlighten",
-      "url": "https://www.siriusxm.ca/channels/bill-gaithers-enlighten/",
+      "url": "https://www.siriusxm.ca/channels/bill-gaithers-enlighten/?intcmp=BillGaithersenLighten_CAchannelguideEN",
       "shortDescription": "Moving, harmony-driven gospel",
       "longDescription": "Uplifting, harmony-driven Gospel music with stories, inspiration and hope from iconic singer/songwriter Bill Gaither. Plus music from The GVB, Booth Brothers, Jeff & Sheri Easter, Karen Peck & New River, Greater Vision & more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Enlighten.jpg"
@@ -784,7 +784,7 @@
       "number": 151,
       "name": "Hits Uno",
       "deeplink": "hitsuno",
-      "url": "https://www.siriusxm.ca/channels/hits-uno/",
+      "url": "https://www.siriusxm.ca/channels/hits-uno/?intcmp=HitsUno_CAchannelguideEN",
       "shortDescription": "Today's Latin hits",
       "longDescription": "From the SiriusXM studios in Miami, your new home for today's biggest Latin pop hits from around the globe! From pop to reggaeton, dance to viral LatinX hits, somos los exitos!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Hits-Uno.jpg"
@@ -793,7 +793,7 @@
       "number": 152,
       "name": "Caliente",
       "deeplink": "caliente",
-      "url": "https://www.siriusxm.ca/channels/caliente/",
+      "url": "https://www.siriusxm.ca/channels/caliente/?intcmp=Caliente_CAchannelguideEN",
       "shortDescription": "Tropical Latin hits",
       "longDescription": "Salsa, bachata, reggaeton and more! A red-hot Latin mix where the sounds of the Caribbean and the Americas collide. Where Latin music & culture meet!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Caliente.jpg"
@@ -802,7 +802,7 @@
       "number": 153,
       "name": "\u00c1guila",
       "deeplink": "aguila",
-      "url": "https://www.siriusxm.ca/channels/aguila/",
+      "url": "https://www.siriusxm.ca/channels/aguila/?intcmp=guila_CAchannelguideEN",
       "shortDescription": "Today's top m\u00fasica Mexicana",
       "longDescription": "Today's top m\u00fasica Mexicana artists in Banda, Norte\u00f1o, Mariachi, Rancheras, Sierre\u00f1o, Grupero and Cumbia. The traditional sounds of Mexico, iconic and new!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Aguila.jpg"
@@ -811,7 +811,7 @@
       "number": 154,
       "name": "En Vivo",
       "deeplink": "envivo",
-      "url": "https://www.siriusxm.ca/channels/en-vivo/",
+      "url": "https://www.siriusxm.ca/channels/en-vivo/?intcmp=EnVivo_CAchannelguideEN",
       "shortDescription": "Where music is born",
       "longDescription": "Where music is born! En Vivo is the official satellite radio channel of the Latin Grammys, bringing the best in live entertainment and new music.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-En-Vivo.jpg"
@@ -820,7 +820,7 @@
       "number": 155,
       "name": "Latin Vault",
       "deeplink": "latinvault",
-      "url": "https://www.siriusxm.ca/channels/latin-vault/",
+      "url": "https://www.siriusxm.ca/channels/latin-vault/?intcmp=LatinVault_CAchannelguideEN",
       "shortDescription": "Latin sounds of yesterday",
       "longDescription": "Revisit the sounds and rich history of music pioneers from the 50\u2019s, 60\u2019s, 70\u2019s, and early 80\u2019s the decades that shaped the Latin music landscape as it is today.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Latin-Vault.jpg"
@@ -829,7 +829,7 @@
       "number": 163,
       "name": "Attitude Franco",
       "deeplink": "attitudefranco",
-      "url": "https://www.siriusxm.ca/channels/attitude-franco/",
+      "url": "https://www.siriusxm.ca/channels/attitude-franco/?intcmp=AttitudeFranco_CAchannelguideEN",
       "shortDescription": "Everything in French rock",
       "longDescription": "All the rock attitude, whether commercial or alternative. From sacred icons like Offenbach and Corbeau to newcomers Corridor and Gazoline, if it\u2019s French rock, you\u2019ll hear it here!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Attitude-Franco.jpg"
@@ -838,7 +838,7 @@
       "number": 164,
       "name": "Mixtape: North",
       "deeplink": "mixtapenorth",
-      "url": "https://www.siriusxm.ca/channels/mixtape-north/",
+      "url": "https://www.siriusxm.ca/channels/mixtape-north/?intcmp=MixtapeNorth_CAchannelguideEN",
       "shortDescription": "Canadian hip-hop",
       "longDescription": "Playing the newest hits from Drake and Jessie Reyez to classic throwbacks from Kardinal Offishall and K-OS to the hottest emerging voices from the Canadian underground. Mixtape: North is the dopest mix of hip-hop and R&B.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Mixtape-North.jpg"
@@ -847,7 +847,7 @@
       "number": 166,
       "name": "Racines Musicales",
       "deeplink": "racinesmusicales",
-      "url": "https://www.siriusxm.ca/channels/racines-musicales/",
+      "url": "https://www.siriusxm.ca/channels/racines-musicales/?intcmp=RacinesMusicales_CAchannelguideEN",
       "shortDescription": "Homegrown music from the heart",
       "longDescription": "Be it Marcel Martel or Marie King, Lisa Leblanc or Elisapie, Les Soeurs Boulay or Kain, French Canada\u2019s rich history of homegrown music is to be found on Racines Musicales. Songs that come from the heart, by French and Indigenous artists. If it\u2019s Country, Folk, Cajun or Traditional music, you\u2019ll hear it here!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Racines-Musicales.jpg"
@@ -856,7 +856,7 @@
       "number": 171,
       "name": "Top of the Country Radio",
       "deeplink": "topofthecountryradio",
-      "url": "https://www.siriusxm.ca/channels/top-of-the-country-radio/",
+      "url": "https://www.siriusxm.ca/channels/top-of-the-country-radio/?intcmp=TopoftheCountryRadio_CAchannelguideEN",
       "shortDescription": "Country from across Canada",
       "longDescription": "The rich history of Canadian Country music finally has a home on Top of The Country Radio. A perfect blend of the songs you know and love from the \u201890s and 2000s all the way to emerging country superstars you\u2019re about to fall for. You\u2019ll hear Dallas Smith, Megan Patrick, Tenille Townes, Tim Hicks, Shania Twain and many more!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Top-of-the-Country-Radio.jpg"
@@ -865,7 +865,7 @@
       "number": 173,
       "name": "The Verge",
       "deeplink": "theverge",
-      "url": "https://www.siriusxm.ca/channels/the-verge/",
+      "url": "https://www.siriusxm.ca/channels/the-verge/?intcmp=TheVerge_CAchannelguideEN",
       "shortDescription": "New & emerging alternative",
       "longDescription": "Discover new and emerging Canadian Indie & Alternative artists. Learn more about new artists through live in-studio performances, exclusive concerts broadcast live to air & more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-The-Verge.jpg"
@@ -874,7 +874,7 @@
       "number": 174,
       "name": "Influence Franco",
       "deeplink": "influencefranco",
-      "url": "https://www.siriusxm.ca/channels/influence-franco/",
+      "url": "https://www.siriusxm.ca/channels/influence-franco/?intcmp=InfluenceFranco_CAchannelguideEN",
       "shortDescription": "French hip-hop and urban pop",
       "longDescription": "Discover brand new and emerging French music discoveries from Canada, through new studio releases and live concert recordings.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Influence-Franco.jpg"
@@ -883,7 +883,7 @@
       "number": 301,
       "name": "Road Trip Radio",
       "deeplink": "roadtripradio",
-      "url": "https://www.siriusxm.ca/channels/road-trip-radio/",
+      "url": "https://www.siriusxm.ca/channels/road-trip-radio/?intcmp=RoadTripRadio_CAchannelguideEN",
       "shortDescription": "Driving jams and singalongs",
       "longDescription": "Roll your windows down and turn the music up! A hand-selected mix of driving jams and singalongs as unpredictable as your journey. Hear all the music from the last 60 years sure to please everyone in the car!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Road-Trip-Radio.jpg"
@@ -892,7 +892,7 @@
       "number": 302,
       "name": "Andy Cohen\u2019s Kiki Lounge",
       "deeplink": "andycohenskikilounge",
-      "url": "https://www.siriusxm.ca/channels/andy-cohens-kiki-lounge/",
+      "url": "https://www.siriusxm.ca/channels/andy-cohens-kiki-lounge/?intcmp=AndyCohensKikiLounge_CAchannelguideEN",
       "shortDescription": "Songs Andy Cohen loves",
       "longDescription": "Late night talk show host, Andy Cohen, invites you to his Kiki Lounge to discover songs you may not know from artists he loves. Hear a personally crafted mix of music from Andy that he loves to chill with \u2013 and party to. And every night\u2019s a vibe with a different set from a DJ Andy loves.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Andy-Cohens-Kiki-Lounge.jpg"
@@ -901,7 +901,7 @@
       "number": 305,
       "name": "Mosaic",
       "deeplink": "mosaic",
-      "url": "https://www.siriusxm.ca/channels/mosaic/",
+      "url": "https://www.siriusxm.ca/channels/mosaic/?intcmp=Mosaic_CAchannelguideEN",
       "shortDescription": "Relaxing 90s & 2000s pop",
       "longDescription": "A colourful and diverse pop music collage from the 90s & 2000s featuring P!nk, Bruno Mars, Adele, Matchbox Twenty, Kelly Clarkson, Goo Goo Dolls, Gwen Stefani, Hootie & The Blowfish, Lady Gaga and more! From the office to your car or couch, you\u2019ll hear a never-ending variety of musical patterns and patchwork that form the most unique pop music mosaic!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Mosaic.jpg"
