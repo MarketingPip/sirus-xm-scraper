@@ -171,20 +171,14 @@ def parse_guide_html(html: str) -> List[Dict]:
                 if img_tag:
                     img = img_tag.get("src", "")
 
-            deep = ""
-            deep_link = card.find("a", attrs={"data-player-link": "true"})
-            if deep_link:
-                deep = deep_link.get("href", "")
-
             channels.append({
-                "channel_number": ch_num,
+                "number": ch_num,
                 "name": name,
-                "slug": slug,
+                "deeplink": slug.replace("-", ""),
                 "url": url,
-                "subheadline": sub,
-                "description": desc,
+                "shortDescription": sub,
+                "longDescription": desc,
                 "image": img,
-                "deep_link": deep,
             })
         except Exception:
             continue
