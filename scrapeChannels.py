@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-SiriusXM Channel Guide Scraper - FAST VERSION
-Combines debug logging with JS-promise scrolling for speed.
+SiriusXM Channel Guide Scraper
 """
 
 import json
 import re
 import time
+import random
 import sys
 import traceback
 import requests
@@ -57,51 +57,35 @@ def setup_driver():
         sys.exit(1)
 
 
-def scroll_to_bottom_fast(driver, max_wait_sec=60):
-    log("Starting fast JS scroll...")
+def scroll_to_bottom(driver):
+    """Simple scroll loop with random sleep."""
+    log("Starting scroll to bottom...")
     start = time.time()
+    last_height = driver.execute_script("return document.body.scrollHeight")
+    log(f"Initial height: {last_height}")
+    scrolls = 0
 
-    result = driver.execute_script("""
-        return new Promise((resolve) => {
-            let lastH = 0;
-            let stable = 0;
-            const t0 = Date.now();
+    while True:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        sleep_time = random.uniform(2, 4)
+        time.sleep(sleep_time)
 
-            const tick = () => {
-                const h = document.body.scrollHeight;
-                window.scrollTo(0, h);
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        scrolls += 1
 
-                setTimeout(() => {
-                    const newH = document.body.scrollHeight;
-                    const elapsed = Date.now() - t0;
-                    const cards = document.querySelectorAll('.cg-card').length;
+        card_count = len(driver.find_elements(By.CSS_SELECTOR, ".cg-card"))
+        if scrolls % 10 == 0:
+            log(f"  Scroll {scrolls}: height={new_height}, cards={card_count}")
 
-                    if (newH === h) {
-                        stable++;
-                        if (stable >= 2) {
-                            resolve({done: true, height: newH, ms: elapsed, cards: cards});
-                            return;
-                        }
-                    } else {
-                        stable = 0;
-                    }
-
-                    if (elapsed > """ + str(max_wait_sec * 1000) + """) {
-                        resolve({done: false, height: newH, ms: elapsed, cards: cards});
-                        return;
-                    }
-
-                    tick();
-                }, 400);
-            };
-
-            tick();
-        });
-    """)
+        if new_height == last_height:
+            log(f"Reached bottom after {scrolls} scrolls")
+            break
+        last_height = new_height
 
     elapsed = time.time() - start
-    log(f"Scrolled in {elapsed:.1f}s, height={result.get('height', 0)}, cards={result.get('cards', 0)}")
-    return result
+    final_cards = len(driver.find_elements(By.CSS_SELECTOR, ".cg-card"))
+    log(f"Scrolling complete in {elapsed:.1f}s, {final_cards} cards")
+    return final_cards
 
 
 def extract_slug(url):
@@ -163,7 +147,7 @@ def parse_card(card):
 
 def scrape_guide():
     log("=" * 60)
-    log("STARTING FAST SCRAPER")
+    log("STARTING SCRAPER")
     log("=" * 60)
 
     driver = setup_driver()
@@ -206,8 +190,8 @@ def scrape_guide():
                 f.write(driver.page_source)
             return []
 
-        # FAST JS SCROLL
-        scroll_to_bottom_fast(driver, max_wait_sec=60)
+        # SCROLL TO BOTTOM
+        scroll_to_bottom(driver)
 
         # Extract
         log("Extracting channel data...")
