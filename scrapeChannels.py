@@ -479,7 +479,9 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
                 batch_result = future.result()
                 for cid, api_data in batch_result.items():
                     for idx in id_to_indices.get(cid, []):
-                        channels[idx]["api_data"] = api_data
+                        # Apply API data directly onto the channel dictionary object
+                        if isinstance(api_data, dict):
+                            channels[idx].update(api_data)
                         channels[idx]["mountain_wrapper_id"] = cid
                         working += 1
             except Exception as exc:
@@ -498,10 +500,10 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python scraper.py                           # full run
-  python scraper.py --skip-api                # skip MountainWrapper test
+  python scraper.py                         # full run
+  python scraper.py --skip-api              # skip MountainWrapper test
   python scraper.py --workers 5 -o out.json   # 5 workers, custom output
-  python scraper.py -v                        # verbose debug logging
+  python scraper.py -v                      # verbose debug logging
         """,
     )
     parser.add_argument(
@@ -562,7 +564,7 @@ Examples:
     output = {
         "metadata": {
             "total": len(channels),
-            "with_api": sum(1 for c in channels if c.get("api_data")),
+            "with_api": sum(1 for c in channels if any(k not in ["channel_number", "name", "slug", "url", "subheadline", "description", "image", "deep_link", "channel_key", "mountain_wrapper_id"] for k in c)),
             "with_key": sum(1 for c in channels if c.get("channel_key")),
             "scraped_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         },
