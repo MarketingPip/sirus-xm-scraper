@@ -507,8 +507,8 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     return channels
 
 
-def write_api_json(channels: List[Dict], out_path: str, logger: logging.Logger) -> None:
-    """Transform final channel records into the target schema and write to disk."""
+def transformForAPI(channels: List[Dict]) -> None:
+    """Transform final channel records for API."""
     result = []
     for ch in channels:
         slug = ch.get("slug", "") or ""
@@ -519,16 +519,11 @@ def write_api_json(channels: List[Dict], out_path: str, logger: logging.Logger) 
             "url": ch.get("url"),
             "shortDescription": ch.get("subheadline", ""),
             "longDescription": ch.get("description", ""),
-            "image": ch.get("image", ""),
             "id": ch.get("uuid"),
             "genres": [ch["genre"]] if ch.get("genre") else [],
         })
 
-    path = Path(out_path)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
-
-    logger.info(f"Wrote {len(result)} channels -> {path.resolve()}")
+    return result
 
 # ---------------------------------------------------------------------------
 # Main
@@ -603,11 +598,9 @@ Examples:
     output = {
         "metadata": {
             "total": len(channels),
-            "with_api": sum(1 for c in channels if "mountain_wrapper_id" in c),
-            "with_key": sum(1 for c in channels if c.get("channel_key")),
             "scraped_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         },
-        "channels": channels,
+        "channels": transformForAPI(channels),
     }
 
     out_path = Path(args.output)
@@ -615,14 +608,12 @@ Examples:
         json.dump(output, f, indent=2)
 
     logger.info(f"Saved {len(channels)} channels -> {out_path.resolve()}")
-    write_api_json(channels, "siriusxm_api_channels.json", logger)
     print("--- Sample ---")
     for c in channels[:5]:
         print(
-            f"  CH{c.get('channel_number', '?'):>4} | "
+            f"  CH{c.get('number', '?'):>4} | "
             f"{c['name']:<30} | "
-            f"{c.get('channel_key', 'N/A'):<6} | "
-            f"{c.get('slug', 'N/A')}"
+            f"{c.get('deeplink', 'N/A')}"
         )
 
 
