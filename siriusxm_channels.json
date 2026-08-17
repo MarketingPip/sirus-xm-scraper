@@ -3,7 +3,7 @@
     "total": 170,
     "with_api": 0,
     "with_key": 0,
-    "scraped_at": "2026-08-17T03:40:35Z"
+    "scraped_at": "2026-08-17T03:50:40Z"
   },
   "channels": [
     {
@@ -793,7 +793,7 @@
       "number": 152,
       "name": "Caliente",
       "deeplink": "caliente",
-      "url": "https://www.siriusxm.ca/channels/caliente/?intcmp=Caliente_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/caliente/",
       "shortDescription": "Tropical Latin hits",
       "longDescription": "Salsa, bachata, reggaeton and more! A red-hot Latin mix where the sounds of the Caribbean and the Americas collide. Where Latin music & culture meet!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Caliente.jpg"
@@ -802,7 +802,7 @@
       "number": 153,
       "name": "\u00c1guila",
       "deeplink": "aguila",
-      "url": "https://www.siriusxm.ca/channels/aguila/?intcmp=guila_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/aguila/",
       "shortDescription": "Today's top m\u00fasica Mexicana",
       "longDescription": "Today's top m\u00fasica Mexicana artists in Banda, Norte\u00f1o, Mariachi, Rancheras, Sierre\u00f1o, Grupero and Cumbia. The traditional sounds of Mexico, iconic and new!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Aguila.jpg"
@@ -811,7 +811,7 @@
       "number": 154,
       "name": "En Vivo",
       "deeplink": "envivo",
-      "url": "https://www.siriusxm.ca/channels/en-vivo/?intcmp=EnVivo_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/en-vivo/",
       "shortDescription": "Where music is born",
       "longDescription": "Where music is born! En Vivo is the official satellite radio channel of the Latin Grammys, bringing the best in live entertainment and new music.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-En-Vivo.jpg"
@@ -820,7 +820,7 @@
       "number": 155,
       "name": "Latin Vault",
       "deeplink": "latinvault",
-      "url": "https://www.siriusxm.ca/channels/latin-vault/?intcmp=LatinVault_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/latin-vault/",
       "shortDescription": "Latin sounds of yesterday",
       "longDescription": "Revisit the sounds and rich history of music pioneers from the 50\u2019s, 60\u2019s, 70\u2019s, and early 80\u2019s the decades that shaped the Latin music landscape as it is today.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Latin-Vault.jpg"
@@ -829,7 +829,7 @@
       "number": 163,
       "name": "Attitude Franco",
       "deeplink": "attitudefranco",
-      "url": "https://www.siriusxm.ca/channels/attitude-franco/?intcmp=AttitudeFranco_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/attitude-franco/",
       "shortDescription": "Everything in French rock",
       "longDescription": "All the rock attitude, whether commercial or alternative. From sacred icons like Offenbach and Corbeau to newcomers Corridor and Gazoline, if it\u2019s French rock, you\u2019ll hear it here!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Attitude-Franco.jpg"
@@ -838,7 +838,7 @@
       "number": 164,
       "name": "Mixtape: North",
       "deeplink": "mixtapenorth",
-      "url": "https://www.siriusxm.ca/channels/mixtape-north/?intcmp=MixtapeNorth_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/mixtape-north/",
       "shortDescription": "Canadian hip-hop",
       "longDescription": "Playing the newest hits from Drake and Jessie Reyez to classic throwbacks from Kardinal Offishall and K-OS to the hottest emerging voices from the Canadian underground. Mixtape: North is the dopest mix of hip-hop and R&B.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Mixtape-North.jpg"
@@ -847,7 +847,7 @@
       "number": 166,
       "name": "Racines Musicales",
       "deeplink": "racinesmusicales",
-      "url": "https://www.siriusxm.ca/channels/racines-musicales/?intcmp=RacinesMusicales_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/racines-musicales/",
       "shortDescription": "Homegrown music from the heart",
       "longDescription": "Be it Marcel Martel or Marie King, Lisa Leblanc or Elisapie, Les Soeurs Boulay or Kain, French Canada\u2019s rich history of homegrown music is to be found on Racines Musicales. Songs that come from the heart, by French and Indigenous artists. If it\u2019s Country, Folk, Cajun or Traditional music, you\u2019ll hear it here!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Racines-Musicales.jpg"
@@ -856,7 +856,7 @@
       "number": 171,
       "name": "Top of the Country Radio",
       "deeplink": "topofthecountryradio",
-      "url": "https://www.siriusxm.ca/channels/top-of-the-country-radio/?intcmp=TopoftheCountryRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/top-of-the-country-radio/",
       "shortDescription": "Country from across Canada",
       "longDescription": "The rich history of Canadian Country music finally has a home on Top of The Country Radio. A perfect blend of the songs you know and love from the \u201890s and 2000s all the way to emerging country superstars you\u2019re about to fall for. You\u2019ll hear Dallas Smith, Megan Patrick, Tenille Townes, Tim Hicks, Shania Twain and many more!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Top-of-the-Country-Radio.jpg"
@@ -865,7 +865,7 @@
       "number": 173,
       "name": "The Verge",
       "deeplink": "theverge",
-      "url": "https://www.siriusxm.ca/channels/the-verge/?intcmp=TheVerge_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/the-verge/",
       "shortDescription": "New & emerging alternative",
       "longDescription": "Discover new and emerging Canadian Indie & Alternative artists. Learn more about new artists through live in-studio performances, exclusive concerts broadcast live to air & more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-The-Verge.jpg"
@@ -874,7 +874,7 @@
       "number": 174,
       "name": "Influence Franco",
       "deeplink": "influencefranco",
-      "url": "https://www.siriusxm.ca/channels/influence-franco/?intcmp=InfluenceFranco_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/influence-franco/",
       "shortDescription": "French hip-hop and urban pop",
       "longDescription": "Discover brand new and emerging French music discoveries from Canada, through new studio releases and live concert recordings.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Influence-Franco.jpg"
@@ -883,7 +883,7 @@
       "number": 301,
       "name": "Road Trip Radio",
       "deeplink": "roadtripradio",
-      "url": "https://www.siriusxm.ca/channels/road-trip-radio/?intcmp=RoadTripRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/road-trip-radio/",
       "shortDescription": "Driving jams and singalongs",
       "longDescription": "Roll your windows down and turn the music up! A hand-selected mix of driving jams and singalongs as unpredictable as your journey. Hear all the music from the last 60 years sure to please everyone in the car!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Road-Trip-Radio.jpg"
@@ -892,7 +892,7 @@
       "number": 302,
       "name": "Andy Cohen\u2019s Kiki Lounge",
       "deeplink": "andycohenskikilounge",
-      "url": "https://www.siriusxm.ca/channels/andy-cohens-kiki-lounge/?intcmp=AndyCohensKikiLounge_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/andy-cohens-kiki-lounge/",
       "shortDescription": "Songs Andy Cohen loves",
       "longDescription": "Late night talk show host, Andy Cohen, invites you to his Kiki Lounge to discover songs you may not know from artists he loves. Hear a personally crafted mix of music from Andy that he loves to chill with \u2013 and party to. And every night\u2019s a vibe with a different set from a DJ Andy loves.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Andy-Cohens-Kiki-Lounge.jpg"
@@ -901,7 +901,7 @@
       "number": 305,
       "name": "Mosaic",
       "deeplink": "mosaic",
-      "url": "https://www.siriusxm.ca/channels/mosaic/?intcmp=Mosaic_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/mosaic/",
       "shortDescription": "Relaxing 90s & 2000s pop",
       "longDescription": "A colourful and diverse pop music collage from the 90s & 2000s featuring P!nk, Bruno Mars, Adele, Matchbox Twenty, Kelly Clarkson, Goo Goo Dolls, Gwen Stefani, Hootie & The Blowfish, Lady Gaga and more! From the office to your car or couch, you\u2019ll hear a never-ending variety of musical patterns and patchwork that form the most unique pop music mosaic!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Mosaic.jpg"
