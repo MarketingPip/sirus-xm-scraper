@@ -3,131 +3,131 @@
     "total": 50,
     "with_api": 0,
     "with_key": 25,
-    "scraped_at": "2026-08-17T01:41:21Z"
+    "scraped_at": "2026-08-17T01:50:55Z"
   },
   "channels": [
     {
       "channel_number": 2,
       "name": "SiriusXM Hits 1",
       "slug": "siriusxm-hits-1",
-      "url": "https://www.siriusxm.ca/channels/siriusxm-hits-1/?intcmp=SiriusXMHits1_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/siriusxm-hits-1/",
       "subheadline": "Pop hits, now to next",
       "description": "Today's hits, now to next, from pop to hip-hop, rock, rhythm, country and R&B! Featuring The Morning Mash Up with Ryan & Nicole, Mack & Jen middays, Tony Fly & Symon afternoons and Mikey Piff evenings with Spyder Harrison and the HITS 1 Weekend Countdown.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-SiriusXM-Hits-1.jpg",
-      "deep_link": "https://sxm.app.link/FbuDBJi3nFb?intcmp=ListenlivetoSiriusXMHits1_CAchannelguideEN_FbuDBJi3nFb"
+      "deep_link": "https://sxm.app.link/FbuDBJi3nFb"
     },
     {
       "channel_number": 3,
       "name": "Unwell Music",
       "slug": "unwell-music",
-      "url": "https://www.siriusxm.ca/channels/unwell-music/?intcmp=UnwellMusic_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/unwell-music/",
       "subheadline": "Alex Cooper's faves",
       "description": "A music experience curated by Call Her Daddy host and Unwell founder Alex Cooper, featuring nostalgic throwbacks and trending hits along with stories from Alex and other Unwell hosts - a soundtrack that delivers the main character energy you deserve!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Unwell-Music.jpg",
-      "deep_link": "https://sxm.app.link/b1rTxu9qNQb?intcmp=ListenlivetoUnwellMusic_CAchannelguideEN_b1rTxu9qNQb",
+      "deep_link": "https://sxm.app.link/b1rTxu9qNQb",
       "channel_key": "9663"
     },
     {
       "channel_number": 4,
       "name": "Life With John Mayer",
       "slug": "life-with-john-mayer",
-      "url": "https://www.siriusxm.ca/channels/life-with-john-mayer/?intcmp=LifeWithJohnMayer_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/life-with-john-mayer/",
       "subheadline": "The ever-changing playlist",
       "description": "A music experience hand-selected by John Mayer. The guitarist and songwriter finally realizes his dream of a radio station defined not by genre, but by the time of day, as well as the day of the week. Enter an ever-evolving world of music built from his classics, collaborations and never-before-heard material blended with the songs he loves. Don\u2019t just tune into SiriusXM. Tune into life... with John Mayer.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Life-with-John-Mayer.jpg",
-      "deep_link": "https://sxm.app.link/pxO2HKi3nFb?intcmp=ListenlivetoLifeWithJohnMayer_CAchannelguideEN_pxO2HKi3nFb",
+      "deep_link": "https://sxm.app.link/pxO2HKi3nFb",
       "channel_key": "9614"
     },
     {
       "channel_number": 5,
       "name": "The Pulse",
       "slug": "the-pulse",
-      "url": "https://www.siriusxm.ca/channels/the-pulse/?intcmp=ThePulse_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/the-pulse/",
       "subheadline": "Today's pop music",
       "description": "Today's pop music keeping you company through your day. Hear the hits, throwbacks and fresh sounds Taylor Swift, Ed Sheeran, OneRepublic, Ariana Grande and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2020/05/Listing-The-Pulse.jpg",
-      "deep_link": "https://sxm.app.link/IfCeTJi3nFb?intcmp=ListenlivetoThePulse_CAchannelguideEN_IfCeTJi3nFb"
+      "deep_link": "https://sxm.app.link/IfCeTJi3nFb"
     },
     {
       "channel_number": 6,
       "name": "PopRocks",
       "slug": "poprocks",
-      "url": "https://www.siriusxm.ca/channels/poprocks/?intcmp=PopRocks_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/poprocks/",
       "subheadline": "90s & 2000s pop/rock hits",
       "description": "The greatest pop/rock anthems from the 90s and 2000s are on PopRocks! You'll hear favourites from Green Day, No Doubt, Maroon 5, Alanis Morissette & more - plus new music on Fresh Popped Fridays. Hosted by Karen Carson, Kat Corbett, and Julia Cunningham.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Pop-Rocks.jpg",
-      "deep_link": "https://sxm.app.link/96MtZJi3nFb?intcmp=ListenlivetoPopRocks_CAchannelguideEN_96MtZJi3nFb",
+      "deep_link": "https://sxm.app.link/96MtZJi3nFb",
       "channel_key": "9450"
     },
     {
       "channel_number": 7,
       "name": "70s on 7",
       "slug": "70s-on-7",
-      "url": "https://www.siriusxm.ca/channels/70s-on-7/?intcmp=70son7_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/70s-on-7/",
       "subheadline": "The biggest & best 70s pop",
       "description": "Slip on your bell bottoms and light a lava lamp! It's the super 70s with DJs who boogie down and spin 45 rpm records. Polyester outfits, pet rocks, CB radios and disco from a galaxy far, far away! Far out, man!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-70s-on-7.jpg",
-      "deep_link": "https://sxm.app.link/sIL94Ji3nFb?intcmp=Listenliveto70son7_CAchannelguideEN_sIL94Ji3nFb"
+      "deep_link": "https://sxm.app.link/sIL94Ji3nFb"
     },
     {
       "channel_number": 8,
       "name": "80s on 8",
       "slug": "80s-on-8",
-      "url": "https://www.siriusxm.ca/channels/80s-on-8/?intcmp=80son8_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/80s-on-8/",
       "subheadline": "Pop hits from the MTV era",
       "description": "80s pop hits from the MTV era! The decade when greed was good, hair was high and everyone learned what a music video was. Prince, Wham!, Madonna, Michael Jackson, Cyndi Lauper and Journey! They're all here and so are the original MTV VJs.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-80s-on-8.jpg",
-      "deep_link": "https://sxm.app.link/XHxGbKi3nFb?intcmp=Listenliveto80son8_CAchannelguideEN_XHxGbKi3nFb"
+      "deep_link": "https://sxm.app.link/XHxGbKi3nFb"
     },
     {
       "channel_number": 9,
       "name": "90s on 9",
       "slug": "90s-on-9",
-      "url": "https://www.siriusxm.ca/channels/90s-on-9/?intcmp=90son9_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/90s-on-9/",
       "subheadline": "Pop hits from the 90s",
       "description": "If it was 'all that' in the 90s, it's on 90s on 9. Get jiggy with the hottest 90s music from boy bands to pop queens, grunge rock, hip-hop and R&B with artists like Mariah Carey, Backstreet Boys, TLC, Green Day, Alanis Morissette, Boyz II Men, Aerosmith, Britney Spears and more. Hosted by legendary personalities Downtown Julie Brown & Spyder Harrison, singer/songwriter Lisa Loeb and Sugar Ray's Mark McGrath.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-90s-on-9.jpg",
-      "deep_link": "https://sxm.app.link/MljDjKi3nFb?intcmp=Listenliveto90son9_CAchannelguideEN_MljDjKi3nFb",
+      "deep_link": "https://sxm.app.link/MljDjKi3nFb",
       "channel_key": "8206"
     },
     {
       "channel_number": 10,
       "name": "Pop2K",
       "slug": "pop2k",
-      "url": "https://www.siriusxm.ca/channels/pop2k/?intcmp=Pop2K_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/pop2k/",
       "subheadline": "2000s pop hits",
       "description": "It\u2019s the hits from the 2000s that hit you right in the memories. Hear Justin Timberlake, Maroon 5, Nelly, Nickelback and all the songs you have a story about.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Pop2K.jpg",
-      "deep_link": "https://sxm.app.link/PqTaoKi3nFb?intcmp=ListenlivetoPop2K_CAchannelguideEN_PqTaoKi3nFb",
+      "deep_link": "https://sxm.app.link/PqTaoKi3nFb",
       "channel_key": "8208"
     },
     {
       "channel_number": 11,
       "name": "The 10s Spot",
       "slug": "the-10s-spot",
-      "url": "https://www.siriusxm.ca/channels/the-10s-spot/?intcmp=The10sSpot_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/the-10s-spot/",
       "subheadline": "2010s pop hits",
       "description": "Perfect 10s all day, every day! Hits from the 2010s decade including Taylor Swift to Drake, Fall Out Boy, Lady Gaga, Justin Timberlake, Adele, Coldplay, Rihanna and more! A definitive community bonded by emoji's, social media and 10s pop hits! We're not stuck in the 10s, we like it here!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-The-10-Spot.jpg",
-      "deep_link": "https://sxm.app.link/SvtIsKi3nFb?intcmp=ListenlivetoThe10sSpot_CAchannelguideEN_SvtIsKi3nFb",
+      "deep_link": "https://sxm.app.link/SvtIsKi3nFb",
       "channel_key": "9556"
     },
     {
       "channel_number": 12,
       "name": "Kelly Clarkson Connection",
       "slug": "kelly-clarkson-connection",
-      "url": "https://www.siriusxm.ca/channels/kelly-clarkson-connection/?intcmp=KellyClarksonConnection_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/kelly-clarkson-connection/",
       "subheadline": "Kelly\u2019s handpicked faves",
       "description": "The Kelly Clarkson universe hits the airwaves with The Kelly Clarkson Connection! Make yourself comfortable in Kelly's world - you'll be surrounded by the music she loves, music she's inspired by and the stories behind the songs in Kelly's two-decade long catalog of award-winning hits. Experience the chemistry of The Kelly Clarkson Connection!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Kelly-Clarksons-Connecton.jpg",
-      "deep_link": "https://sxm.app.link/b7royKi3nFb?intcmp=ListenlivetoKellyClarksonConnection_CAchannelguideEN_b7royKi3nFb",
+      "deep_link": "https://sxm.app.link/b7royKi3nFb",
       "channel_key": "9608"
     },
     {
       "channel_number": 13,
       "name": "Pitbull\u2019s Globalization",
       "slug": "pitbulls-globalization",
-      "url": "https://www.siriusxm.ca/channels/pitbulls-globalization/?intcmp=PitbullsGlobalization_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/pitbulls-globalization/",
       "subheadline": "Worldwide Rhythmic Hits",
       "description": "Open format club DJs dropping the biggest hits from all genres around the world. From POP, to Hip-Hop, to Latin & Dance.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Pitbulls-Globalization.jpg",
@@ -221,7 +221,7 @@
       "channel_number": 22,
       "name": "Pearl Jam Radio",
       "slug": "pearl-jam-radio",
-      "url": "https://www.siriusxm.ca/channels/pearl-jam-radio/",
+      "url": "https://www.siriusxm.ca/channels/pearl-jam-radio/?intcmp=PearlJamRadio_CAchannelguideEN",
       "subheadline": "Pearl Jam, 24/7",
       "description": "Listen to music spanning Pearl Jam's career on their own SiriusXM channel. On Pearl Jam Radio, you'll hear studio tracks, b-sides, and concert recordings from the Pearl Jam vault.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Pearl-Jam-Radio.jpg",
@@ -326,11 +326,11 @@
       "channel_number": 32,
       "name": "U2 X \u2013 Radio",
       "slug": "u2-x-radio",
-      "url": "https://www.siriusxm.ca/channels/u2-x-radio/",
+      "url": "https://www.siriusxm.ca/channels/u2-x-radio/?intcmp=U2XRadio_CAchannelguideEN",
       "subheadline": "The whole world of U2",
       "description": "This is U2. This is radio. This is U2 X-RADIO. Featuring the songs of a band from the Northside of Dublin. A complete immersion into the music of Bono, The Edge, Larry Mullen and Adam Clayton. The band\u2019s history, idols, influences and current passions. Plus inspiration, conversation, culture, commentary and ideas. U2 X-Radio will introduce listeners to old friends and new stories; as well as artists, writers, thinkers and activists who are changing the world. All curated by U2.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-U2-X-Radio.jpg",
-      "deep_link": "https://sxm.app.link/TfgT8Li3nFb",
+      "deep_link": "https://sxm.app.link/TfgT8Li3nFb?intcmp=ListenlivetoU2XRadio_CAchannelguideEN_TfgT8Li3nFb",
       "channel_key": "9507"
     },
     {
@@ -398,64 +398,64 @@
       "channel_number": 39,
       "name": "Hair Nation",
       "slug": "hair-nation",
-      "url": "https://www.siriusxm.ca/channels/hair-nation/?intcmp=HairNation_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/hair-nation/",
       "subheadline": "80s hair metal & glam",
       "description": "Cruise the Sunset Strip with music from the hard rock masters of the '80s. Big hair, big guitars. Put your spandex on and feel the noise from Motley Crue, Poison, Skid Row, Bon Jovi and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Hair-Nation.jpg",
-      "deep_link": "https://sxm.app.link/2s6CMMi3nFb?intcmp=ListenlivetoHairNation_CAchannelguideEN_2s6CMMi3nFb"
+      "deep_link": "https://sxm.app.link/2s6CMMi3nFb"
     },
     {
       "channel_number": 40,
       "name": "Liquid Metal",
       "slug": "liquid-metal",
-      "url": "https://www.siriusxm.ca/channels/liquid-metal/?intcmp=LiquidMetal_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/liquid-metal/",
       "subheadline": "Heavy metal",
       "description": "Finally, a heavy metal lifestyle radio station for true metalheads blasting out the heaviest metal from the masters that created it to the ones that are perfecting it today. Pantera, Slayer, Metallica, Lamb Of God, Slipknot, Gojira, Spiritbox, Megadeth, Lorna Shore, Anthrax and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Liquid-Metal.jpg",
-      "deep_link": "https://sxm.app.link/hWt1RMi3nFb?intcmp=ListenlivetoLiquidMetal_CAchannelguideEN_hWt1RMi3nFb"
+      "deep_link": "https://sxm.app.link/hWt1RMi3nFb"
     },
     {
       "channel_number": 41,
       "name": "SiriusXM Turbo",
       "slug": "siriusxm-turbo",
-      "url": "https://www.siriusxm.ca/channels/siriusxm-turbo/?intcmp=SiriusXMTurbo_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/siriusxm-turbo/",
       "subheadline": "90s/2000s hard rock",
       "description": "90s and 2000s hard rock from Metallica, KoRn, Godsmack, Disturbed, Linkin Park and more!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-SiriusXM-Turbo.jpg",
-      "deep_link": "https://sxm.app.link/gTshWMi3nFb?intcmp=ListenlivetoSiriusXMTurbo_CAchannelguideEN_gTshWMi3nFb",
+      "deep_link": "https://sxm.app.link/gTshWMi3nFb",
       "channel_key": "9413"
     },
     {
       "channel_number": 42,
       "name": "Maximum Metallica",
       "slug": "maximum-metallica",
-      "url": "https://www.siriusxm.ca/channels/maximum-metallica/?intcmp=MaximumMetallica_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/maximum-metallica/",
       "subheadline": "Metallica, 24/7",
       "description": "Ride the lightning 24/7 through Metallica's heaviest hits, rare tracks, epic live concerts, unfiltered stories, and fan-fueled fire! The Metallica family unites here, louder, faster, and heavier than ever. The most Metallica anywhere!",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Maximum-Metallica.jpg",
-      "deep_link": "https://sxm.app.link/B5NsynZXNVb?intcmp=ListenlivetoMaximumMetallica_CAchannelguideEN_B5NsynZXNVb",
+      "deep_link": "https://sxm.app.link/B5NsynZXNVb",
       "channel_key": "9669"
     },
     {
       "channel_number": 43,
       "name": "LL COOL J\u2019s Rock The Bells Radio",
       "slug": "rock-the-bells-radio",
-      "url": "https://www.siriusxm.ca/channels/rock-the-bells-radio/?intcmp=LLCOOLJsRockTheBellsRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/rock-the-bells-radio/",
       "subheadline": "Timeless hip-hop",
       "description": "LL COOL J's Rock The Bells Radio is a channel dedicated exclusively to hip-hop fans who want that classic and timeless hip-hop sound! Launched in 2018 by LL COOL J, Rock The Bells Radio focuses on music, artist hosted shows, exclusive DJ mixes, interviews and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-LL-COOL-Js-Rock-the-Bells-Radio.jpg",
-      "deep_link": "https://sxm.app.link/GHCM6Mi3nFb?intcmp=ListenlivetoLLCOOLJsRockTheBellsRadio_CAchannelguideEN_GHCM6Mi3nFb",
+      "deep_link": "https://sxm.app.link/GHCM6Mi3nFb",
       "channel_key": "9471"
     },
     {
       "channel_number": 44,
       "name": "Hip-Hop Nation",
       "slug": "hip-hop-nation",
-      "url": "https://www.siriusxm.ca/channels/hip-hop-nation/?intcmp=HipHopNation_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/hip-hop-nation/",
       "subheadline": "Hip-hop hits",
       "description": "Hip-Hop Nation is the sound of the culture where you'll hear artists like Kendrick Lamar, J. Cole, 21 Savage, Cardi B., GloRilla and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Hip-Hop-Nation.jpg",
-      "deep_link": "https://sxm.app.link/Va0acNi3nFb?intcmp=ListenlivetoHipHopNation_CAchannelguideEN_Va0acNi3nFb"
+      "deep_link": "https://sxm.app.link/Va0acNi3nFb"
     },
     {
       "channel_number": 45,
