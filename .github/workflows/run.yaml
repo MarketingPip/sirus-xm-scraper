@@ -23,7 +23,7 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: python scrapeChannels.py
+        run: python scrapeChannels.py --skip-api
         
       - name: Commit and Push The Results From Python Selenium Action
         run: |
