@@ -57,7 +57,7 @@ CHANNEL_BASE_URL = "https://www.siriusxm.ca/channels/{slug}/"
 MOUNTAIN_API_URL = "https://www.siriusxm.com/servlet/Satellite"
 MOUNTAIN_API_PARAMS = {"pagename": "SXM/Services/MountainWrapper"}
 
-API_BATCH_SIZE = 20
+API_BATCH_SIZE = 10
 KEY_WORKERS = 10
 API_WORKERS = 20
 GUIDE_SCROLL_TIMEOUT = 90
