@@ -479,8 +479,8 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
                 batch_result = future.result()
                 for cid, api_data in batch_result.items():
                     for idx in id_to_indices.get(cid, []):
-                        # Apply API data directly onto the channel dictionary object
                         if isinstance(api_data, dict):
+                            # Unpack API fields directly onto the channel dictionary
                             channels[idx].update(api_data)
                         channels[idx]["mountain_wrapper_id"] = cid
                         working += 1
@@ -564,7 +564,7 @@ Examples:
     output = {
         "metadata": {
             "total": len(channels),
-            "with_api": sum(1 for c in channels if any(k not in ["channel_number", "name", "slug", "url", "subheadline", "description", "image", "deep_link", "channel_key", "mountain_wrapper_id"] for k in c)),
+            "with_api": sum(1 for c in channels if "mountain_wrapper_id" in c),
             "with_key": sum(1 for c in channels if c.get("channel_key")),
             "scraped_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         },
