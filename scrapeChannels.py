@@ -1,19 +1,6 @@
 #!/usr/bin/env python3
 """
 SiriusXM Channel Guide Scraper - HIGH PERFORMANCE VERSION
-
-Optimizations over the original:
-1.  requests-first guide scrape (falls back to Selenium only if the page
-    is JS-rendered / infinite-scroll).
-2.  BeautifulSoup (lxml) for ALL HTML parsing instead of thousands of
-    slow Selenium DOM queries.
-3.  ThreadPoolExecutor for parallel channel-key fetching (replaces the
-    second Selenium session entirely).
-4.  ThreadPoolExecutor for parallel API batch testing.
-5.  requests.Session with connection pooling, keep-alive, and retries.
-6.  Proper logging, CLI args, and optional tqdm progress bars.
-
-Typical speed-up: 20-60x depending on channel count.
 """
 
 import argparse
@@ -33,7 +20,6 @@ from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# Selenium is now OPTIONAL – only used if requests can't render the guide
 try:
     from selenium import webdriver
     from selenium.webdriver.chrome.options import Options
@@ -41,20 +27,20 @@ try:
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
     HAS_SELENIUM = True
-except ImportError:  # pragma: no cover
+except ImportError:
     HAS_SELENIUM = False
 
 try:
     from tqdm import tqdm
     HAS_TQDM = True
-except ImportError:  # pragma: no cover
+except ImportError:
     HAS_TQDM = False
 
 try:
     import lxml
     PARSER = "lxml"
     HAS_LXML = True
-except ImportError:  # pragma: no cover
+except ImportError:
     PARSER = "html.parser"
     HAS_LXML = False
 
@@ -66,10 +52,10 @@ CHANNEL_BASE_URL = "https://www.siriusxm.ca/channels/{slug}/"
 MOUNTAIN_API_URL = "https://www.siriusxm.com/servlet/Satellite"
 MOUNTAIN_API_PARAMS = {"pagename": "SXM/Services/MountainWrapper"}
 
-API_BATCH_SIZE = 20          # larger batches = fewer HTTP round-trips
-KEY_WORKERS = 10             # be polite to the channel detail pages
-API_WORKERS = 20             # MountainWrapper can handle more concurrency
-GUIDE_SCROLL_TIMEOUT = 60    # seconds
+API_BATCH_SIZE = 20
+KEY_WORKERS = 10
+API_WORKERS = 20
+GUIDE_SCROLL_TIMEOUT = 90
 
 KEY_PATTERNS = [
     re.compile(r'channel_keys\s*:\s*["\']?(\d+)["\']?', re.I),
@@ -91,14 +77,13 @@ def setup_logging(verbose: bool = False) -> logging.Logger:
 
 
 # ---------------------------------------------------------------------------
-# HTTP Session factory (connection pooling + retries)
+# HTTP Session factory
 # ---------------------------------------------------------------------------
 def create_session(
     pool_size: int = 20,
     retries: int = 3,
     backoff: float = 0.5,
 ) -> requests.Session:
-    """Return a requests.Session tuned for high-concurrency scraping."""
     session = requests.Session()
     session.headers.update({
         "User-Agent": (
@@ -106,10 +91,7 @@ def create_session(
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/120.0.0.0 Safari/537.36"
         ),
-        "Accept": (
-            "text/html,application/xhtml+xml,application/xml;"
-            "q=0.9,image/avif,image/webp,*/*;q=0.8"
-        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.5",
         "Accept-Encoding": "gzip, deflate, br",
         "DNT": "1",
@@ -145,10 +127,6 @@ def extract_slug(url: str) -> Optional[str]:
 
 
 def parse_guide_html(html: str) -> List[Dict]:
-    """
-    Parse the guide page with BeautifulSoup.
-    This is 10-50× faster than Selenium find_element() loops.
-    """
     soup = BeautifulSoup(html, PARSER)
     cards = soup.find_all(class_="cg-card")
     channels: List[Dict] = []
@@ -209,17 +187,12 @@ def parse_guide_html(html: str) -> List[Dict]:
 
 
 # ---------------------------------------------------------------------------
-# Phase 1 – Guide scraping
+# Phase 1 - Guide scraping
 # ---------------------------------------------------------------------------
 def try_requests_guide(
     session: requests.Session,
     logger: logging.Logger,
 ) -> Optional[List[Dict]]:
-    """
-    Attempt to fetch the guide with plain requests.
-    If the site serves a static skeleton or blocks us, return None
-    so the caller can fall back to Selenium.
-    """
     logger.info("Attempting requests-only guide fetch...")
     try:
         resp = session.get(GUIDE_URL, timeout=30)
@@ -242,7 +215,6 @@ def try_requests_guide(
 
 
 def setup_driver() -> webdriver.Chrome:
-    """Configure a lean headless Chrome instance."""
     opts = Options()
     opts.add_argument("--headless=new")
     opts.add_argument("--no-sandbox")
@@ -282,36 +254,53 @@ def scroll_to_bottom_fast(
     max_wait_sec: int = GUIDE_SCROLL_TIMEOUT,
     logger: Optional[logging.Logger] = None,
 ) -> Dict:
-    """Promise-based scroll loop (slightly faster settle time)."""
+    """
+    Scroll the page by stepping through viewport heights.
+    This triggers IntersectionObserver-based lazy loaders that
+    only fire when elements enter the viewport.
+    """
     start = time.time()
     result = driver.execute_script(
         """
         return new Promise((resolve) => {
-            let stable = 0;
+            let lastCardCount = 0;
+            let stableCount = 0;
             const t0 = Date.now();
+            const maxWait = """ + str(max_wait_sec * 1000) + """;
+            const viewportH = window.innerHeight;
+            let currentY = 0;
+
             const tick = () => {
-                const h = document.body.scrollHeight;
-                window.scrollTo(0, h);
+                // Step down by 80% of viewport to ensure overlap
+                currentY += Math.floor(viewportH * 0.8);
+                window.scrollTo(0, currentY);
+
                 setTimeout(() => {
                     const newH = document.body.scrollHeight;
-                    const elapsed = Date.now() - t0;
                     const cards = document.querySelectorAll('.cg-card').length;
-                    if (newH === h) {
-                        stable++;
-                        if (stable >= 2) {
+                    const elapsed = Date.now() - t0;
+
+                    if (cards === lastCardCount) {
+                        stableCount++;
+                        // Need more stable ticks because lazy-load has delay
+                        if (stableCount >= 5) {
                             resolve({done:true, height:newH, ms:elapsed, cards:cards});
                             return;
                         }
                     } else {
-                        stable = 0;
+                        lastCardCount = cards;
+                        stableCount = 0;
                     }
-                    if (elapsed > """ + str(max_wait_sec * 1000) + """) {
+
+                    if (elapsed > maxWait) {
                         resolve({done:false, height:newH, ms:elapsed, cards:cards});
                         return;
                     }
+
                     tick();
-                }, 250);
+                }, 600);
             };
+
             tick();
         });
         """
@@ -326,7 +315,6 @@ def scroll_to_bottom_fast(
 
 
 def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
-    """Load the guide in Chrome, scroll to bottom, then parse with BS4."""
     logger.info("Falling back to Selenium for guide scraping")
     driver = setup_driver()
     try:
@@ -336,11 +324,10 @@ def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
         WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".cg-card"))
         )
-        logger.info("Initial cards rendered – starting infinite scroll...")
+        logger.info("Initial cards rendered - starting infinite scroll...")
 
         scroll_to_bottom_fast(driver, logger=logger)
 
-        # Dump the fully-rendered DOM once and parse offline
         logger.info("Parsing DOM with BeautifulSoup...")
         channels = parse_guide_html(driver.page_source)
         logger.info(f"Extracted {len(channels)} channels")
@@ -354,7 +341,6 @@ def scrape_guide_selenium(logger: logging.Logger) -> List[Dict]:
 
 
 def scrape_guide(logger: logging.Logger) -> List[Dict]:
-    """Try requests first; fall back to Selenium if needed."""
     session = create_session()
     channels = try_requests_guide(session, logger)
     if channels is not None:
@@ -366,14 +352,13 @@ def scrape_guide(logger: logging.Logger) -> List[Dict]:
 
 
 # ---------------------------------------------------------------------------
-# Phase 2 – Channel keys (parallel requests, NO Selenium)
+# Phase 2 - Channel keys (parallel requests, NO Selenium)
 # ---------------------------------------------------------------------------
 def fetch_single_key(
     session: requests.Session,
     slug: str,
     logger: logging.Logger,
 ) -> Optional[str]:
-    """Fetch one channel page and regex out the numeric key."""
     if not slug:
         return None
     url = CHANNEL_BASE_URL.format(slug=slug)
@@ -398,7 +383,6 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     total = len(channels)
     logger.info(f"Fetching keys for {total} channels ({KEY_WORKERS} workers)...")
 
-    # Slug may repeat; dedupe to avoid redundant HTTP requests
     slug_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
         slug = ch.get("slug")
@@ -437,14 +421,13 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 
 
 # ---------------------------------------------------------------------------
-# Phase 3 – MountainWrapper API testing (parallel batches)
+# Phase 3 - MountainWrapper API testing (parallel batches)
 # ---------------------------------------------------------------------------
 def test_api_batch(
     session: requests.Session,
     batch: List[str],
     logger: logging.Logger,
 ) -> Dict[str, Dict]:
-    """Query MountainWrapper with a comma-separated list of IDs."""
     ids_param = ",".join(str(x) for x in batch)
     params = {**MOUNTAIN_API_PARAMS, "channels": ids_param}
     try:
@@ -462,7 +445,6 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     if not channels:
         return channels
 
-    # Map every testable ID back to the channel record(s) that own it
     id_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
         cid = ch.get("channel_key") or ch.get("slug")
@@ -538,10 +520,7 @@ Examples:
     )
     parser.add_argument(
         "-w", "--workers", type=int, default=0,
-        help=(
-            "Max thread workers (0 = auto: 10 for keys, 20 for API). "
-            "Lower this if you hit rate-limits."
-        ),
+        help="Max thread workers (0 = auto). Lower if you hit rate-limits.",
     )
     parser.add_argument(
         "-v", "--verbose", action="store_true",
@@ -551,7 +530,6 @@ Examples:
 
     logger = setup_logging(args.verbose)
 
-    # Allow CLI override of worker counts
     global KEY_WORKERS, API_WORKERS
     if args.workers > 0:
         KEY_WORKERS = args.workers
@@ -566,7 +544,6 @@ Examples:
     logger.info(f"  api workers : {API_WORKERS}")
     logger.info("=" * 60)
 
-    # Phase 1 – Guide
     if args.force_selenium:
         if not HAS_SELENIUM:
             logger.error("--force-selenium requested but selenium is not installed")
@@ -580,15 +557,12 @@ Examples:
         sys.exit(1)
     logger.info(f"Guide scrape complete: {len(channels)} channels")
 
-    # Phase 2 – Keys
     if not args.skip_keys:
         channels = fetch_keys(channels, logger)
 
-    # Phase 3 – API
     if not args.skip_api:
         channels = test_api(channels, logger)
 
-    # Serialize
     output = {
         "metadata": {
             "total": len(channels),
@@ -603,7 +577,7 @@ Examples:
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2)
 
-    logger.info(f"Saved {len(channels)} channels → {out_path.resolve()}")
+    logger.info(f"Saved {len(channels)} channels -> {out_path.resolve()}")
     print("--- Sample ---")
     for c in channels[:5]:
         print(
