@@ -428,24 +428,27 @@ def fetch_keys(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
 def test_api_batch(session, batch, logger):
     ids_param = ",".join(str(x) for x in batch)
     params = {**MOUNTAIN_API_PARAMS, "channels": ids_param}
-
     try:
         resp = session.get(MOUNTAIN_API_URL, params=params, timeout=15)
         logger.info(f"Status: {resp.status_code}, Len: {len(resp.text)}")
-
         if resp.status_code == 200:
             # Strip BOM if present, then parse manually (avoids resp.json()'s BOM blind spot)
             text = resp.content.decode("utf-8-sig")
             data = json.loads(text)
-
             ch_data = data.get("channels", {})
             logger.info(f"Batch result: {len(ch_data)} channels returned")
-            return {str(k): v for k, v in ch_data.items()}
+
+            # Only keep the genre field per channel
+            genre_only = {}
+            for cid, info in ch_data.items():
+                if isinstance(info, dict):
+                    genre_only[str(cid)] = {"genre": info.get("genreTitle")}
+
+            return genre_only
         else:
             logger.warning(f"API returned {resp.status_code}: {resp.text[:200]}")
     except Exception as exc:
         logger.error(f"API batch error: {exc}", exc_info=True)
-
     return {}
 
 
