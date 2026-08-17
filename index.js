@@ -105,8 +105,8 @@ async function searchYouTube(q, pageToken = ''){
 }
 async function getYouTubeURL(artist, song){
 const data = await searchYouTube(`${artist} - ${song}`);
-console.log(data)
-return console.log(await findTopicVideo(data.items, artist, song))
+ 
+return await findTopicVideo(data.items, artist, song)
   
 }
 async function getSongLinks(itunesId){
@@ -226,7 +226,7 @@ async function getSiriusXMChannels(channelIds) {
 // === USAGE EXAMPLES ===
 ////
 // Single channel
-const data = await getSiriusXMChannels('8208')
+const data = await getSiriusXMChannels('shade45')
  
  
 const channel = Object.values(data.channels ?? {})[0];
@@ -259,8 +259,8 @@ async function getCurrentSong(channelData) {
   };
   //console.log(data.title.replace(/\(\d{2}\)$/, ''))
  
-   const itunesData = await searchITunes(data.artist, data.title.replace(/\(\d{2}\)$/, ''), data.album)
-    console.log(data.title)
+   const itunesData = await searchITunes(data.artist || "", data.title?.replace(/\(\d{2}\)$/, '') || "", data.album || "")
+    
    data.title = itunesData[0].track.trackName
  //console.log(itunesData)
 
@@ -271,12 +271,22 @@ async function getCurrentSong(channelData) {
   data.times = getRealTimes(data.startTime, data.endsAt)
   
   
-  console.log(itunesData[0])
   
-  data.links = []
-   
- data.links.push(await getSongLinks(itunesData[0].track.trackId))
-  
+data.links = {}
+
+const youtube = await getYouTubeURL(
+  data.artist,
+  data.title.replace(/\(\d{2}\)$/, '')
+)
+
+if (youtube) {
+  data.links.youtube = youtube
+}
+
+Object.assign(
+  data.links,
+  await getSongLinks(itunesData[0].track.trackId)
+)
   //data.links.push({"itunes": itunesData.collectionViewUrl})
   
   return data;
