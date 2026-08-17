@@ -451,6 +451,11 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     if not channels:
         return channels
 
+    # Build both lookup indexes, mirroring the JS matching strategy
+    by_number: Dict[int, int] = {
+        ch["channel_number"]: i for i, ch in enumerate(channels)
+        if ch.get("channel_number") is not None
+    }
     id_to_indices: Dict[str, List[int]] = {}
     for i, ch in enumerate(channels):
         cid = ch.get("channel_key") or ch.get("slug")
@@ -458,20 +463,10 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
             id_to_indices.setdefault(str(cid), []).append(i)
 
     ids_to_test = list(id_to_indices.keys())
-    total_ids = len(ids_to_test)
-    logger.info(f"Testing {total_ids} IDs against MountainWrapper ({API_WORKERS} workers)...")
-
-    batches = [
-        ids_to_test[i : i + API_BATCH_SIZE]
-        for i in range(0, total_ids, API_BATCH_SIZE)
-    ]
+    batches = [ids_to_test[i:i + API_BATCH_SIZE] for i in range(0, len(ids_to_test), API_BATCH_SIZE)]
 
     session = create_session(pool_size=API_WORKERS)
     working = 0
-
-    iterable = batches
-    if HAS_TQDM:
-        iterable = tqdm(batches, desc="API", unit="batch", ncols=80)
 
     with ThreadPoolExecutor(max_workers=API_WORKERS) as ex:
         future_to_batch = {
@@ -482,10 +477,18 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
             try:
                 batch_result = future.result()
                 for cid, api_data in batch_result.items():
-                    for idx in id_to_indices.get(cid, []):
-                        if isinstance(api_data, dict):
-                            # Unpack API fields directly onto the channel dictionary
-                            channels[idx].update(api_data)
+                    if not isinstance(api_data, dict):
+                        continue
+
+                    # PRIMARY match: channel number embedded in the payload
+                    ch_num = api_data.get("siriuschannelnumber") or api_data.get("streamingChannelNumber")
+                    idx = by_number.get(ch_num) if ch_num is not None else None
+
+                    # FALLBACK: outer response key vs channel_key/slug
+                    indices = [idx] if idx is not None else id_to_indices.get(cid, [])
+
+                    for idx in indices:
+                        channels[idx].update(api_data)
                         channels[idx]["mountain_wrapper_id"] = cid
                         working += 1
             except Exception as exc:
