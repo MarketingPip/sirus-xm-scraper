@@ -1,9 +1,9 @@
 {
   "metadata": {
     "total": 170,
-    "with_api": 170,
+    "with_api": 169,
     "with_key": 170,
-    "scraped_at": "2026-08-17T05:04:44Z"
+    "scraped_at": "2026-08-17T05:14:31Z"
   },
   "channels": [
     {
@@ -17,6 +17,7 @@
       "deep_link": "https://sxm.app.link/FbuDBJi3nFb?intcmp=ListenlivetoSiriusXMHits1_CAchannelguideEN_FbuDBJi3nFb",
       "channel_key": "siriushits1",
       "genre": "Pop",
+      "uuid": "194adbca-34d6-cb94-b153-3488ee563308",
       "mountain_wrapper_id": "siriushits1"
     },
     {
@@ -30,6 +31,7 @@
       "deep_link": "https://sxm.app.link/b1rTxu9qNQb?intcmp=ListenlivetoUnwellMusic_CAchannelguideEN_b1rTxu9qNQb",
       "channel_key": "9663",
       "genre": "Pop",
+      "uuid": "98672b8b-d1ec-9286-7a7f-b829a617500b",
       "mountain_wrapper_id": "9663"
     },
     {
@@ -43,6 +45,7 @@
       "deep_link": "https://sxm.app.link/pxO2HKi3nFb?intcmp=ListenlivetoLifeWithJohnMayer_CAchannelguideEN_pxO2HKi3nFb",
       "channel_key": "9614",
       "genre": "Pop",
+      "uuid": "916d7bd2-33ad-2fac-5787-cc1865a499be",
       "mountain_wrapper_id": "9614"
     },
     {
@@ -56,6 +59,7 @@
       "deep_link": "https://sxm.app.link/IfCeTJi3nFb?intcmp=ListenlivetoThePulse_CAchannelguideEN_IfCeTJi3nFb",
       "channel_key": "thepulse",
       "genre": "Pop",
+      "uuid": "9e8d6f72-0b59-85cf-a222-b18d38acdc0f",
       "mountain_wrapper_id": "thepulse"
     },
     {
@@ -69,6 +73,7 @@
       "deep_link": "https://sxm.app.link/96MtZJi3nFb?intcmp=ListenlivetoPopRocks_CAchannelguideEN_96MtZJi3nFb",
       "channel_key": "9450",
       "genre": "Pop",
+      "uuid": "44f9129f-579a-3d23-218f-3c3518036fc6",
       "mountain_wrapper_id": "9450"
     },
     {
@@ -82,6 +87,7 @@
       "deep_link": "https://sxm.app.link/sIL94Ji3nFb?intcmp=Listenliveto70son7_CAchannelguideEN_sIL94Ji3nFb",
       "channel_key": "totally70s",
       "genre": "Pop",
+      "uuid": "95d4d8ef-55e4-8337-78f1-2fda944991d8",
       "mountain_wrapper_id": "totally70s"
     },
     {
@@ -95,6 +101,7 @@
       "deep_link": "https://sxm.app.link/XHxGbKi3nFb?intcmp=Listenliveto80son8_CAchannelguideEN_XHxGbKi3nFb",
       "channel_key": "big80s",
       "genre": "Pop",
+      "uuid": "2ea07147-a720-ed0c-d4ce-d7bddd1640d3",
       "mountain_wrapper_id": "big80s"
     },
     {
@@ -108,6 +115,7 @@
       "deep_link": "https://sxm.app.link/MljDjKi3nFb?intcmp=Listenliveto90son9_CAchannelguideEN_MljDjKi3nFb",
       "channel_key": "8206",
       "genre": "Pop",
+      "uuid": "c9256031-1123-f35f-4d49-1ba4d5379258",
       "mountain_wrapper_id": "8206"
     },
     {
@@ -121,6 +129,7 @@
       "deep_link": "https://sxm.app.link/PqTaoKi3nFb?intcmp=ListenlivetoPop2K_CAchannelguideEN_PqTaoKi3nFb",
       "channel_key": "8208",
       "genre": "Pop",
+      "uuid": "40c3d189-9611-e59f-5808-7847e294642e",
       "mountain_wrapper_id": "8208"
     },
     {
@@ -134,6 +143,7 @@
       "deep_link": "https://sxm.app.link/SvtIsKi3nFb?intcmp=ListenlivetoThe10sSpot_CAchannelguideEN_SvtIsKi3nFb",
       "channel_key": "9556",
       "genre": "Pop",
+      "uuid": "038e9a9a-4878-7561-521b-5d432a0798a0",
       "mountain_wrapper_id": "9556"
     },
     {
@@ -147,6 +157,7 @@
       "deep_link": "https://sxm.app.link/b7royKi3nFb?intcmp=ListenlivetoKellyClarksonConnection_CAchannelguideEN_b7royKi3nFb",
       "channel_key": "9608",
       "genre": "Pop",
+      "uuid": "dc5d3e2e-4729-7a6b-25f9-fe15dcc352d3",
       "mountain_wrapper_id": "9608"
     },
     {
@@ -160,6 +171,7 @@
       "deep_link": "https://sxm.app.link/ikDdDKi3nFb?intcmp=ListenlivetoPitbullsGlobalization_CAchannelguideEN_ikDdDKi3nFb",
       "channel_key": "9406",
       "genre": "Pop",
+      "uuid": "5d71ae5d-5c6e-0430-6fc5-d9ca0c1c34c0",
       "mountain_wrapper_id": "9406"
     },
     {
@@ -173,6 +185,7 @@
       "deep_link": "https://sxm.app.link/cW9bKLi3nFb?intcmp=ListenlivetoTheBridge_CAchannelguideEN_cW9bKLi3nFb",
       "channel_key": "thebridge",
       "genre": "Rock",
+      "uuid": "1898923d-071d-0abd-1a62-ed0d2702d4f1",
       "mountain_wrapper_id": "thebridge"
     },
     {
@@ -186,6 +199,7 @@
       "deep_link": "https://sxm.app.link/OK6GiN7PbSb?intcmp=ListenlivetoYachtRockRadio_CAchannelguideEN_OK6GiN7PbSb",
       "channel_key": "9420",
       "genre": "Pop",
+      "uuid": "9150cc82-af5c-3be3-d170-0e81d87375a8",
       "mountain_wrapper_id": "9420"
     },
     {
@@ -199,6 +213,7 @@
       "deep_link": "https://sxm.app.link/PlYxSKi3nFb?intcmp=ListenlivetoTheBlend_CAchannelguideEN_PlYxSKi3nFb",
       "channel_key": "starlite",
       "genre": "Pop",
+      "uuid": "bda81f03-f231-d4db-56ad-40cb132c5663",
       "mountain_wrapper_id": "starlite"
     },
     {
@@ -212,6 +227,7 @@
       "deep_link": "https://sxm.app.link/0GKEXKi3nFb?intcmp=ListenlivetoTheCoffeeHouse_CAchannelguideEN_0GKEXKi3nFb",
       "channel_key": "coffeehouse",
       "genre": "Pop",
+      "uuid": "41f8b174-fb06-1707-aaa7-e74e109c2ee9",
       "mountain_wrapper_id": "coffeehouse"
     },
     {
@@ -225,6 +241,7 @@
       "deep_link": "https://sxm.app.link/7TVt2Ki3nFb?intcmp=ListenlivetoTheBeatlesChannel_CAchannelguideEN_7TVt2Ki3nFb",
       "channel_key": "9446",
       "genre": "Rock",
+      "uuid": "20801778-3df2-d607-eab5-e03de0ca7815",
       "mountain_wrapper_id": "9446"
     },
     {
@@ -238,6 +255,7 @@
       "deep_link": "https://sxm.app.link/2Ijs6Ki3nFb?intcmp=ListenlivetoBobMarleysTuffGongRadio_CAchannelguideEN_2Ijs6Ki3nFb",
       "channel_key": "9523",
       "genre": "Rock",
+      "uuid": "881c9b1f-e7fd-4637-b87a-0dd06f1831a5",
       "mountain_wrapper_id": "9523"
     },
     {
@@ -251,6 +269,7 @@
       "deep_link": "https://sxm.app.link/1FiIaLi3nFb?intcmp=ListenlivetoEStreetRadio_CAchannelguideEN_1FiIaLi3nFb",
       "channel_key": "estreetradio",
       "genre": "Rock",
+      "uuid": "727fa612-6e53-458e-720d-b662dc974e5d",
       "mountain_wrapper_id": "estreetradio"
     },
     {
@@ -264,19 +283,21 @@
       "deep_link": "https://sxm.app.link/ANFwhLi3nFb?intcmp=ListenlivetoUndergroundGarage_CAchannelguideEN_ANFwhLi3nFb",
       "channel_key": "undergroundgarage",
       "genre": "Rock",
+      "uuid": "3b83dc80-5987-6898-e98d-a98012f700c1",
       "mountain_wrapper_id": "undergroundgarage"
     },
     {
       "channel_number": 22,
       "name": "Pearl Jam Radio",
       "slug": "pearl-jam-radio",
-      "url": "https://www.siriusxm.ca/channels/pearl-jam-radio/?intcmp=PearlJamRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/pearl-jam-radio/",
       "subheadline": "Pearl Jam, 24/7",
       "description": "Listen to music spanning Pearl Jam's career on their own SiriusXM channel. On Pearl Jam Radio, you'll hear studio tracks, b-sides, and concert recordings from the Pearl Jam vault.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Pearl-Jam-Radio.jpg",
       "deep_link": "https://sxm.app.link/DSf4lLi3nFb?intcmp=ListenlivetoPearlJamRadio_CAchannelguideEN_DSf4lLi3nFb",
       "channel_key": "8370",
       "genre": "Rock",
+      "uuid": "cdc9bee8-9317-37fa-ec8e-464096670c60",
       "mountain_wrapper_id": "8370"
     },
     {
@@ -290,6 +311,7 @@
       "deep_link": "https://sxm.app.link/GXPBqLi3nFb?intcmp=ListenlivetoGratefulDeadChannel_CAchannelguideEN_GXPBqLi3nFb",
       "channel_key": "gratefuldead",
       "genre": "Rock",
+      "uuid": "067801cb-bb3f-1707-dd21-d77e06bb27c0",
       "mountain_wrapper_id": "gratefuldead"
     },
     {
@@ -303,58 +325,63 @@
       "deep_link": "https://sxm.app.link/X25U7hC0lFb?intcmp=ListenlivetoRadioMargaritaville_CAchannelguideEN_X25U7hC0lFb",
       "channel_key": "radiomargaritaville",
       "genre": "Rock",
+      "uuid": "c636d008-7cb0-99eb-7fb7-7c489f862a26",
       "mountain_wrapper_id": "radiomargaritaville"
     },
     {
       "channel_number": 25,
       "name": "Classic Rewind",
       "slug": "classic-rewind",
-      "url": "https://www.siriusxm.ca/channels/classic-rewind/",
+      "url": "https://www.siriusxm.ca/channels/classic-rewind/?intcmp=ClassicRewind_CAchannelguideEN",
       "subheadline": "70s/80s classic rock",
       "description": "Hit the rewind button for classic rock from the cassette era: Boston, Van Halen, the Cars, Journey, Fleetwood Mac, Foreigner and more, all from the late 70s and 80s. Adding context to the tunes are marquee hosts Kristine Stone, Rachel Steele and MTV legends Alan Hunter and Mark Goodman.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Classic-Rewind.jpg",
-      "deep_link": "https://sxm.app.link/UncgALi3nFb",
+      "deep_link": "https://sxm.app.link/UncgALi3nFb?intcmp=ListenlivetoClassicRewind_CAchannelguideEN_UncgALi3nFb",
       "channel_key": "classicrewind",
       "genre": "Rock",
+      "uuid": "7a642de7-c33f-a628-efb2-3d94a829d17b",
       "mountain_wrapper_id": "classicrewind"
     },
     {
       "channel_number": 26,
       "name": "Classic Vinyl",
       "slug": "classic-vinyl",
-      "url": "https://www.siriusxm.ca/channels/classic-vinyl/",
+      "url": "https://www.siriusxm.ca/channels/classic-vinyl/?intcmp=ClassicVinyl_CAchannelguideEN",
       "subheadline": "60s/70s classic rock",
       "description": "Drop the needle on all the great classic rock of the 60s and 70s, when music came on vinyl. Led Zeppelin, the Beatles, the Rolling Stones, the Who, the Doors and more. All the big songs and some cool album cuts, too, played by renowned hosts like Meg Griffin, Rachel Steele, Earle Bailey and Dennis Elsas.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Classic-Vinyl.jpg",
-      "deep_link": "https://sxm.app.link/XsMNELi3nFb",
+      "deep_link": "https://sxm.app.link/XsMNELi3nFb?intcmp=ListenlivetoClassicVinyl_CAchannelguideEN_XsMNELi3nFb",
       "channel_key": "classicvinyl",
       "genre": "Rock",
+      "uuid": "5ad8659a-414a-9e26-b973-f5a229d788dd",
       "mountain_wrapper_id": "classicvinyl"
     },
     {
       "channel_number": 27,
       "name": "Alt2K",
       "slug": "alt2k",
-      "url": "https://www.siriusxm.ca/channels/alt2k/",
+      "url": "https://www.siriusxm.ca/channels/alt2k/?intcmp=Alt2K_CAchannelguideEN",
       "subheadline": "2000s Alternative Rock",
       "description": "Experience the greatest alternative rock hits from the 2000s.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Alt2K.jpg",
-      "deep_link": "https://sxm.app.link/xQkrkao3nFb",
+      "deep_link": "https://sxm.app.link/xQkrkao3nFb?intcmp=ListenlivetoAlt2K_CAchannelguideEN_xQkrkao3nFb",
       "channel_key": "9611",
       "genre": "Rock",
+      "uuid": "59b6ed0e-4c39-ec45-f8be-ce1599661ce3",
       "mountain_wrapper_id": "9611"
     },
     {
       "channel_number": 28,
       "name": "The Spectrum",
       "slug": "the-spectrum",
-      "url": "https://www.siriusxm.ca/channels/the-spectrum/",
+      "url": "https://www.siriusxm.ca/channels/the-spectrum/?intcmp=TheSpectrum_CAchannelguideEN",
       "subheadline": "Classic rock meets new rock",
       "description": "The Spectrum of Rock, spanning more than six decades - from the legends of the 1960s and \u201870s to the artists breaking through now.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-The-Spectrum.jpg",
       "deep_link": "https://sxm.app.link/nhWiPLi3nFb?intcmp=ListenlivetoTheSpectrum_CAchannelguideEN_nhWiPLi3nFb",
       "channel_key": "thespectrum",
       "genre": "Rock",
+      "uuid": "804a5411-b234-1188-27da-f01197103886",
       "mountain_wrapper_id": "thespectrum"
     },
     {
@@ -368,32 +395,35 @@
       "deep_link": "https://sxm.app.link/qmwQTLi3nFb?intcmp=ListenlivetoPhishRadio_CAchannelguideEN_qmwQTLi3nFb",
       "channel_key": "9139",
       "genre": "Rock",
+      "uuid": "0b5b5f60-dfcf-eba9-1dc6-ec3c909f4541",
       "mountain_wrapper_id": "9139"
     },
     {
       "channel_number": 30,
       "name": "Dave Matthews Band Radio",
       "slug": "dave-matthews-band-radio",
-      "url": "https://www.siriusxm.ca/channels/dave-matthews-band-radio/?intcmp=DaveMatthewsBandRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/dave-matthews-band-radio/",
       "subheadline": "24/7 Dave Matthews Band",
       "description": "The entire Dave Matthews Band universe on SiriusXM. Hear DMB hits, fan favourites, rarities, live trax, complete concerts, music from artists they love, and exclusive commentary from the band.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Dave-Matthews-Band-Radio.jpg",
-      "deep_link": "https://sxm.app.link/xzHFYLi3nFb?intcmp=ListenlivetoDaveMatthewsBandRadio_CAchannelguideEN_xzHFYLi3nFb",
+      "deep_link": "https://sxm.app.link/xzHFYLi3nFb",
       "channel_key": "9506",
       "genre": "Rock",
+      "uuid": "69e5185d-d218-8fbc-082f-6ea5a16ca4db",
       "mountain_wrapper_id": "9506"
     },
     {
       "channel_number": 31,
       "name": "Tom Petty Radio",
       "slug": "tom-petty-radio",
-      "url": "https://www.siriusxm.ca/channels/tom-petty-radio/?intcmp=TomPettyRadio_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/tom-petty-radio/",
       "subheadline": "Music from rock icon Tom Petty",
       "description": "Music from Rock & Roll Hall of Fame inductee Tom Petty, including his acclaimed Buried Treasure radio show and exclusive tracks from Tom's personal archives.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2025/10/Listing-Tom-Petty-Radio.jpg",
-      "deep_link": "https://sxm.app.link/EMSu3Li3nFb?intcmp=ListenlivetoTomPettyRadio_CAchannelguideEN_EMSu3Li3nFb",
+      "deep_link": "https://sxm.app.link/EMSu3Li3nFb",
       "channel_key": "9407",
       "genre": "Rock",
+      "uuid": "60b0ea2e-dec7-1d4a-da2a-6de09f273fe7",
       "mountain_wrapper_id": "9407"
     },
     {
@@ -407,6 +437,7 @@
       "deep_link": "https://sxm.app.link/TfgT8Li3nFb?intcmp=ListenlivetoU2XRadio_CAchannelguideEN_TfgT8Li3nFb",
       "channel_key": "9507",
       "genre": "Rock",
+      "uuid": "a4b7a4f7-af96-3ae6-53df-f78ff9ac9aab",
       "mountain_wrapper_id": "9507"
     },
     {
@@ -420,6 +451,7 @@
       "deep_link": "https://sxm.app.link/UhPGhMi3nFb?intcmp=Listenliveto1stWave_CAchannelguideEN_UhPGhMi3nFb",
       "channel_key": "firstwave",
       "genre": "Rock",
+      "uuid": "65f04311-3581-256c-97b9-279838d6ff5e",
       "mountain_wrapper_id": "firstwave"
     },
     {
@@ -433,6 +465,7 @@
       "deep_link": "https://sxm.app.link/9Kc5mMi3nFb?intcmp=ListenlivetoLithium_CAchannelguideEN_9Kc5mMi3nFb",
       "channel_key": "90salternative",
       "genre": "Rock",
+      "uuid": "32c4747f-8739-d578-62d8-08a92d518445",
       "mountain_wrapper_id": "90salternative"
     },
     {
@@ -446,6 +479,7 @@
       "deep_link": "https://sxm.app.link/ACnktMi3nFb?intcmp=ListenlivetoSiriusXMU_CAchannelguideEN_ACnktMi3nFb",
       "channel_key": "leftofcenter",
       "genre": "Rock",
+      "uuid": "f49737db-bea3-0c13-9834-b879fb1894c4",
       "mountain_wrapper_id": "leftofcenter"
     },
     {
@@ -459,6 +493,7 @@
       "deep_link": "https://sxm.app.link/vrLixMi3nFb?intcmp=ListenlivetoAltNation_CAchannelguideEN_vrLixMi3nFb",
       "channel_key": "altnation",
       "genre": "Rock",
+      "uuid": "fd5740ec-7f11-0ecf-f676-46f9dc056d2c",
       "mountain_wrapper_id": "altnation"
     },
     {
@@ -472,6 +507,7 @@
       "deep_link": "https://sxm.app.link/ywlQBMi3nFb?intcmp=ListenlivetoOctane_CAchannelguideEN_ywlQBMi3nFb",
       "channel_key": "octane",
       "genre": "Rock",
+      "uuid": "0fed9647-cc82-24d7-526d-98762e8a52cd",
       "mountain_wrapper_id": "octane"
     },
     {
@@ -485,19 +521,21 @@
       "deep_link": "https://sxm.app.link/JR7WGMi3nFb?intcmp=ListenlivetoOzzysBoneyard_CAchannelguideEN_JR7WGMi3nFb",
       "channel_key": "buzzsaw",
       "genre": "Rock",
+      "uuid": "fed8de31-8d51-8949-6c69-2035fb0485b0",
       "mountain_wrapper_id": "buzzsaw"
     },
     {
       "channel_number": 39,
       "name": "Hair Nation",
       "slug": "hair-nation",
-      "url": "https://www.siriusxm.ca/channels/hair-nation/?intcmp=HairNation_CAchannelguideEN",
+      "url": "https://www.siriusxm.ca/channels/hair-nation/",
       "subheadline": "80s hair metal & glam",
       "description": "Cruise the Sunset Strip with music from the hard rock masters of the '80s. Big hair, big guitars. Put your spandex on and feel the noise from Motley Crue, Poison, Skid Row, Bon Jovi and more.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/01/Listing-Hair-Nation.jpg",
       "deep_link": "https://sxm.app.link/2s6CMMi3nFb?intcmp=ListenlivetoHairNation_CAchannelguideEN_2s6CMMi3nFb",
       "channel_key": "hairnation",
       "genre": "Rock",
+      "uuid": "b8b47809-4e8e-f556-8325-bd45fa3d4dc4",
       "mountain_wrapper_id": "hairnation"
     },
     {
@@ -511,6 +549,7 @@
       "deep_link": "https://sxm.app.link/hWt1RMi3nFb?intcmp=ListenlivetoLiquidMetal_CAchannelguideEN_hWt1RMi3nFb",
       "channel_key": "hardattack",
       "genre": "Rock",
+      "uuid": "634ea01e-4ae2-c7e8-7567-138965e8a6fe",
       "mountain_wrapper_id": "hardattack"
     },
     {
@@ -524,6 +563,7 @@
       "deep_link": "https://sxm.app.link/gTshWMi3nFb?intcmp=ListenlivetoSiriusXMTurbo_CAchannelguideEN_gTshWMi3nFb",
       "channel_key": "9413",
       "genre": "Rock",
+      "uuid": "f936a498-89c7-bc15-f158-19a015db0683",
       "mountain_wrapper_id": "9413"
     },
     {
@@ -537,6 +577,7 @@
       "deep_link": "https://sxm.app.link/B5NsynZXNVb?intcmp=ListenlivetoMaximumMetallica_CAchannelguideEN_B5NsynZXNVb",
       "channel_key": "9669",
       "genre": "Rock",
+      "uuid": "35b0a4e3-b63d-b68e-4c34-6462579a8721",
       "mountain_wrapper_id": "9669"
     },
     {
@@ -550,6 +591,7 @@
       "deep_link": "https://sxm.app.link/GHCM6Mi3nFb?intcmp=ListenlivetoLLCOOLJsRockTheBellsRadio_CAchannelguideEN_GHCM6Mi3nFb",
       "channel_key": "9471",
       "genre": "Hip-Hop/R&B",
+      "uuid": "988d25d1-db91-ee15-72e1-386c1972b8b0",
       "mountain_wrapper_id": "9471"
     },
     {
@@ -563,6 +605,7 @@
       "deep_link": "https://sxm.app.link/Va0acNi3nFb?intcmp=ListenlivetoHipHopNation_CAchannelguideEN_Va0acNi3nFb",
       "channel_key": "hiphopnation",
       "genre": "Hip-Hop/R&B",
+      "uuid": "bd54fc02-e063-0e3e-0cbb-4ceafef734e7",
       "mountain_wrapper_id": "hiphopnation"
     },
     {
@@ -576,6 +619,7 @@
       "deep_link": "https://sxm.app.link/U7YqgNi3nFb?intcmp=ListenlivetoShade45_CAchannelguideEN_U7YqgNi3nFb",
       "channel_key": "shade45",
       "genre": "Hip-Hop/R&B",
+      "uuid": "2022dfab-580f-675f-6aad-00aad9c3be9b",
       "mountain_wrapper_id": "shade45"
     },
     {
@@ -589,6 +633,7 @@
       "deep_link": "https://sxm.app.link/GD95nNi3nFb?intcmp=ListenlivetoTheHeat_CAchannelguideEN_GD95nNi3nFb",
       "channel_key": "hotjamz",
       "genre": "Hip-Hop/R&B",
+      "uuid": "c2a517d4-c02f-06eb-77cf-f81bfa719188",
       "mountain_wrapper_id": "hotjamz"
     },
     {
@@ -602,6 +647,7 @@
       "deep_link": "https://sxm.app.link/NQkVsNi3nFb?intcmp=ListenlivetoHeartSoul_CAchannelguideEN_NQkVsNi3nFb",
       "channel_key": "heartandsoul",
       "genre": "Hip-Hop/R&B",
+      "uuid": "25de1705-19ad-6f6e-d45f-3f8775a37800",
       "mountain_wrapper_id": "heartandsoul"
     },
     {
@@ -615,6 +661,7 @@
       "deep_link": "https://sxm.app.link/MNjbxNi3nFb?intcmp=ListenlivetoTheFlow_CAchannelguideEN_MNjbxNi3nFb",
       "channel_key": "9609",
       "genre": "Hip-Hop/R&B",
+      "uuid": "fe951560-f7e7-2ee3-9de9-cfd89fd54ac5",
       "mountain_wrapper_id": "9609"
     },
     {
@@ -628,6 +675,7 @@
       "deep_link": "https://sxm.app.link/dFuqDNi3nFb?intcmp=ListenlivetoFlex2K_CAchannelguideEN_dFuqDNi3nFb",
       "channel_key": "9610",
       "genre": "Hip-Hop/R&B",
+      "uuid": "847b22e6-1d35-b5b3-92f4-0c5e4e7b9040",
       "mountain_wrapper_id": "9610"
     },
     {
@@ -641,6 +689,7 @@
       "deep_link": "https://sxm.app.link/cCtGHNi3nFb?intcmp=ListenlivetoSiriusXMFly_CAchannelguideEN_cCtGHNi3nFb",
       "channel_key": "9339",
       "genre": "Hip-Hop/R&B",
+      "uuid": "05cd3a1a-d292-3b8e-e8c9-1566d0726994",
       "mountain_wrapper_id": "9339"
     },
     {
@@ -654,6 +703,7 @@
       "deep_link": "https://sxm.app.link/vdsmNNi3nFb?intcmp=ListenlivetoTheGroove_CAchannelguideEN_vdsmNNi3nFb",
       "channel_key": "8228",
       "genre": "Hip-Hop/R&B",
+      "uuid": "7b32233d-bf01-9654-d97f-9e261aad3d8f",
       "mountain_wrapper_id": "8228"
     },
     {
@@ -667,6 +717,7 @@
       "deep_link": "https://sxm.app.link/CqDbSNi3nFb",
       "channel_key": "thebeat",
       "genre": "Dance/Electronic",
+      "uuid": "6adef1b5-d812-9c10-7c6c-f05af4e27077",
       "mountain_wrapper_id": "thebeat"
     },
     {
@@ -680,6 +731,7 @@
       "deep_link": "https://sxm.app.link/JDO0WNi3nFb",
       "channel_key": "9472",
       "genre": "Dance/Electronic",
+      "uuid": "4ebc3011-0ebe-a9ad-c58b-9a306f60fc2b",
       "mountain_wrapper_id": "9472"
     },
     {
@@ -693,6 +745,7 @@
       "deep_link": "https://sxm.app.link/PNY55Ni3nFb",
       "channel_key": "9145",
       "genre": "Dance/Electronic",
+      "uuid": "e3b61a24-206d-4fa1-43ae-14ea190e47a6",
       "mountain_wrapper_id": "9145"
     },
     {
@@ -706,6 +759,7 @@
       "deep_link": "https://sxm.app.link/oVlUcOi3nFb",
       "channel_key": "chill",
       "genre": "Dance/Electronic",
+      "uuid": "834383dd-9a7e-d59e-81a2-dd13e0377af2",
       "mountain_wrapper_id": "chill"
     },
     {
@@ -719,6 +773,7 @@
       "deep_link": "https://sxm.app.link/zg80hOi3nFb",
       "channel_key": "newcountry",
       "genre": "Country",
+      "uuid": "ffd94bb6-5368-67ae-91be-5b2bababeca0",
       "mountain_wrapper_id": "newcountry"
     },
     {
@@ -732,6 +787,7 @@
       "deep_link": "https://sxm.app.link/yd7gmOi3nFb",
       "channel_key": "9340",
       "genre": "Country",
+      "uuid": "d3253c66-e1e1-331b-02e6-71580c33791b",
       "mountain_wrapper_id": "9340"
     },
     {
@@ -745,6 +801,7 @@
       "deep_link": "https://sxm.app.link/2YuhF9n3nFb",
       "channel_key": "primecountry",
       "genre": "Country",
+      "uuid": "32566352-8e68-80f8-fe11-3f9715b63876",
       "mountain_wrapper_id": "primecountry"
     },
     {
@@ -758,6 +815,7 @@
       "deep_link": "https://sxm.app.link/QND0EOi3nFb",
       "channel_key": "9418",
       "genre": "Country",
+      "uuid": "0736f9f8-2b36-d38f-e3a6-d4de7d7877a8",
       "mountain_wrapper_id": "9418"
     },
     {
@@ -771,6 +829,7 @@
       "deep_link": "https://sxm.app.link/TSdyJOi3nFb",
       "channel_key": "9599",
       "genre": "Country",
+      "uuid": "75301b34-2f01-2c17-0b52-028bec0d271c",
       "mountain_wrapper_id": "9599"
     },
     {
@@ -784,6 +843,7 @@
       "deep_link": "https://sxm.app.link/gCNvPOi3nFb",
       "channel_key": "theroadhouse",
       "genre": "Country",
+      "uuid": "0aee72ed-5dd8-2848-3567-d8809e123cd1",
       "mountain_wrapper_id": "theroadhouse"
     },
     {
@@ -797,6 +857,7 @@
       "deep_link": "https://sxm.app.link/fzMLTOi3nFb",
       "channel_key": "outlawcountry",
       "genre": "Country",
+      "uuid": "176daca5-6810-3a1c-49e9-39b69055e811",
       "mountain_wrapper_id": "outlawcountry"
     },
     {
@@ -810,6 +871,7 @@
       "deep_link": "https://sxm.app.link/cLlH1CK1FJb",
       "channel_key": "9607",
       "genre": "Country",
+      "uuid": "ad0ab172-202f-c05b-c7b9-597be600541f",
       "mountain_wrapper_id": "9607"
     },
     {
@@ -823,6 +885,7 @@
       "deep_link": "https://sxm.app.link/QpzTC6iaM1b",
       "channel_key": "9684",
       "genre": "Country",
+      "uuid": "1430a1d6-68ba-edb7-acaf-c500b1c00354",
       "mountain_wrapper_id": "9684"
     },
     {
@@ -836,6 +899,7 @@
       "deep_link": "https://sxm.app.link/B73wbQi3nFb",
       "channel_key": "bluegrass",
       "genre": "Country",
+      "uuid": "9e545d10-7c21-9707-1d34-3d503b7365bc",
       "mountain_wrapper_id": "bluegrass"
     },
     {
@@ -849,6 +913,7 @@
       "deep_link": "https://sxm.app.link/2YeMhQi3nFb",
       "channel_key": "symphonyhall",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "c46c9810-6274-a715-a8b9-de9d4ac33873",
       "mountain_wrapper_id": "symphonyhall"
     },
     {
@@ -862,6 +927,7 @@
       "deep_link": "https://sxm.app.link/PFHDdPi3nFb",
       "channel_key": "purejazz",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "e6333906-2e89-6c07-59d6-36d09248b8dc",
       "mountain_wrapper_id": "purejazz"
     },
     {
@@ -875,6 +941,7 @@
       "deep_link": "https://sxm.app.link/kGV66Oi3nFb",
       "channel_key": "jazzcafe",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "e4b5402c-c608-db84-ad15-4bc8e2cdccce",
       "mountain_wrapper_id": "jazzcafe"
     },
     {
@@ -888,6 +955,7 @@
       "deep_link": "https://sxm.app.link/353hnPi3nFb",
       "channel_key": "broadwaysbest",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "adc27a20-6fc4-7269-5ca6-4a492f7dfa55",
       "mountain_wrapper_id": "broadwaysbest"
     },
     {
@@ -901,6 +969,7 @@
       "deep_link": "https://sxm.app.link/ajf7rPi3nFb",
       "channel_key": "siriuslysinatra",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "38dccb7c-6e3c-1473-d0db-0b3b8b999707",
       "mountain_wrapper_id": "siriuslysinatra"
     },
     {
@@ -914,6 +983,7 @@
       "deep_link": "https://sxm.app.link/4034N9n3nFb",
       "channel_key": "8205",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "b069d7d9-a765-b98e-9c87-3791d459f2ee",
       "mountain_wrapper_id": "8205"
     },
     {
@@ -927,6 +997,7 @@
       "deep_link": "https://sxm.app.link/OAM0HPi3nFb",
       "channel_key": "siriusgold",
       "genre": "Pop",
+      "uuid": "a62ffa9f-e016-5693-adcb-c76c328e1bee",
       "mountain_wrapper_id": "siriusgold"
     },
     {
@@ -940,6 +1011,7 @@
       "deep_link": "https://sxm.app.link/fsXfOPi3nFb",
       "channel_key": "60svibrations",
       "genre": "Pop",
+      "uuid": "6567f2ee-4d7a-cd6d-3402-55ed6089cd0c",
       "mountain_wrapper_id": "60svibrations"
     },
     {
@@ -953,6 +1025,7 @@
       "deep_link": "https://sxm.app.link/ldaniMamMYb",
       "channel_key": "soultown",
       "genre": "Hip-Hop/R&B",
+      "uuid": "aa46ae69-ab44-f416-58ee-9fdf07462c0e",
       "mountain_wrapper_id": "soultown"
     },
     {
@@ -966,6 +1039,7 @@
       "deep_link": "https://sxm.app.link/x0UbYPi3nFb",
       "channel_key": "siriusblues",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "c4406844-de06-901b-6b4f-02420e2bd2d6",
       "mountain_wrapper_id": "siriusblues"
     },
     {
@@ -979,6 +1053,7 @@
       "deep_link": "https://sxm.app.link/y2tZ6Pi3nFb",
       "channel_key": "elvisradio",
       "genre": "Pop",
+      "uuid": "a96c9390-313c-3a51-5dac-953504f4f237",
       "mountain_wrapper_id": "elvisradio"
     },
     {
@@ -992,6 +1067,7 @@
       "deep_link": "https://sxm.app.link/iEmjYOi3nFb",
       "channel_key": "praise",
       "genre": "Christian",
+      "uuid": "e4fe4bca-1af8-bf9e-c20b-813f204aa18e",
       "mountain_wrapper_id": "praise"
     },
     {
@@ -1005,6 +1081,7 @@
       "deep_link": "https://sxm.app.link/h32uP9ujMYb",
       "channel_key": "spirit",
       "genre": "Christian",
+      "uuid": "c2e3e686-93a6-5d22-c818-6d8ea63bcc7c",
       "mountain_wrapper_id": "spirit"
     },
     {
@@ -1016,9 +1093,7 @@
       "description": "Praise and worship music that sings to God. It's the music you hear and sing in your Sunday service.",
       "image": "https://www.siriusxm.ca/wp-content/uploads/2026/03/Listing-Message-Worship.jpg",
       "deep_link": "https://sxm.app.link/Nixe2pqDk0b",
-      "channel_key": "4270",
-      "genre": null,
-      "mountain_wrapper_id": "4270"
+      "channel_key": "4270"
     },
     {
       "channel_number": 133,
@@ -1031,6 +1106,7 @@
       "deep_link": "https://sxm.app.link/Vgiar6n3nFb",
       "channel_key": "9530",
       "genre": "Family",
+      "uuid": "95cf8bf1-fc4e-76b9-ac2a-617dca0325e7",
       "mountain_wrapper_id": "9530"
     },
     {
@@ -1044,6 +1120,7 @@
       "deep_link": "https://sxm.app.link/YlSHv6n3nFb",
       "channel_key": "8216",
       "genre": "Family",
+      "uuid": "5d6347dd-ce61-9b85-c1d9-70a82209b02e",
       "mountain_wrapper_id": "8216"
     },
     {
@@ -1057,6 +1134,7 @@
       "deep_link": "https://sxm.app.link/9GEOA6n3nFb",
       "channel_key": "9366",
       "genre": "Family",
+      "uuid": "d8a071ae-c656-bbdb-a4ec-cbc1d71b2740",
       "mountain_wrapper_id": "9366"
     },
     {
@@ -1070,6 +1148,7 @@
       "deep_link": "https://sxm.app.link/oa2cG6n3nFb",
       "channel_key": "9600",
       "genre": "Family",
+      "uuid": "3f21599e-f0e6-54f9-dbf2-6122bef705ad",
       "mountain_wrapper_id": "9600"
     },
     {
@@ -1083,6 +1162,7 @@
       "deep_link": "https://sxm.app.link/jZpbK6n3nFb",
       "channel_key": "9133",
       "genre": "Christian",
+      "uuid": "87dba34f-e68a-f241-bc4d-34647f1a61c9",
       "mountain_wrapper_id": "9133"
     },
     {
@@ -1096,6 +1176,7 @@
       "deep_link": "https://sxm.app.link/ysNzP6n3nFb",
       "channel_key": "9129",
       "genre": "Hip-Hop/R&B",
+      "uuid": "15c78a20-48ff-41f2-aa4e-d0da15455c24",
       "mountain_wrapper_id": "9129"
     },
     {
@@ -1109,6 +1190,7 @@
       "deep_link": "https://sxm.app.link/9wOyz7n3nFb",
       "channel_key": "8215",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "ab3ef743-4a2d-f67b-ea13-283843b3cfb5",
       "mountain_wrapper_id": "8215"
     },
     {
@@ -1122,6 +1204,7 @@
       "deep_link": "https://sxm.app.link/3n88AwhZ7Hb",
       "channel_key": "8229",
       "genre": "Christian",
+      "uuid": "8a38c48f-9f99-17ce-8a62-435eecf51ab0",
       "mountain_wrapper_id": "8229"
     },
     {
@@ -1135,6 +1218,7 @@
       "deep_link": "https://sxm.app.link/o0bXE7n3nFb",
       "channel_key": "9593",
       "genre": "Latino",
+      "uuid": "d17d9b5a-2577-1241-b7f0-efac03348b78",
       "mountain_wrapper_id": "9593"
     },
     {
@@ -1148,6 +1232,7 @@
       "deep_link": "https://sxm.app.link/LJLUK7n3nFb",
       "channel_key": "rumbon",
       "genre": "Latino",
+      "uuid": "53b80144-2cb1-e723-07fd-6b164434b186",
       "mountain_wrapper_id": "rumbon"
     },
     {
@@ -1161,6 +1246,7 @@
       "deep_link": "https://sxm.app.link/cBW9Q7n3nFb",
       "channel_key": "9186",
       "genre": "Latino",
+      "uuid": "23771c8c-4631-0fa1-2038-b793bc7e404b",
       "mountain_wrapper_id": "9186"
     },
     {
@@ -1174,6 +1260,7 @@
       "deep_link": "https://sxm.app.link/3hJQU7n3nFb",
       "channel_key": "9135",
       "genre": "Latino",
+      "uuid": "1a649e3b-6686-77fc-6ccb-7184feb7bd85",
       "mountain_wrapper_id": "9135"
     },
     {
@@ -1187,6 +1274,7 @@
       "deep_link": "https://sxm.app.link/iL6e07n3nFb",
       "channel_key": "9134",
       "genre": "Latino",
+      "uuid": "19279890-ebb6-0ed6-0408-8d19a98f9039",
       "mountain_wrapper_id": "9134"
     },
     {
@@ -1200,6 +1288,7 @@
       "deep_link": "https://sxm.app.link/LDols8n3nFb",
       "channel_key": "9582",
       "genre": "Canadian",
+      "uuid": "5f35c1e2-2fcd-8bb9-2770-02dacce34c99",
       "mountain_wrapper_id": "9582"
     },
     {
@@ -1213,6 +1302,7 @@
       "deep_link": "https://sxm.app.link/WYasx8n3nFb",
       "channel_key": "9583",
       "genre": "Canadian",
+      "uuid": "01675bf6-1d35-d05f-2e73-0a750694aa6d",
       "mountain_wrapper_id": "9583"
     },
     {
@@ -1226,6 +1316,7 @@
       "deep_link": "https://sxm.app.link/ex8nH8n3nFb",
       "channel_key": "9584",
       "genre": "Canadian",
+      "uuid": "fdb3a2d1-dc33-16c6-4ccf-86d522b21f3e",
       "mountain_wrapper_id": "9584"
     },
     {
@@ -1239,6 +1330,7 @@
       "deep_link": "https://sxm.app.link/VQe558n3nFb",
       "channel_key": "9585",
       "genre": "Canadian",
+      "uuid": "60035cea-1181-5b91-4c33-ba63663a37e2",
       "mountain_wrapper_id": "9585"
     },
     {
@@ -1252,6 +1344,7 @@
       "deep_link": "https://sxm.app.link/58Zrf9n3nFb",
       "channel_key": "8244",
       "genre": "Canadian",
+      "uuid": "d0775651-a522-5ca2-7be7-20f97f37bbfb",
       "mountain_wrapper_id": "8244"
     },
     {
@@ -1265,6 +1358,7 @@
       "deep_link": "https://sxm.app.link/sSzpl9n3nFb",
       "channel_key": "8246",
       "genre": "Canadian",
+      "uuid": "b9ee6786-80aa-51c7-1449-64a1484d7cc7",
       "mountain_wrapper_id": "8246"
     },
     {
@@ -1278,6 +1372,7 @@
       "deep_link": "https://sxm.app.link/befUS9n3nFb",
       "channel_key": "9415",
       "genre": "Pop",
+      "uuid": "c3890f3c-1222-5036-bea9-6d52753bf018",
       "mountain_wrapper_id": "9415"
     },
     {
@@ -1291,6 +1386,7 @@
       "deep_link": "https://sxm.app.link/G9xKgao3nFb",
       "channel_key": "9543",
       "genre": "Pop",
+      "uuid": "2211d1e6-153e-f617-b0d7-fd0b4ff513f2",
       "mountain_wrapper_id": "9543"
     },
     {
@@ -1304,6 +1400,7 @@
       "deep_link": "https://sxm.app.link/E0brNKi3nFb",
       "channel_key": "9557",
       "genre": "Pop",
+      "uuid": "d0759ae0-eeef-48e4-c4b9-526217aac33d",
       "mountain_wrapper_id": "9557"
     },
     {
@@ -1317,6 +1414,7 @@
       "deep_link": "https://sxm.app.link/uPdAY9n3nFb",
       "channel_key": "thevault",
       "genre": "Rock",
+      "uuid": "e3041d19-daa5-6517-8c73-41976582d1f9",
       "mountain_wrapper_id": "thevault"
     },
     {
@@ -1330,6 +1428,7 @@
       "deep_link": "https://sxm.app.link/tMcQ29n3nFb",
       "channel_key": "jamon",
       "genre": "Rock",
+      "uuid": "a00885e6-262a-0291-458b-e0b07fba71e1",
       "mountain_wrapper_id": "jamon"
     },
     {
@@ -1343,6 +1442,7 @@
       "deep_link": "https://sxm.app.link/pRJxN6s3nFb",
       "channel_key": "9547",
       "genre": "Rock",
+      "uuid": "3adfcd26-b336-23cb-f40d-8e4f1a40e1de",
       "mountain_wrapper_id": "9547"
     },
     {
@@ -1356,6 +1456,7 @@
       "deep_link": "https://sxm.app.link/PKqzm1nEk2b",
       "channel_key": "faction",
       "genre": "Rock",
+      "uuid": "d8babd4e-64e3-ff81-3d24-2407e0974cdc",
       "mountain_wrapper_id": "faction"
     },
     {
@@ -1369,6 +1470,7 @@
       "deep_link": "https://sxm.app.link/jmv6rao3nFb",
       "channel_key": "9570",
       "genre": "Rock",
+      "uuid": "36e165d2-77d0-198b-f00a-a8606b04f4fb",
       "mountain_wrapper_id": "9570"
     },
     {
@@ -1382,6 +1484,7 @@
       "deep_link": "https://sxm.app.link/ijumwao3nFb",
       "channel_key": "9364",
       "genre": "Hip-Hop/R&B",
+      "uuid": "0060eb0d-00ee-75f5-9964-5c1ba8fb1b60",
       "mountain_wrapper_id": "9364"
     },
     {
@@ -1395,6 +1498,7 @@
       "deep_link": "https://sxm.app.link/ZG3JDao3nFb",
       "channel_key": "reggaerhythms",
       "genre": "Hip-Hop/R&B",
+      "uuid": "ac00ab0c-0a60-63bb-32fe-44e8b9be24fd",
       "mountain_wrapper_id": "reggaerhythms"
     },
     {
@@ -1408,6 +1512,7 @@
       "deep_link": "https://sxm.app.link/a2PQIao3nFb",
       "channel_key": "9623",
       "genre": "Dance/Electronic",
+      "uuid": "705b4f46-09ae-c9cc-26c5-30b56d62877c",
       "mountain_wrapper_id": "9623"
     },
     {
@@ -1421,6 +1526,7 @@
       "deep_link": "https://sxm.app.link/d7poNao3nFb",
       "channel_key": "9365",
       "genre": "Dance/Electronic",
+      "uuid": "8d387b31-2065-7393-01c5-f86e3ea47dc9",
       "mountain_wrapper_id": "9365"
     },
     {
@@ -1434,6 +1540,7 @@
       "deep_link": "https://sxm.app.link/kkBdSao3nFb",
       "channel_key": "9475",
       "genre": "Country",
+      "uuid": "78612a95-0706-3f8d-a72d-7b8347093f16",
       "mountain_wrapper_id": "9475"
     },
     {
@@ -1447,6 +1554,7 @@
       "deep_link": "https://sxm.app.link/jhAtWao3nFb",
       "channel_key": "9178",
       "genre": "Country",
+      "uuid": "5b537ac7-2357-55f9-a81c-1229382feffb",
       "mountain_wrapper_id": "9178"
     },
     {
@@ -1460,6 +1568,7 @@
       "deep_link": "https://sxm.app.link/quLi1ao3nFb",
       "channel_key": "9468",
       "genre": "Canadian",
+      "uuid": "bb9c9783-c6cd-1ab7-1d5a-ecde71598019",
       "mountain_wrapper_id": "9468"
     },
     {
@@ -1473,6 +1582,7 @@
       "deep_link": "https://sxm.app.link/FX8G6ao3nFb",
       "channel_key": "9414",
       "genre": "Entertainment",
+      "uuid": "5a5db052-9329-e54f-2df9-6dfb5d386046",
       "mountain_wrapper_id": "9414"
     },
     {
@@ -1486,6 +1596,7 @@
       "deep_link": "https://sxm.app.link/w7eYOA5an1b",
       "channel_key": "9481",
       "genre": "Pop",
+      "uuid": "bffe40f0-1688-dbba-e420-ef894d49d17d",
       "mountain_wrapper_id": "9481"
     },
     {
@@ -1499,6 +1610,7 @@
       "deep_link": "https://sxm.app.link/1fg3Vq4623b",
       "channel_key": "9545",
       "genre": "Pop",
+      "uuid": "70236813-3a54-23e2-00a9-2d98888a4c75",
       "mountain_wrapper_id": "9545"
     },
     {
@@ -1512,6 +1624,7 @@
       "deep_link": "https://sxm.app.link/XKA1gud33Nb",
       "channel_key": "9546",
       "genre": "Pop",
+      "uuid": "8fcd47c1-c56f-a906-871d-f8a6ca8d928d",
       "mountain_wrapper_id": "9546"
     },
     {
@@ -1525,6 +1638,7 @@
       "deep_link": "https://sxm.app.link/q1XfuPasV2b",
       "channel_key": "9398",
       "genre": "Rock",
+      "uuid": "d1320015-4873-9375-d7ea-6c0f325479c7",
       "mountain_wrapper_id": "9398"
     },
     {
@@ -1538,6 +1652,7 @@
       "deep_link": "https://sxm.app.link/OKfFAwZYl0b",
       "channel_key": "9399",
       "genre": "Rock",
+      "uuid": "4a121e6f-9d04-d2bb-763f-2b9119a5d281",
       "mountain_wrapper_id": "9399"
     },
     {
@@ -1551,6 +1666,7 @@
       "deep_link": "https://sxm.app.link/5sfMaPuEk2b",
       "channel_key": "9400",
       "genre": "Rock",
+      "uuid": "456700c3-f2df-3a94-8e76-966e047c7d18",
       "mountain_wrapper_id": "9400"
     },
     {
@@ -1564,6 +1680,7 @@
       "deep_link": "https://sxm.app.link/un9V74s3nFb",
       "channel_key": "9401",
       "genre": "Hip-Hop/R&B",
+      "uuid": "1e78cc73-4c8d-3a3f-6db2-7cc1857a8b7c",
       "mountain_wrapper_id": "9401"
     },
     {
@@ -1577,6 +1694,7 @@
       "deep_link": "https://sxm.app.link/gm1Huki8t3b",
       "channel_key": "9402",
       "genre": "Hip-Hop/R&B",
+      "uuid": "14c3bc4f-4309-b439-4a84-54c0f26a581c",
       "mountain_wrapper_id": "9402"
     },
     {
@@ -1590,6 +1708,7 @@
       "deep_link": "https://sxm.app.link/civhG9C8t3b",
       "channel_key": "9403",
       "genre": "Hip-Hop/R&B",
+      "uuid": "78239fb8-a9cb-fc9e-4244-2cef6c2527c9",
       "mountain_wrapper_id": "9403"
     },
     {
@@ -1603,6 +1722,7 @@
       "deep_link": "https://sxm.app.link/mg123E0L32b",
       "channel_key": "9548",
       "genre": "Country",
+      "uuid": "0362be32-e873-95f6-c282-2fcf7be86ab6",
       "mountain_wrapper_id": "9548"
     },
     {
@@ -1616,6 +1736,7 @@
       "deep_link": "https://sxm.app.link/JM3Du5s3nFb",
       "channel_key": "9549",
       "genre": "Latino",
+      "uuid": "ecb0f19c-ea10-d4ce-0326-4e7477d16d5c",
       "mountain_wrapper_id": "9549"
     },
     {
@@ -1629,6 +1750,7 @@
       "deep_link": "https://sxm.app.link/g8LWD7aI3Wb",
       "channel_key": "9482",
       "genre": "Latino",
+      "uuid": "08361d2b-88c3-df4d-d782-cb3e1ffdaad8",
       "mountain_wrapper_id": "9482"
     },
     {
@@ -1642,6 +1764,7 @@
       "deep_link": "https://sxm.app.link/XcqiE5s3nFb",
       "channel_key": "9572",
       "genre": "Pop",
+      "uuid": "4466e297-33f5-b69f-e5e7-71be602ebb2f",
       "mountain_wrapper_id": "9572"
     },
     {
@@ -1655,6 +1778,7 @@
       "deep_link": "https://sxm.app.link/S1NgI5s3nFb",
       "channel_key": "9573",
       "genre": "Pop",
+      "uuid": "6be4367a-f423-68eb-1a5e-76ef11a8970e",
       "mountain_wrapper_id": "9573"
     },
     {
@@ -1668,6 +1792,7 @@
       "deep_link": "https://sxm.app.link/V6nOM5s3nFb",
       "channel_key": "9574",
       "genre": "Pop",
+      "uuid": "35c2ba06-4e2f-39f9-4538-b9fdd694650c",
       "mountain_wrapper_id": "9574"
     },
     {
@@ -1681,6 +1806,7 @@
       "deep_link": "https://sxm.app.link/U3m4Q5s3nFb",
       "channel_key": "9575",
       "genre": "Rock",
+      "uuid": "42f72153-ec76-e66c-c517-e86a6dcbe922",
       "mountain_wrapper_id": "9575"
     },
     {
@@ -1694,6 +1820,7 @@
       "deep_link": "https://sxm.app.link/PSK2U5s3nFb",
       "channel_key": "9577",
       "genre": "Hip-Hop/R&B",
+      "uuid": "b3f0ba0e-1d1c-ac76-188f-bea057b3c212",
       "mountain_wrapper_id": "9577"
     },
     {
@@ -1707,6 +1834,7 @@
       "deep_link": "https://sxm.app.link/W5VRZ5s3nFb",
       "channel_key": "9576",
       "genre": "Country",
+      "uuid": "451bf902-005b-da8b-08bf-e24d34df486e",
       "mountain_wrapper_id": "9576"
     },
     {
@@ -1720,6 +1848,7 @@
       "deep_link": "https://sxm.app.link/Zawp45s3nFb",
       "channel_key": "9571",
       "genre": "Pop",
+      "uuid": "45a553ba-df24-a84a-d197-64e26adc405f",
       "mountain_wrapper_id": "9571"
     },
     {
@@ -1733,6 +1862,7 @@
       "deep_link": "https://sxm.app.link/ftpcBPi3nFb",
       "channel_key": "9342",
       "genre": "Pop",
+      "uuid": "33794a0f-2a24-08bb-492e-12e441fab2f0",
       "mountain_wrapper_id": "9342"
     },
     {
@@ -1746,6 +1876,7 @@
       "deep_link": "https://sxm.app.link/ygxupdzN9Mb",
       "channel_key": "9634",
       "genre": "Family",
+      "uuid": "d960e76a-e678-e62b-a7f2-6345afee1bb2",
       "mountain_wrapper_id": "9634"
     },
     {
@@ -1759,6 +1890,7 @@
       "deep_link": "https://sxm.app.link/ejRrIJi3nFb",
       "channel_key": "9492",
       "genre": "Pop",
+      "uuid": "02394c8d-7afe-6ba2-3791-fce63b1e4d85",
       "mountain_wrapper_id": "9492"
     },
     {
@@ -1772,6 +1904,7 @@
       "deep_link": "https://sxm.app.link/OVWOxHaO9Jb",
       "channel_key": "9502",
       "genre": "Pop",
+      "uuid": "b96d76d6-935a-3b90-c22d-e0bc7ba11543",
       "mountain_wrapper_id": "9502"
     },
     {
@@ -1785,6 +1918,7 @@
       "deep_link": "https://sxm.app.link/u2lzJ6s3nFb",
       "channel_key": "siriuslove",
       "genre": "Pop",
+      "uuid": "3fd664a8-229c-ce9b-c468-66e2a54abf0b",
       "mountain_wrapper_id": "siriuslove"
     },
     {
@@ -1798,6 +1932,7 @@
       "deep_link": "https://sxm.app.link/BecCpaWnSQb",
       "channel_key": "9661",
       "genre": "Pop",
+      "uuid": "5583d0b9-0505-be47-22c5-473d0d9c8086",
       "mountain_wrapper_id": "9661"
     },
     {
@@ -1811,6 +1946,7 @@
       "deep_link": "https://sxm.app.link/oOINR6s3nFb",
       "channel_key": "8207",
       "genre": "Rock",
+      "uuid": "882b5229-2798-4385-5f05-0835c1d017c2",
       "mountain_wrapper_id": "8207"
     },
     {
@@ -1824,6 +1960,7 @@
       "deep_link": "https://sxm.app.link/v1TCW6s3nFb",
       "channel_key": "9352",
       "genre": "Rock",
+      "uuid": "f95497ef-39c0-66fd-5749-f6c7b6f768b9",
       "mountain_wrapper_id": "9352"
     },
     {
@@ -1837,6 +1974,7 @@
       "deep_link": "https://sxm.app.link/x3sq56s3nFb",
       "channel_key": "9175",
       "genre": "Rock",
+      "uuid": "dc440aa6-e5bd-0a56-fba3-e14b9f9d0062",
       "mountain_wrapper_id": "9175"
     },
     {
@@ -1850,6 +1988,7 @@
       "deep_link": "https://sxm.app.link/A82X96s3nFb",
       "channel_key": "9375",
       "genre": "Rock",
+      "uuid": "2d926e91-aa32-4e53-85e5-d444870eff11",
       "mountain_wrapper_id": "9375"
     },
     {
@@ -1863,6 +2002,7 @@
       "deep_link": "https://sxm.app.link/y20ti7s3nFb",
       "channel_key": "9397",
       "genre": "Hip-Hop/R&B",
+      "uuid": "255682b9-78d5-0279-ca90-fb6b37c87592",
       "mountain_wrapper_id": "9397"
     },
     {
@@ -1876,6 +2016,7 @@
       "deep_link": "https://sxm.app.link/B7A1m7s3nFb",
       "channel_key": "9558",
       "genre": "Rock",
+      "uuid": "862cfe43-6be7-8250-d89e-51fa75f70fc5",
       "mountain_wrapper_id": "9558"
     },
     {
@@ -1889,6 +2030,7 @@
       "deep_link": "https://sxm.app.link/z1yxv7s3nFb",
       "channel_key": "9541",
       "genre": "Hip-Hop/R&B",
+      "uuid": "21c2a98a-e53e-c944-8e23-12cabd6c3439",
       "mountain_wrapper_id": "9541"
     },
     {
@@ -1902,6 +2044,7 @@
       "deep_link": "https://sxm.app.link/uQWvz7s3nFb",
       "channel_key": "9564",
       "genre": "Hip-Hop/R&B",
+      "uuid": "95179ecb-a419-71aa-f3e6-92f5c4db1f7f",
       "mountain_wrapper_id": "9564"
     },
     {
@@ -1915,6 +2058,7 @@
       "deep_link": "https://sxm.app.link/B37kE7s3nFb",
       "channel_key": "9526",
       "genre": "Dance/Electronic",
+      "uuid": "6d5e6d8a-dbc8-b328-72ef-cb5e2a62a3a0",
       "mountain_wrapper_id": "9526"
     },
     {
@@ -1928,6 +2072,7 @@
       "deep_link": "https://sxm.app.link/wSvjI7s3nFb",
       "channel_key": "9527",
       "genre": "Dance/Electronic",
+      "uuid": "44a043a9-4ad8-4f24-fbef-866695c96c95",
       "mountain_wrapper_id": "9527"
     },
     {
@@ -1941,6 +2086,7 @@
       "deep_link": "https://sxm.app.link/IvQPj0ybn1b",
       "channel_key": "9671",
       "genre": "Dance/Electronic",
+      "uuid": "b7ef42fd-843b-8aa2-27ab-3723e312b978",
       "mountain_wrapper_id": "9671"
     },
     {
@@ -1954,6 +2100,7 @@
       "deep_link": "https://sxm.app.link/X3pQvypvrRb",
       "channel_key": "9665",
       "genre": "Dance/Electronic",
+      "uuid": "ab42e288-7fde-7598-31fd-2ca6e09d7559",
       "mountain_wrapper_id": "9665"
     },
     {
@@ -1967,6 +2114,7 @@
       "deep_link": "https://sxm.app.link/11zlun3Y7Hb",
       "channel_key": "9630",
       "genre": "All Xtra",
+      "uuid": "784046a2-4237-e099-29ab-6605813f864b",
       "mountain_wrapper_id": "9630"
     },
     {
@@ -1980,6 +2128,7 @@
       "deep_link": "https://sxm.app.link/tMtPQ7s3nFb",
       "channel_key": "9590",
       "genre": "Country",
+      "uuid": "04e45b04-19ab-3ca3-3064-4fe6320df18b",
       "mountain_wrapper_id": "9590"
     },
     {
@@ -1993,6 +2142,7 @@
       "deep_link": "https://sxm.app.link/IfRdW7s3nFb",
       "channel_key": "8227",
       "genre": "Country",
+      "uuid": "5fbd983b-7cf9-71d7-7890-c13682e2375a",
       "mountain_wrapper_id": "8227"
     },
     {
@@ -2006,6 +2156,7 @@
       "deep_link": "https://sxm.app.link/Ps2207s3nFb",
       "channel_key": "metropolitanopera",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "d4d17484-cb4d-06bf-60e0-2944cb827371",
       "mountain_wrapper_id": "metropolitanopera"
     },
     {
@@ -2019,6 +2170,7 @@
       "deep_link": "https://sxm.app.link/SxCA57s3nFb",
       "channel_key": "siriuspops",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "a8465da9-2ce2-9b01-6679-e67c5066697b",
       "mountain_wrapper_id": "siriuspops"
     },
     {
@@ -2032,6 +2184,7 @@
       "deep_link": "https://sxm.app.link/00tKiPi3nFb",
       "channel_key": "spa73",
       "genre": "Jazz/Standards/Classical",
+      "uuid": "d324f7fe-efc8-e5fa-5ad5-14fa6ba0d9bf",
       "mountain_wrapper_id": "spa73"
     },
     {
@@ -2045,6 +2198,7 @@
       "deep_link": "https://sxm.app.link/68HEpFt723b",
       "channel_key": "9687",
       "genre": null,
+      "uuid": null,
       "mountain_wrapper_id": "9687"
     },
     {
@@ -2058,6 +2212,7 @@
       "deep_link": "https://sxm.app.link/UyJrr8s3nFb",
       "channel_key": "9501",
       "genre": "Canadian",
+      "uuid": "38e112ec-cc49-1802-1062-f9a64518d19b",
       "mountain_wrapper_id": "9501"
     },
     {
@@ -2071,6 +2226,7 @@
       "deep_link": "https://sxm.app.link/1LUgw8s3nFb",
       "channel_key": "9513",
       "genre": "Canadian",
+      "uuid": "fb5fcfc1-bbd9-6cf1-578c-87c47aabce00",
       "mountain_wrapper_id": "9513"
     },
     {
@@ -2084,6 +2240,7 @@
       "deep_link": "https://sxm.app.link/pVzJXxm5i2b",
       "channel_key": "energie2",
       "genre": "Canadian",
+      "uuid": "882607f1-0959-53f1-e58d-67b395b17247",
       "mountain_wrapper_id": "energie2"
     },
     {
@@ -2097,6 +2254,7 @@
       "deep_link": "https://sxm.app.link/RpGdE8s3nFb",
       "channel_key": "9529",
       "genre": "Latino",
+      "uuid": "3a35a1f3-aad6-4abe-a93d-7b2f792ac726",
       "mountain_wrapper_id": "9529"
     },
     {
@@ -2110,6 +2268,7 @@
       "deep_link": "https://sxm.app.link/HtsHCZv5HWb",
       "channel_key": "9672",
       "genre": "Latino",
+      "uuid": "d248760a-9889-21d9-f1b2-fa9ba611b396",
       "mountain_wrapper_id": "9672"
     },
     {
@@ -2123,6 +2282,7 @@
       "deep_link": "https://sxm.app.link/QmFtI8s3nFb",
       "channel_key": "9188",
       "genre": "Latino",
+      "uuid": "2ab4b7da-039c-e67d-e00d-c7313871a3d4",
       "mountain_wrapper_id": "9188"
     },
     {
@@ -2136,6 +2296,7 @@
       "deep_link": "https://sxm.app.link/1HrAN8s3nFb",
       "channel_key": "8225",
       "genre": "Latino",
+      "uuid": "efb97ee8-8555-b0f7-e1ea-e67dcb3f23aa",
       "mountain_wrapper_id": "8225"
     },
     {
@@ -2149,6 +2310,7 @@
       "deep_link": "https://sxm.app.link/0EqQR8s3nFb",
       "channel_key": "9187",
       "genre": "Latino",
+      "uuid": "6df23c85-6348-397c-67be-7ba8c2fbd2e8",
       "mountain_wrapper_id": "9187"
     },
     {
@@ -2162,6 +2324,7 @@
       "deep_link": "https://sxm.app.link/3J0nW8s3nFb",
       "channel_key": "9185",
       "genre": "Latino",
+      "uuid": "961428e4-50e1-18d3-f353-4bbe4d155822",
       "mountain_wrapper_id": "9185"
     },
     {
@@ -2175,6 +2338,7 @@
       "deep_link": "https://sxm.app.link/2GZD08s3nFb",
       "channel_key": "9189",
       "genre": "Latino",
+      "uuid": "f9f80eb9-a253-6e02-8fc8-33fa6ba69bd4",
       "mountain_wrapper_id": "9189"
     },
     {
@@ -2188,6 +2352,7 @@
       "deep_link": "https://sxm.app.link/XvnC48s3nFb",
       "channel_key": "9190",
       "genre": "Latino",
+      "uuid": "44028691-9505-d523-3d98-1a58fd12b9a7",
       "mountain_wrapper_id": "9190"
     },
     {
@@ -2201,6 +2366,7 @@
       "deep_link": "https://sxm.app.link/XsmS88s3nFb",
       "channel_key": "9191",
       "genre": "Latino",
+      "uuid": "7838ff77-9566-436a-5ba7-a8d0d649ae9f",
       "mountain_wrapper_id": "9191"
     },
     {
@@ -2214,6 +2380,7 @@
       "deep_link": "https://sxm.app.link/ezCLZZ8mORb",
       "channel_key": "9667",
       "genre": "Hip-Hop/R&B",
+      "uuid": "c4533437-55d7-b623-9e7d-da95c64c4caf",
       "mountain_wrapper_id": "9667"
     }
   ]
