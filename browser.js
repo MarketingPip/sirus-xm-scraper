@@ -105,7 +105,7 @@ async function searchYouTube(q, pageToken = ''){
 }
 async function getYouTubeURL(artist, song){
 const data = await searchYouTube(`${artist} - ${song}`);
-console.log(data)
+//console.log(data)
 return console.log(await findTopicVideo(data.items, artist, song))
   
 }
@@ -197,7 +197,7 @@ async function searchITunes(artist, song, album, country = "CA") {
 async function getSiriusXMChannels(channelIds) {
   const baseUrl = 'https://www.siriusxm.com/servlet/Satellite';
   const url = `${baseUrl}?pagename=SXM/Services/MountainWrapper&channels=${encodeURIComponent(channelIds)}&_cb=${Date.now()}`;
-   console.log(url )
+   //console.log(url )
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -2218,10 +2218,24 @@ const channelIds = data.channels.map(channel => channel.channel_key);
 // Single channel
 const BATCH_SIZE = 10;
 
-function getChannelByNumber(channels, channelNumber) {
-  return channels.find(
+function getChannelByNumber(channels, channelNumber, channelKey) {
+  const channelNumberFound = channels.find(
     channel => channel.channel_number === channelNumber
   );
+  
+  if(channelNumberFound){
+    return channelNumberFound
+  }
+  
+   const channelKeyFound = channels.find(
+    channel => channel.channel_key === channelKey
+  );
+  
+  if(channelKeyFound){
+    return channelKeyFound
+  }
+  
+  
 }
 
 for (let i = 0; i < channelIds.length; i += BATCH_SIZE) {
@@ -2232,12 +2246,15 @@ for (let i = 0; i < channelIds.length; i += BATCH_SIZE) {
   for (const [channelID, channelInfo] of Object.entries(allChannels.channels)) {
     const dataChannel = getChannelByNumber(
       data.channels,
-      channelInfo.siriuschannelnumber || channelInfo.streamingChannelNumber
+      channelInfo.siriuschannelnumber || channelInfo.streamingChannelNumber, channelID
     );
+    //console.log(channelInfo)
+    
 
     if (dataChannel) {
-    //  console.log( Object.entries(allChannels.channels))
-     dataChannel.currentlyPlaying = await getCurrentSong(channelInfo);
+    dataChannel.genre = ""
+    dataChannel.genre = channelInfo.genreTitle
+    dataChannel.currentlyPlaying = await getCurrentSong(channelInfo);
     } 
   }
 }
