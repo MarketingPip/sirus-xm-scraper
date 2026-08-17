@@ -442,7 +442,10 @@ def test_api_batch(session, batch, logger):
             genre_only = {}
             for cid, info in ch_data.items():
                 if isinstance(info, dict):
-                    genre_only[str(cid)] = {"genre": info.get("genreTitle")}
+                    genre_only[str(cid)] = {
+                    "genre": info.get("genreTitle"),
+                    "uuid": info.get("uuid"),
+                }
 
             return genre_only
         else:
@@ -503,6 +506,29 @@ def test_api(channels: List[Dict], logger: logging.Logger) -> List[Dict]:
     logger.info(f"API hits: {working}/{len(channels)}")
     return channels
 
+
+def write_api_json(channels: List[Dict], out_path: str, logger: logging.Logger) -> None:
+    """Transform final channel records into the target schema and write to disk."""
+    result = []
+    for ch in channels:
+        slug = ch.get("slug", "") or ""
+        result.append({
+            "number": ch.get("channel_number"),
+            "name": ch.get("name"),
+            "deeplink": slug.replace("-", ""),
+            "url": ch.get("url"),
+            "shortDescription": ch.get("subheadline", ""),
+            "longDescription": ch.get("description", ""),
+            "image": ch.get("image", ""),
+            "id": ch.get("uuid"),
+            "genres": [ch["genre"]] if ch.get("genre") else [],
+        })
+
+    path = Path(out_path)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    logger.info(f"Wrote {len(result)} channels -> {path.resolve()}")
 
 # ---------------------------------------------------------------------------
 # Main
@@ -589,6 +615,7 @@ Examples:
         json.dump(output, f, indent=2)
 
     logger.info(f"Saved {len(channels)} channels -> {out_path.resolve()}")
+    write_api_json(channels, "siriusxm_final.json", logger)
     print("--- Sample ---")
     for c in channels[:5]:
         print(
