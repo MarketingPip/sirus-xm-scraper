@@ -604,8 +604,7 @@ Examples:
         json.dump(output, f, indent=2)
 
     logger.info(f"Saved {len(channels)} channels → {out_path.resolve()}")
-    print("
---- Sample ---")
+    print("--- Sample ---")
     for c in channels[:5]:
         print(
             f"  CH{c.get('channel_number', '?'):>4} | "
